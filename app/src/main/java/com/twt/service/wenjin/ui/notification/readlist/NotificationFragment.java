@@ -5,8 +5,6 @@ import android.animation.AnimatorListenerAdapter;
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -18,9 +16,9 @@ import android.widget.Toast;
 import com.twt.service.wenjin.R;
 import com.twt.service.wenjin.bean.NotificationItem;
 import com.twt.service.wenjin.support.LogHelper;
-import com.twt.service.wenjin.support.ResourceHelper;
 import com.twt.service.wenjin.ui.BaseFragment;
 import com.twt.service.wenjin.ui.answer.detail.AnswerDetailActivity;
+import com.twt.service.wenjin.ui.article.ArticleActivity;
 import com.twt.service.wenjin.ui.common.OnItemClickListener;
 import com.twt.service.wenjin.ui.profile.ProfileActivity;
 import com.twt.service.wenjin.ui.question.QuestionActivity;
@@ -96,6 +94,9 @@ public class NotificationFragment extends BaseFragment implements NotificationVi
             mTvMarkall.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    if(mUpdateNotifiIconListener != null){
+                        mUpdateNotifiIconListener.updateNotificationIcon();
+                    }
                     mPresenter.markAllNotificationAsRead();
                     hideMarkAllView();
                 }
@@ -207,10 +208,12 @@ public class NotificationFragment extends BaseFragment implements NotificationVi
     }
 
     @Override
-    public void startQuestionActivity(int position) {
+    public void startQuestionArticleActivity(int position) {
         NotificationItem notificationItem = mAdapter.getItems(position);
         if(notificationItem.related != null){
             QuestionActivity.actionStart(getActivity(), Integer.valueOf(notificationItem.related.question_id));
+        }else {
+            ArticleActivity.actionStart(getActivity(), Integer.valueOf(notificationItem.key_url),"");
         }
     }
 
