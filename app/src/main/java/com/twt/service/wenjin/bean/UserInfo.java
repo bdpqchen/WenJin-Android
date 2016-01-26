@@ -33,4 +33,6 @@ public class UserInfo {
 
     public String signature;
 
+    public String token;
+
 }

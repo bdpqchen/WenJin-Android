@@ -96,6 +96,12 @@ public class ArticleActivity extends BaseActivity implements ArticleView, View.O
         context.startActivity(intent);
     }
 
+    public static void actionStart(Context context, int articleId) {
+        Intent intent = new Intent(context, ArticleActivity.class);
+        intent.putExtra(PARAM_ARTICLE_ID, articleId);
+        context.startActivity(intent);
+    }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

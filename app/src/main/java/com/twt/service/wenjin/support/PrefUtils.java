@@ -25,6 +25,8 @@ public class PrefUtils {
 
     private static final String PREF_IS_LAUNCH_NOTIFICATION = "is_launch_notification";
 
+    private static final String PREF_TOKEN = "token";
+
     public static SharedPreferences getDefaultSharedPreferences() {
         return PreferenceManager.getDefaultSharedPreferences(WenJinApp.getContext());
     }
@@ -35,12 +37,15 @@ public class PrefUtils {
                 .putString(PREF_USERNAME, userInfo.nick_name)
                 .putString(PREF_AVATAR_FILE, userInfo.avatar_file)
                 .putString(PREF_SIGNATURE, userInfo.signature)
+                .putString(PREF_TOKEN, userInfo.token)
                 .apply();
     }
 
     public static int getPrefUid() {
         return getDefaultSharedPreferences().getInt(PREF_UID, 0);
     }
+
+    public static String get
 
     public static String getPrefUsername() {
         return getDefaultSharedPreferences().getString(PREF_USERNAME, "not log in");
