@@ -75,7 +75,7 @@ public class FormatHelper {
     }
 
     public static String formatArticleLink(int articleId) {
-        return "http://wenjin.twtstudio.com/?/api/article/article/&id=" + articleId;
+        return "http://wenjin.twtstudio.com/column/#/" + articleId;
     }
 
 }
