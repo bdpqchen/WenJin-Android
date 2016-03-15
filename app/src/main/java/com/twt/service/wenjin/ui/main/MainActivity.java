@@ -10,12 +10,18 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
+import com.alibaba.mobileim.IYWLoginService;
+import com.alibaba.mobileim.YWAPI;
+import com.alibaba.mobileim.YWIMKit;
+import com.alibaba.mobileim.YWLoginParam;
+import com.alibaba.mobileim.channel.event.IWxCallback;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.mikepenz.materialdrawer.AccountHeader;
 import com.mikepenz.materialdrawer.AccountHeaderBuilder;
@@ -35,9 +41,12 @@ import com.twt.service.wenjin.R;
 import com.twt.service.wenjin.WenJinApp;
 import com.twt.service.wenjin.api.ApiClient;
 import com.twt.service.wenjin.bean.NotificationNumInfo;
+import com.twt.service.wenjin.bean.UserToken;
 import com.twt.service.wenjin.event.DrawerItemClickedEvent;
 import com.twt.service.wenjin.interactor.NotificationInteractor;
 import com.twt.service.wenjin.interactor.NotificationInteractorImpl;
+import com.twt.service.wenjin.interactor.TokenFetchInterator;
+import com.twt.service.wenjin.interactor.TokenFetchInteratorImpl;
 import com.twt.service.wenjin.receiver.JPushNotifiInMainReceiver;
 import com.twt.service.wenjin.receiver.NotificationBuffer;
 import com.twt.service.wenjin.support.BusProvider;
@@ -46,6 +55,7 @@ import com.twt.service.wenjin.support.PrefUtils;
 import com.twt.service.wenjin.support.ResourceHelper;
 import com.twt.service.wenjin.ui.BaseActivity;
 import com.twt.service.wenjin.ui.common.UpdateDialogFragment;
+import com.twt.service.wenjin.ui.conversation.ConversationFragment;
 import com.twt.service.wenjin.ui.draft.DraftFragment;
 import com.twt.service.wenjin.ui.explore.ExploreFragment;
 import com.twt.service.wenjin.ui.feedback.FeedbackActivity;
@@ -75,7 +85,7 @@ import cn.jpush.android.api.JPushInterface;
 
 
 public class MainActivity extends BaseActivity implements MainView,OnGetNotificationNumberInfoCallback,
-        NotificationFragment.IUpdateNotificationIcon {
+        NotificationFragment.IUpdateNotificationIcon,OnGetTokenCallback {
 
     private static final String LOG_TAG = MainActivity.class.getSimpleName();
 
@@ -100,8 +110,10 @@ public class MainActivity extends BaseActivity implements MainView,OnGetNotifica
     private TopicFragment mTopicFragment;
     private NotificationMainFragment mNotificationMainFragment;
     private DraftFragment mDraftFragment;
+    private ConversationFragment mConversationFragment;
 //    private UserFragment mUserFragment;
     private Context mContext;
+    private OnGetTokenCallback onGetTokenCallback;
 
     private JPushNotifiInMainReceiver mReceiver;
 
@@ -109,6 +121,7 @@ public class MainActivity extends BaseActivity implements MainView,OnGetNotifica
     private long exitTime = 0;
 
     private NotificationInteractor notificationInteractor;
+    private TokenFetchInterator tokenFetchInteractor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -142,7 +155,9 @@ public class MainActivity extends BaseActivity implements MainView,OnGetNotifica
 
 
         mContext = this;
+        onGetTokenCallback = this;
         notificationInteractor = new NotificationInteractorImpl();
+        tokenFetchInteractor = new TokenFetchInteratorImpl();
 
         ApiClient.checkNewVersion(BuildConfig.VERSION_CODE + "", new JsonHttpResponseHandler() {
             @Override
@@ -158,6 +173,37 @@ public class MainActivity extends BaseActivity implements MainView,OnGetNotifica
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
+            }
+        });
+
+
+
+
+
+
+    }
+
+    private void loginAndStartActivity(){
+        final YWIMKit imkit = YWAPI.getIMKitInstance(String.valueOf(PrefUtils.getPrefUid()), ResourceHelper.getString(R.string.YW_APPKEY));
+        final YWLoginParam loginParam = YWLoginParam.createLoginParam(String.valueOf(PrefUtils.getPrefUid()), PrefUtils.getPrefImpassword());
+        final IYWLoginService loginService = imkit.getLoginService();
+        loginService.login(loginParam, new IWxCallback() {
+            @Override
+            public void onSuccess(Object... objects) {
+                Intent intent = imkit.getConversationActivityIntent();
+
+//                Intent intent = imkit.getChattingActivityIntent("12");
+                startActivity(intent);
+            }
+
+            @Override
+            public void onError(int i, String s) {
+
+            }
+
+            @Override
+            public void onProgress(int i) {
+
             }
         });
     }
@@ -199,6 +245,7 @@ public class MainActivity extends BaseActivity implements MainView,OnGetNotifica
                         , new PrimaryDrawerItem().withName(R.string.drawer_item_topic).withIcon(R.drawable.ic_drawer_topic_grey).withIdentifier(3).withSelectable(true).withSelectedTextColor(ResourceHelper.getColor(R.color.color_primary))
                         , new PrimaryDrawerItem().withName(R.string.drawer_item_draft).withIcon(R.drawable.ic_drawer_draft_grey).withIdentifier(4).withSelectable(true).withSelectedTextColor(ResourceHelper.getColor(R.color.color_primary))
                         , new PrimaryDrawerItem().withName(R.string.drawer_item_notification).withIcon(R.drawable.ic_drawer_notifications).withIdentifier(5).withSelectable(true).withSelectedTextColor(ResourceHelper.getColor(R.color.color_primary)).withBadgeStyle(new BadgeStyle().withTextColor(Color.WHITE).withColorRes(R.color.md_red_700))
+                        , new PrimaryDrawerItem().withName(R.string.drawer_item_chat).withIcon(R.drawable.ic_drawer_chat_grey).withIdentifier(6).withSelectable(true).withSelectedTextColor(ResourceHelper.getColor(R.color.color_primary))
                         , new SectionDrawerItem().withName(R.string.drawer_divider_system)
                         , new SecondaryDrawerItem().withName(R.string.drawer_item_setting).withIcon(R.drawable.ic_drawer_settings_grey).withIdentifier(21).withSelectable(false)
                         , new SecondaryDrawerItem().withName(R.string.drawer_item_helper_and_feedback).withIcon(R.drawable.ic_drawer_help_grey).withIdentifier(22).withSelectable(false)
@@ -334,6 +381,13 @@ public class MainActivity extends BaseActivity implements MainView,OnGetNotifica
                 }
                 fragment = mNotificationMainFragment;
                 break;
+            case 6:
+//                if (mConversationFragment == null){
+//                    mConversationFragment = new ConversationFragment();
+//                }
+//                fragment = mConversationFragment;
+                loginAndStartActivity();
+                return;
         }
         fragmentManager.beginTransaction()
                 .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
@@ -418,4 +472,13 @@ public class MainActivity extends BaseActivity implements MainView,OnGetNotifica
         BusProvider.getBusInstance().post(new DrawerItemClickedEvent(position));
     }
 
+    @Override
+    public void onGetTokenSuccess(UserToken userToken) {
+
+    }
+
+    @Override
+    public void onGetTokenFailure(String rsm) {
+
+    }
 }

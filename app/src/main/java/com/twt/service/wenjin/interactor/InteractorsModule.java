@@ -110,4 +110,9 @@ public class InteractorsModule {
     public SearchInteractor provideSearchInteractor(){
         return new SearchInteractorImpl();
     }
+
+    @Provides @Singleton
+    public ConversationInteractor provideConversationInteractor(){
+        return  new ConversationInteractorImpl();
+    }
 }

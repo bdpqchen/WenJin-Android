@@ -5,6 +5,8 @@
     <string name="JPUSH_APPKEY" translatable="false">5fb608f1d509c30234c4bbaa</string>
     <string name="UMENG_APPKEY" translatable="false">553cc331e0f55aca9d0059bf</string>
     <string name="BUG_HD_SDK_GENERAL_KEY" translatable="false">0d377ef5e746db9ac47196038ad6a0c7</string>
+    <string name="WENJIN_APPKEY" translatable="false">49f1aa8ae62576f6650e1cba412f22a3</string>
+    <string name="YW_APPKEY" translatable="false">23325198</string>
 
     <string name="network_not_connected">Network is not connected</string>
     <string name="no_more_information">Sorry, no more information</string>
@@ -47,6 +49,7 @@
     <string name="drawer_item_topic">Topic</string>
     <string name="drawer_item_draft">Draft</string>
     <string name="drawer_item_notification">Notifications</string>
+    <string name="drawer_item_chat">Chat</string>
     <string name="drawer_item_user">User</string>
     <string name="drawer_item_setting">Setting</string>
     <string name="drawer_item_helper_and_feedback">Help &amp; feedback</string>

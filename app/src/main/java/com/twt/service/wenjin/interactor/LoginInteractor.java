@@ -9,4 +9,6 @@ public interface LoginInteractor {
 
     void login(String username, String password, OnLoginCallback onLoginCallback);
 
+//    void getToken();
+
 }

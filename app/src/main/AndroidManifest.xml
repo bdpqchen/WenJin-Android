@@ -7,6 +7,15 @@
         android:name="com.twt.service.wenjin.permission.JPUSH_MESSAGE"
         android:protectionLevel="signature" />
 
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <!-- 获取机型信息权限 -->
+    <!-- 录音 -->
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.INTERACT_ACROSS_USERS_FULL" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
@@ -38,7 +47,12 @@
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme" >
+        android:theme="@style/AppTheme"
+        >
+        <meta-data
+            android:name="WENJIN_APP_KEY"
+            android:value="@string/WENJIN_APPKEY" />
+
         <meta-data
             android:name="BUG_HD_SDK_GENERAL_KEY"
             android:value="@string/BUG_HD_SDK_GENERAL_KEY" />
@@ -246,6 +260,9 @@
         <!-- JPush Required  . Enable it you can get statistics data with channel -->
         <meta-data android:name="JPUSH_CHANNEL" android:value="developer-default"/>
         <meta-data android:name="JPUSH_APPKEY" android:value="@string/JPUSH_APPKEY" /> <!--  </>值来自开发者平台取得的AppKey-->
+
+
+
 
         <activity
             android:name=".ui.image.ShowWebImageActivity"

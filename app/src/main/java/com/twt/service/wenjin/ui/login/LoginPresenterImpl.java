@@ -1,6 +1,8 @@
 package com.twt.service.wenjin.ui.login;
 
+import android.content.SharedPreferences;
 import android.text.TextUtils;
+import android.util.Log;
 
 import com.twt.service.wenjin.R;
 import com.twt.service.wenjin.WenJinApp;
@@ -12,10 +14,15 @@ import com.twt.service.wenjin.support.NetworkHelper;
 import com.twt.service.wenjin.support.PrefUtils;
 import com.twt.service.wenjin.support.ResourceHelper;
 
+import java.util.List;
+
+
 /**
  * Created by M on 2015/3/23.
  */
 public class LoginPresenterImpl implements LoginPresenter, OnLoginCallback {
+
+    private static final String TAG = LoginPresenterImpl.class.getSimpleName();
 
     private LoginView mLoginView;
     private LoginInteractor mLoginInteractor;
@@ -51,11 +58,14 @@ public class LoginPresenterImpl implements LoginPresenter, OnLoginCallback {
         PrefUtils.setDefaultPrefUserInfo(userInfo);
         PrefUtils.setLogin(true);
 
+
+
         JPushHelper jPushHelper = new JPushHelper(String.valueOf(userInfo.uid),null);
         jPushHelper.setAlias();
 
         mLoginView.hideProgressBar();
         mLoginView.startMainActivity();
+
     }
 
     @Override

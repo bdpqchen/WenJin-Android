@@ -4,8 +4,10 @@ import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.util.Log;
 
+import com.alibaba.mobileim.YWIMKit;
 import com.twt.service.wenjin.WenJinApp;
 import com.twt.service.wenjin.bean.UserInfo;
+import com.twt.service.wenjin.bean.UserToken;
 
 /**
  * Created by M on 2015/3/25.
@@ -25,7 +27,8 @@ public class PrefUtils {
 
     private static final String PREF_IS_LAUNCH_NOTIFICATION = "is_launch_notification";
 
-    private static final String PREF_TOKEN = "token";
+    private static final String PREF_IMPASSWORD = "impassword";
+
 
     public static SharedPreferences getDefaultSharedPreferences() {
         return PreferenceManager.getDefaultSharedPreferences(WenJinApp.getContext());
@@ -37,15 +40,23 @@ public class PrefUtils {
                 .putString(PREF_USERNAME, userInfo.nick_name)
                 .putString(PREF_AVATAR_FILE, userInfo.avatar_file)
                 .putString(PREF_SIGNATURE, userInfo.signature)
-                .putString(PREF_TOKEN, userInfo.token)
+                .putString(PREF_IMPASSWORD,userInfo.im_password)
                 .apply();
     }
+
+//    public static void setPrefToken(UserToken userToken){
+//        getDefaultSharedPreferences().edit()
+//                .put(PREF_TOKEN, userToken.token)
+//                .apply();
+//    }
 
     public static int getPrefUid() {
         return getDefaultSharedPreferences().getInt(PREF_UID, 0);
     }
 
-    public static String get
+    public static String getPrefImpassword(){
+        return getDefaultSharedPreferences().getString(PREF_IMPASSWORD, null);
+    }
 
     public static String getPrefUsername() {
         return getDefaultSharedPreferences().getString(PREF_USERNAME, "not log in");

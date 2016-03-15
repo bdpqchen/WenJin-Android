@@ -35,4 +35,5 @@ public class UserInfo {
 
     public String token;
 
+    public String im_password;
 }

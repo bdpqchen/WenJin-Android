@@ -1,5 +1,7 @@
 package com.twt.service.wenjin.interactor;
 
+import android.util.Log;
+
 import com.google.gson.Gson;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.twt.service.wenjin.api.ApiClient;

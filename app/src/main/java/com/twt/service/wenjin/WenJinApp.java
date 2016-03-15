@@ -5,10 +5,14 @@ import android.app.Application;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
+import android.support.multidex.MultiDexApplication;
 import android.widget.ImageView;
 
 import com.activeandroid.ActiveAndroid;
 
+import com.alibaba.mobileim.YWAPI;
+import com.alibaba.mobileim.YWIMKit;
+import com.alibaba.wxlib.util.SysUtil;
 import com.mikepenz.iconics.IconicsDrawable;
 import com.mikepenz.materialdrawer.util.AbstractDrawerImageLoader;
 import com.mikepenz.materialdrawer.util.DrawerImageLoader;
@@ -17,27 +21,30 @@ import com.squareup.picasso.Picasso;
 import com.twt.service.wenjin.api.ApiClient;
 import com.twt.service.wenjin.support.CrashHandler;
 import com.twt.service.wenjin.support.JPushHelper;
+import com.twt.service.wenjin.support.LogHelper;
 import com.twt.service.wenjin.support.PrefUtils;
+import com.twt.service.wenjin.support.ResourceHelper;
 
 import java.util.Arrays;
 import java.util.List;
 
 import cn.jpush.android.api.JPushInterface;
 import dagger.ObjectGraph;
-import io.rong.imkit.RongContext;
-import io.rong.imkit.RongIM;
-import io.rong.imlib.ipc.RongExceptionHandler;
+
 
 /**
  * Created by M on 2015/3/19.
  */
-public class WenJinApp extends Application {
+public class WenJinApp extends MultiDexApplication {
 
     private static Context sContext;
 
     private static boolean sIsAppLunched;
 
     private ObjectGraph objectGraph;
+
+    private static YWIMKit mYWIMkitInstance = null;
+
 
     @Override
     public void onCreate() {
@@ -47,22 +54,15 @@ public class WenJinApp extends Application {
 
         sContext = getApplicationContext();
 
+
         ActiveAndroid.initialize(this);
 
-        /**
-         * 注意：
-         *
-         * IMKit SDK调用第一步 初始化
-         *
-         * context上下文
-         *
-         * 只有两个进程需要初始化，主进程和 push 进程
-         */
-        if (getApplicationInfo().packageName.equals(getCurProcessName(getApplicationContext())) ||
-                "io.rong.push".equals(getCurProcessName(getApplicationContext()))) {
-
-            RongIM.init(this);
-
+        SysUtil.setApplication(this);
+        if(SysUtil.isTCMSServiceProcess(this)){
+            return;
+        }
+        if(SysUtil.isMainProcess(this)){
+            YWAPI.init(this, ResourceHelper.getString(R.string.YW_APPKEY));
         }
 
         JPushInterface.setDebugMode(true);
@@ -119,10 +119,23 @@ public class WenJinApp extends Application {
         return sIsAppLunched;
     }
 
+    public static YWIMKit getYWIMKitInstance(){
+        if(mYWIMkitInstance == null){
+            mYWIMkitInstance = YWAPI.getIMKitInstance(String.valueOf(PrefUtils.getPrefUid()), ResourceHelper.getString(R.string.YW_APPKEY));
+        }
+        return mYWIMkitInstance;
+    }
+
     public static void setAppLunchState(Boolean argState){
         sIsAppLunched = argState;
     }
 
+    /**
+     * 获得当前进程的名字
+     *
+     * @param context
+     * @return 进程号
+     */
     public static String getCurProcessName(Context context) {
         int pid = android.os.Process.myPid();
         ActivityManager activityManager = (ActivityManager) context
