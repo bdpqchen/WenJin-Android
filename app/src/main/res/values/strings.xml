@@ -202,6 +202,8 @@
     <!-- Welcome activity -->
     <string name="title_activity_welcome">Welcome</string>
 
+    <string name="title_activity_intro">Intro</string>
+
     <!-- Update dialog strings -->
     <string name="update_message">Find new version</string>
     <string name="update">Update</string>

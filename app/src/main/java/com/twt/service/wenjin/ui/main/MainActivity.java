@@ -2,9 +2,11 @@ package com.twt.service.wenjin.ui.main;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -64,6 +66,7 @@ import com.twt.service.wenjin.ui.publish.PublishActivity;
 import com.twt.service.wenjin.ui.search.SearchActivity;
 import com.twt.service.wenjin.ui.setting.SettingsActivity;
 import com.twt.service.wenjin.ui.topic.TopicFragment;
+import com.twt.service.wenjin.ui.welcome.WenJinIntro;
 
 import butterknife.Bind;
 import cz.msebera.android.httpclient.Header;
@@ -155,6 +158,38 @@ public class MainActivity extends BaseActivity implements MainView,OnGetNotifica
         notificationInteractor = new NotificationInteractorImpl();
         tokenFetchInteractor = new TokenFetchInteratorImpl();
 
+        Thread t = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                //  Initialize SharedPreferences
+                SharedPreferences getPrefs = PreferenceManager
+                        .getDefaultSharedPreferences(getBaseContext());
+
+                //  Create a new boolean and preference and set it to true
+                boolean isFirstStart = getPrefs.getBoolean("firstStart", true);
+
+                //  If the activity has never started before...
+                if (isFirstStart) {
+
+                    //  Launch app intro
+                    Intent i = new Intent(MainActivity.this, WenJinIntro.class);
+                    startActivity(i);
+
+                    //  Make a new preferences editor
+                    SharedPreferences.Editor e = getPrefs.edit();
+
+                    //  Edit preference to make it false because we don't want this to run again
+                    e.putBoolean("firstStart", false);
+
+                    //  Apply changes
+                    e.apply();
+                }
+            }
+        });
+
+        // Start the thread
+        t.start();
+
         ApiClient.checkNewVersion(BuildConfig.VERSION_CODE + "", new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
@@ -171,9 +206,6 @@ public class MainActivity extends BaseActivity implements MainView,OnGetNotifica
                 }
             }
         });
-
-
-
 
 
 

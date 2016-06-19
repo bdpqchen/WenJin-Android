@@ -8,8 +8,8 @@ android {
         applicationId "com.twt.service.wenjin"
         minSdkVersion 14
         targetSdkVersion 23
-        versionCode 220
-        versionName "2.2.0"
+        versionCode 230
+        versionName "2.3.0"
         multiDexEnabled true
     }
     buildTypes {
@@ -57,6 +57,8 @@ dependencies {
     compile 'com.nineoldandroids:library:2.4.0'
     compile 'com.jakewharton:disklrucache:2.0.2'
     compile 'com.commit451:PhotoView:1.2.4'
+    compile 'com.github.paolorotolo:appintro:4.0.0'
+
 
     compile('com.mikepenz:materialdrawer:4.4.9@aar') {
         transitive = true
