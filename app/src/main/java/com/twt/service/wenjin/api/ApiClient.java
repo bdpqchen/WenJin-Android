@@ -51,13 +51,13 @@ public class ApiClient {
     public static final  String GREEN_CHANNEL_URL = "http://wenjin.in/account/green/";
     private static final String HOME_URL = "api/home/";
     private static final String EXPLORE_URL = "api/explore/";
-    private static final String TOPIC_URL = "api/topic/square/";
-    private static final String TOPIC_DETAIL_URL = "api/topic.php";
+    private static final String TOPIC_URL = "api/topic/hot_topics/";
+    private static final String TOPIC_DETAIL_URL = "api/topic/topic/";
     private static final String TOPIC_BEST_ANSWER = "api/topic/topic_best_answer/";
     private static final String FOCUS_TOPIC_URL = "/topic/ajax/focus_topic/";
-    private static final String QUESTION_URL = "api/question/question/";
+    private static final String QUESTION_URL = "api/question/";
     private static final String FOCUS_QUESTION_URL = "/question/ajax/focus/";
-    private static final String ANSWER_DETAIL_URL = "api/question/answer_detail/";
+    private static final String ANSWER_DETAIL_URL = "api/question/answer/";
     private static final String ANSWER_VOTE_URL = "/question/ajax/answer_vote/";
     private static final String ANSWER_THANK_URL = "api/question/answer_vote/";
     private static final String UPLOAD_FILE_URL = "api/publish/attach_upload/";
@@ -74,7 +74,7 @@ public class ApiClient {
     private static final String MY_FOCUS_USER = "api/my_focus_user.php";
     private static final String MY_FANS_USER = "api/my_fans_user.php";
     private static final String PROFILE_EDIT_URL = "api/profile_setting.php";
-    private static final String ARTICLE_ARTICLE_URL = "api/article/article/";
+    private static final String ARTICLE_ARTICLE_URL = "api/article/";
     private static final String ARTICLE_COMMENT_URL = "api/article/comment/";
     private static final String PUBLISH_ARTICLE_COMMENT_URL = "api/publish/save_comment/";
     private static final String ARTICLE_VOTE_URL = "?/article/ajax/article_vote/";
@@ -171,7 +171,7 @@ public class ApiClient {
      */
     public static void getToken(JsonHttpResponseHandler handler){
         RequestParams params = new RequestParams();
-        buildGetSignatureToURL(params,TOKEN_URL );
+        buildGetSignatureToURL(params, TOKEN_URL);
         sClient.get(BASE_URL + TOKEN_URL,params, handler);
 
     }
@@ -179,17 +179,18 @@ public class ApiClient {
 
     public static void searchContent(String content,String type, int page, int limit, JsonHttpResponseHandler handler){
         RequestParams params = new RequestParams();
+        buildGetSignatureToURL(params, SEARCH_URL);
         params.put("q",content);
         params.put("page", page);
         params.put("limit",limit);
-        params.put("type",type);
+        params.put("type", type);
 
         sClient.get(BASE_URL + SEARCH_URL, params, handler);
     }
 
     public static void getExplore(int perPage, int page, int day, int isRecommend, String sortType, JsonHttpResponseHandler handler) {
         RequestParams params = new RequestParams();
-        buildGetSignatureToURL(params, BASE_URL);
+        buildGetSignatureToURL(params, EXPLORE_URL);
         params.put("per_page", perPage);
         params.put("page", page);
         params.put("day", day);
@@ -202,6 +203,7 @@ public class ApiClient {
 
     public static void getTopics(String type, int page, JsonHttpResponseHandler handler) {
         RequestParams params = new RequestParams();
+        buildGetSignatureToURL(params, TOPIC_URL);
         params.put("id", type);
         params.put("page", page);
 
@@ -210,6 +212,7 @@ public class ApiClient {
 
     public static void getTopicDetail(int topicId, int uid, JsonHttpResponseHandler handler) {
         RequestParams params = new RequestParams();
+        buildGetSignatureToURL(params, TOPIC_DETAIL_URL);
         params.put("uid", uid);
         params.put("topic_id", topicId);
 
@@ -218,6 +221,7 @@ public class ApiClient {
 
     public static void getTopicBestAnswer(int topicId, JsonHttpResponseHandler handler) {
         RequestParams params = new RequestParams();
+        buildGetSignatureToURL(params, TOPIC_BEST_ANSWER);
         params.put("id", topicId);
 
         sClient.get(BASE_URL + TOPIC_BEST_ANSWER, params, handler);
@@ -240,6 +244,7 @@ public class ApiClient {
 
     public static void getQuestion(int questionId, JsonHttpResponseHandler handler) {
         RequestParams params = new RequestParams();
+        buildGetSignatureToURL(params, QUESTION_URL);
         params.put("id", questionId);
 
         sClient.get(BASE_URL + QUESTION_URL, params, handler);
@@ -254,12 +259,14 @@ public class ApiClient {
 
     public static void getArticle(int articleId, JsonHttpResponseHandler handler) {
         RequestParams params = new RequestParams();
+        buildGetSignatureToURL(params, ARTICLE_ARTICLE_URL);
         params.put("id", articleId);
         sClient.get(BASE_URL + ARTICLE_ARTICLE_URL, params, handler);
     }
 
     public static void getArticleComment(int articleId, JsonHttpResponseHandler handler) {
         RequestParams params = new RequestParams();
+        buildGetSignatureToURL(params, ARTICLE_COMMENT_URL);
         params.put("id", articleId);
         params.put("page", 0);
         sClient.get(BASE_URL + ARTICLE_COMMENT_URL, params, handler);
@@ -276,7 +283,8 @@ public class ApiClient {
 
     public static void getAnswer(int answerId, JsonHttpResponseHandler handler) {
         RequestParams params = new RequestParams();
-        params.put("id", answerId);
+        buildGetSignatureToURL(params, ANSWER_DETAIL_URL);
+        params.put("answer_id", answerId);
 
         sClient.get(BASE_URL + ANSWER_DETAIL_URL, params, handler);
     }
@@ -321,6 +329,7 @@ public class ApiClient {
 
     public static void getUserInfo(int uid, JsonHttpResponseHandler handler) {
         RequestParams params = new RequestParams();
+        buildGetSignatureToURL(params, USER_INFO_URL);
         params.put("uid", uid);
 
         sClient.get(BASE_URL + USER_INFO_URL, params, handler);
@@ -341,6 +350,7 @@ public class ApiClient {
 
     public static void getComments(int answerId, JsonHttpResponseHandler handler) {
         RequestParams params = new RequestParams();
+        buildGetSignatureToURL(params, COMMENT_URL);
         params.put("id", answerId);
 
         sClient.get(BASE_URL + COMMENT_URL, params, handler);
@@ -359,6 +369,7 @@ public class ApiClient {
 
     public static void getMyAnswer(int uid, int page, int perPage, JsonHttpResponseHandler handler) {
         RequestParams params = new RequestParams();
+        buildGetSignatureToURL(params, MY_ANSWER_URL);
         params.put("uid", uid);
         params.put("page", page);
         params.put("per_page", perPage);
@@ -368,6 +379,7 @@ public class ApiClient {
 
     public static void getMyQuestion(int uid, int page, int perPage, JsonHttpResponseHandler handler) {
         RequestParams params = new RequestParams();
+        buildGetSignatureToURL(params, MY_QUESTION_URL);
         params.put("uid", uid);
         params.put("page", page);
         params.put("per_page", perPage);
@@ -388,6 +400,7 @@ public class ApiClient {
 
     public static void getMyFocusUser(int uid,int page,int perPage,JsonHttpResponseHandler handler){
         RequestParams params = new RequestParams();
+        buildGetSignatureToURL(params, MY_FOCUS_USER);
         params.put("uid",uid);
         params.put("page",page);
         params.put("per_page",perPage);
@@ -403,6 +416,7 @@ public class ApiClient {
 
     public static void getMyFansUser(int uid,int page,int perPage,JsonHttpResponseHandler handler){
         RequestParams params = new RequestParams();
+        buildGetSignatureToURL(params, MY_FANS_USER);
         params.put("uid",uid);
         params.put("page",page);
         params.put("per_page",perPage);
@@ -462,7 +476,14 @@ public class ApiClient {
         String rootName = url.split("/")[1];
         LogHelper.v("APIClient",rootName);
         String msg = rootName + ResourceHelper.getString(R.string.WENJIN_APPKEY);
-        LogHelper.v("APIClient",MD5Utils.hashKeyFromUrl(msg));
+        LogHelper.v("APIClient", MD5Utils.hashKeyFromUrl(msg));
         return MD5Utils.hashKeyFromUrl(msg);
     }
+
+    private static void buildGetSignatureRootName(RequestParams argParams, String rootName){
+        String msg = rootName + ResourceHelper.getString(R.string.WENJIN_APPKEY);
+        String md = MD5Utils.hashKeyFromUrl(msg);
+        argParams.put(PARAM_SIGN, md);
+    }
+
 }

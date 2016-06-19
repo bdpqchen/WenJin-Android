@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import com.twt.service.wenjin.R;
 import com.twt.service.wenjin.bean.Answer;
+import com.twt.service.wenjin.bean.AnswerInner;
 import com.twt.service.wenjin.bean.QuestionInfo;
 import com.twt.service.wenjin.bean.QuestionResponse;
 import com.twt.service.wenjin.support.FormatHelper;
@@ -175,7 +176,7 @@ public class QuestionActivity extends BaseActivity implements QuestionView, OnIt
 
     @Override
     public void startAnswerDetailActivty(int position) {
-        Answer answer = mQuestionAdapter.getAnswer(position);
+        AnswerInner answer = mQuestionAdapter.getAnswer(position);
         QuestionInfo questionInfo = mQuestionAdapter.getQuestionInfo();
         AnswerDetailActivity.actionStart(this, answer.answer_id, questionInfo.question_content);
     }
@@ -187,7 +188,7 @@ public class QuestionActivity extends BaseActivity implements QuestionView, OnIt
 
     @Override
     public void startProfileActivity(int position) {
-        Answer answer = mQuestionAdapter.getAnswer(position);
+        AnswerInner answer = mQuestionAdapter.getAnswer(position);
         ProfileActivity.actionStart(this, answer.uid);
     }
 

@@ -15,4 +15,10 @@ public class QuestionInfo {
 
     public int has_focus;
 
+    public int answer_count;
+
+    public int view_count;
+
+
+
 }

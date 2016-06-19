@@ -8,8 +8,8 @@ android {
         applicationId "com.twt.service.wenjin"
         minSdkVersion 14
         targetSdkVersion 23
-        versionCode 210
-        versionName "2.1.0"
+        versionCode 220
+        versionName "2.2.0"
         multiDexEnabled true
     }
     buildTypes {
@@ -62,7 +62,7 @@ dependencies {
         transitive = true
     }
     compile files('libs/jpush-sdk-release1.7.4.jar')
-    compile project(':OneSDK')
+
 
 
 

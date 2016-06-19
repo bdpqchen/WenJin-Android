@@ -1,1 +1,1 @@
-include ':app', ':OneSDK'
+include ':app'

@@ -144,6 +144,15 @@
                 android:layout_width="0dp"
                 android:layout_height="36dp" />
 
+            <Button
+                android:visibility="invisible"
+                android:id="@+id/bt_profile_contact"
+                android:text="@string/action_contact"
+                android:textColor="@android:color/white"
+                android:background="@color/color_primary"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="36dp" />
         </LinearLayout>
 
     </RelativeLayout>

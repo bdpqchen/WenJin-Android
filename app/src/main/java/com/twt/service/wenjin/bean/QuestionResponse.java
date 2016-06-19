@@ -9,9 +9,9 @@ public class QuestionResponse {
 
     public QuestionInfo question_info;
 
-    public int answer_count;
 
-    public List<Answer> answers;
+
+    public List<AnswerInner> answers;
 
     public List<Topic> question_topics;
 }

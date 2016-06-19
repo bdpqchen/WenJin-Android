@@ -15,6 +15,7 @@ import com.squareup.picasso.Picasso;
 import com.twt.service.wenjin.R;
 import com.twt.service.wenjin.api.ApiClient;
 import com.twt.service.wenjin.bean.Answer;
+import com.twt.service.wenjin.bean.AnswerInner;
 import com.twt.service.wenjin.bean.QuestionInfo;
 import com.twt.service.wenjin.bean.QuestionResponse;
 import com.twt.service.wenjin.bean.Topic;
@@ -137,7 +138,7 @@ public class QuestionAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
                 // focus and comment number
                 question.tvFocus.setText("" + mQuestionResponse.question_info.focus_count);
-                question.tvComment.setText("" + mQuestionResponse.answer_count);
+                question.tvComment.setText("" + mQuestionResponse.question_info.answer_count);
 
                 // focus button
                 question.btFocus.setOnClickListener(onClickListener);
@@ -153,13 +154,13 @@ public class QuestionAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                 break;
             case ITEM_VIEW_TYPE_ANSWER:
                 AnswerHolder answerHolder = (AnswerHolder) holder;
-                Answer answer = mQuestionResponse.answers.get(position - 1);
-                if (!TextUtils.isEmpty(answer.avatar_file)) {
-                    Picasso.with(mContext).load(ApiClient.getAvatarUrl(answer.avatar_file)).into(answerHolder.ivAvatar);
+                AnswerInner answer = mQuestionResponse.answers.get(position - 1);
+                if (!TextUtils.isEmpty(answer.user_info.avatar_file)) {
+                    Picasso.with(mContext).load(ApiClient.getAvatarUrl(answer.user_info.avatar_file)).into(answerHolder.ivAvatar);
                 } else {
                     answerHolder.ivAvatar.setImageResource(R.drawable.ic_user_avatar);
                 }
-                answerHolder.tvUsername.setText(answer.nick_name);
+                answerHolder.tvUsername.setText(answer.user_info.nick_name);
                 answerHolder.tvContent.setText(Html.fromHtml(FormatHelper.formatHomeHtmlStr(answer.answer_content)));
                 answerHolder.tvAgreeNumber.setText(String.valueOf(answer.agree_count));
 
@@ -171,7 +172,7 @@ public class QuestionAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
     @Override
     public int getItemCount() {
-        return mQuestionResponse.answer_count + 1;
+        return mQuestionResponse.question_info.answer_count + 1;
     }
 
     @Override
@@ -185,7 +186,7 @@ public class QuestionAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         return type;
     }
 
-    public Answer getAnswer(int position) {
+    public AnswerInner getAnswer(int position) {
         return mQuestionResponse.answers.get(position - 1);
     }
 

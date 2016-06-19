@@ -14,12 +14,14 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+
 import com.squareup.picasso.Picasso;
 import com.twt.service.wenjin.R;
 import com.twt.service.wenjin.api.ApiClient;
 import com.twt.service.wenjin.bean.Follows;
 import com.twt.service.wenjin.bean.UserInfo;
 import com.twt.service.wenjin.support.PrefUtils;
+import com.twt.service.wenjin.support.ResourceHelper;
 import com.twt.service.wenjin.ui.BaseActivity;
 import com.twt.service.wenjin.ui.common.NumberTextView;
 import com.twt.service.wenjin.ui.profile.askanswer.ProfileAskanswerActivity;
@@ -71,6 +73,8 @@ public class ProfileActivity extends BaseActivity implements ProfileView, OnClic
     NumberTextView ntvFans;
     @Bind(R.id.bt_profile_focus)
     Button btFocus;
+    @Bind(R.id.bt_profile_contact)
+    Button btContact;
     @Bind(R.id.tv_profile_ask)
     TextView tvAsk;
     @Bind(R.id.tv_profile_answer)
@@ -184,8 +188,10 @@ public class ProfileActivity extends BaseActivity implements ProfileView, OnClic
                 removeFocus();
             }
             btFocus.setVisibility(View.VISIBLE);
+            btContact.setVisibility(View.VISIBLE);
         }
         btFocus.setOnClickListener(this);
+        btContact.setOnClickListener(this);
         tvAsk.setOnClickListener(this);
         tvAnswer.setOnClickListener(this);
         ntvFans.setOnClickListener(this);
@@ -242,7 +248,35 @@ public class ProfileActivity extends BaseActivity implements ProfileView, OnClic
             case R.id.ntv_profile_fans_number:
                 FollowsActivity.actionStart(this, ACTION_TYPE_FOLLOWERS, uid);
                 break;
+            case R.id.bt_profile_contact:
+                loginAndStartActivity(uid);
+                break;
         }
+    }
+
+
+    private void loginAndStartActivity(final int uid){
+//        final YWIMKit imkit = YWAPI.getIMKitInstance(String.valueOf(PrefUtils.getPrefUid()), ResourceHelper.getString(R.string.YW_APPKEY));
+//        final YWLoginParam loginParam = YWLoginParam.createLoginParam(String.valueOf(PrefUtils.getPrefUid()), PrefUtils.getPrefImpassword());
+//        final IYWLoginService loginService = imkit.getLoginService();
+//        loginService.login(loginParam, new IWxCallback() {
+//            @Override
+//            public void onSuccess(Object... objects) {
+//
+//                Intent intent = imkit.getChattingActivityIntent(String.valueOf(uid));
+//                startActivity(intent);
+//            }
+//
+//            @Override
+//            public void onError(int i, String s) {
+//
+//            }
+//
+//            @Override
+//            public void onProgress(int i) {
+//
+//            }
+//        });
     }
 
 }

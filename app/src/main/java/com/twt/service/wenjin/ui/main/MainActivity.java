@@ -17,11 +17,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
-import com.alibaba.mobileim.IYWLoginService;
-import com.alibaba.mobileim.YWAPI;
-import com.alibaba.mobileim.YWIMKit;
-import com.alibaba.mobileim.YWLoginParam;
-import com.alibaba.mobileim.channel.event.IWxCallback;
+
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.mikepenz.materialdrawer.AccountHeader;
 import com.mikepenz.materialdrawer.AccountHeaderBuilder;
@@ -184,28 +180,28 @@ public class MainActivity extends BaseActivity implements MainView,OnGetNotifica
     }
 
     private void loginAndStartActivity(){
-        final YWIMKit imkit = YWAPI.getIMKitInstance(String.valueOf(PrefUtils.getPrefUid()), ResourceHelper.getString(R.string.YW_APPKEY));
-        final YWLoginParam loginParam = YWLoginParam.createLoginParam(String.valueOf(PrefUtils.getPrefUid()), PrefUtils.getPrefImpassword());
-        final IYWLoginService loginService = imkit.getLoginService();
-        loginService.login(loginParam, new IWxCallback() {
-            @Override
-            public void onSuccess(Object... objects) {
-                Intent intent = imkit.getConversationActivityIntent();
-
-//                Intent intent = imkit.getChattingActivityIntent("12");
-                startActivity(intent);
-            }
-
-            @Override
-            public void onError(int i, String s) {
-
-            }
-
-            @Override
-            public void onProgress(int i) {
-
-            }
-        });
+//        final YWIMKit imkit = YWAPI.getIMKitInstance(String.valueOf(PrefUtils.getPrefUid()), ResourceHelper.getString(R.string.YW_APPKEY));
+//        final YWLoginParam loginParam = YWLoginParam.createLoginParam(String.valueOf(PrefUtils.getPrefUid()), PrefUtils.getPrefImpassword());
+//        final IYWLoginService loginService = imkit.getLoginService();
+//        loginService.login(loginParam, new IWxCallback() {
+//            @Override
+//            public void onSuccess(Object... objects) {
+//                Intent intent = imkit.getConversationActivityIntent();
+//
+////                Intent intent = imkit.getChattingActivityIntent("12");
+//                startActivity(intent);
+//            }
+//
+//            @Override
+//            public void onError(int i, String s) {
+//
+//            }
+//
+//            @Override
+//            public void onProgress(int i) {
+//
+//            }
+//        });
     }
 
     private void initialDrawer(Bundle savedInstanceState){
@@ -245,7 +241,7 @@ public class MainActivity extends BaseActivity implements MainView,OnGetNotifica
                         , new PrimaryDrawerItem().withName(R.string.drawer_item_topic).withIcon(R.drawable.ic_drawer_topic_grey).withIdentifier(3).withSelectable(true).withSelectedTextColor(ResourceHelper.getColor(R.color.color_primary))
                         , new PrimaryDrawerItem().withName(R.string.drawer_item_draft).withIcon(R.drawable.ic_drawer_draft_grey).withIdentifier(4).withSelectable(true).withSelectedTextColor(ResourceHelper.getColor(R.color.color_primary))
                         , new PrimaryDrawerItem().withName(R.string.drawer_item_notification).withIcon(R.drawable.ic_drawer_notifications).withIdentifier(5).withSelectable(true).withSelectedTextColor(ResourceHelper.getColor(R.color.color_primary)).withBadgeStyle(new BadgeStyle().withTextColor(Color.WHITE).withColorRes(R.color.md_red_700))
-                        , new PrimaryDrawerItem().withName(R.string.drawer_item_chat).withIcon(R.drawable.ic_drawer_chat_grey).withIdentifier(6).withSelectable(true).withSelectedTextColor(ResourceHelper.getColor(R.color.color_primary))
+//                        , new PrimaryDrawerItem().withName(R.string.drawer_item_chat).withIcon(R.drawable.ic_drawer_chat_grey).withIdentifier(6).withSelectable(true).withSelectedTextColor(ResourceHelper.getColor(R.color.color_primary))
                         , new SectionDrawerItem().withName(R.string.drawer_divider_system)
                         , new SecondaryDrawerItem().withName(R.string.drawer_item_setting).withIcon(R.drawable.ic_drawer_settings_grey).withIdentifier(21).withSelectable(false)
                         , new SecondaryDrawerItem().withName(R.string.drawer_item_helper_and_feedback).withIcon(R.drawable.ic_drawer_help_grey).withIdentifier(22).withSelectable(false)

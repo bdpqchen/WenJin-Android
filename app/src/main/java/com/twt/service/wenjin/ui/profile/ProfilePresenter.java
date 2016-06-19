@@ -9,4 +9,6 @@ public interface ProfilePresenter {
 
     void actionFocus(int uid);
 
+    void actionContact(int uid);
+
 }

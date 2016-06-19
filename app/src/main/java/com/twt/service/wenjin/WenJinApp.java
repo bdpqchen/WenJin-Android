@@ -10,9 +10,7 @@ import android.widget.ImageView;
 
 import com.activeandroid.ActiveAndroid;
 
-import com.alibaba.mobileim.YWAPI;
-import com.alibaba.mobileim.YWIMKit;
-import com.alibaba.wxlib.util.SysUtil;
+
 import com.mikepenz.iconics.IconicsDrawable;
 import com.mikepenz.materialdrawer.util.AbstractDrawerImageLoader;
 import com.mikepenz.materialdrawer.util.DrawerImageLoader;
@@ -43,7 +41,7 @@ public class WenJinApp extends MultiDexApplication {
 
     private ObjectGraph objectGraph;
 
-    private static YWIMKit mYWIMkitInstance = null;
+
 
 
     @Override
@@ -57,13 +55,6 @@ public class WenJinApp extends MultiDexApplication {
 
         ActiveAndroid.initialize(this);
 
-        SysUtil.setApplication(this);
-        if(SysUtil.isTCMSServiceProcess(this)){
-            return;
-        }
-        if(SysUtil.isMainProcess(this)){
-            YWAPI.init(this, ResourceHelper.getString(R.string.YW_APPKEY));
-        }
 
         JPushInterface.setDebugMode(true);
         JPushInterface.init(this);
@@ -119,12 +110,7 @@ public class WenJinApp extends MultiDexApplication {
         return sIsAppLunched;
     }
 
-    public static YWIMKit getYWIMKitInstance(){
-        if(mYWIMkitInstance == null){
-            mYWIMkitInstance = YWAPI.getIMKitInstance(String.valueOf(PrefUtils.getPrefUid()), ResourceHelper.getString(R.string.YW_APPKEY));
-        }
-        return mYWIMkitInstance;
-    }
+
 
     public static void setAppLunchState(Boolean argState){
         sIsAppLunched = argState;

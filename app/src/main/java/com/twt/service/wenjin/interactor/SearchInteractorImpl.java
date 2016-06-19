@@ -38,7 +38,7 @@ public class SearchInteractorImpl implements SearchInteractor {
                         case ApiClient.SUCCESS_CODE:
                             Gson gson = new Gson();
                             LogHelper.v(LOG_TAG,response.toString());
-                            JSONArray jsonArray = response.getJSONObject(ApiClient.RESP_MSG_KEY).getJSONArray("info");
+                            JSONArray jsonArray = response.getJSONObject(ApiClient.RESP_MSG_KEY).getJSONArray("rows");
                             switch (type){
                                 case "topics":
                                     object = gson.fromJson(jsonArray.toString(),new TypeToken<List<SearchTopic>>(){}.getType());

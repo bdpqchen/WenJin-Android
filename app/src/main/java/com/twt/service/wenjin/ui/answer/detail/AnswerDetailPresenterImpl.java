@@ -106,10 +106,10 @@ public class AnswerDetailPresenterImpl implements AnswerDetailPresenter, OnGetAn
 
     @Override
     public void onSuccess(Answer answer) {
-        LogHelper.v(LogHelper.makeLogTag(AnswerDetailPresenterImpl.class), "answer content: " + answer.answer_content);
-        voteState = answer.vote_value;
-        agreeCount = answer.agree_count;
-        if(answer.thank_value == 1){
+        LogHelper.v(LogHelper.makeLogTag(AnswerDetailPresenterImpl.class), "answer content: " + answer.answer.answer_content);
+        voteState = answer.answer.vote_value;
+        agreeCount = answer.answer.agree_count;
+        if(answer.answer.thank_value == 1){
             isThank = true;
         }
         mAnswerDetailView.bindAnswerData(answer);

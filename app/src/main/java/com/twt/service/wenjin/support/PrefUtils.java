@@ -4,7 +4,6 @@ import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.util.Log;
 
-import com.alibaba.mobileim.YWIMKit;
 import com.twt.service.wenjin.WenJinApp;
 import com.twt.service.wenjin.bean.UserInfo;
 import com.twt.service.wenjin.bean.UserToken;

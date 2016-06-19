@@ -42,7 +42,7 @@ public class WelcomeActivity extends Activity {
 //            }
 //        }
 
-        MobclickAgent.updateOnlineConfig(this);
+//        MobclickAgent.updateOnlineConfig(this);
 
         new Handler().postDelayed(new Runnable() {
             @Override

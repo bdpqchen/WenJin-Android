@@ -208,7 +208,7 @@ public class AnswerDetailActivity extends BaseActivity implements AnswerDetailVi
                 UmengShareHelper.setContent(
                         this,
                         getIntent().getStringExtra(PARAM_QUESTION),
-                        FormatHelper.formatQuestionLink(answer.question_id)
+                        FormatHelper.formatQuestionLink(answer.answer.question_id)
                 );
 
                 break;
@@ -220,14 +220,14 @@ public class AnswerDetailActivity extends BaseActivity implements AnswerDetailVi
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.iv_answer_avatar:
-                if (this.answer.uid == -1){
+                if (this.answer.answer.uid == -1){
                     Toast.makeText(this, getResources().getString(R.string.not_exist),Toast.LENGTH_SHORT).show();
                 }else {
                     startProfileActivity();
                 }
                 break;
             case R.id.tv_answer_username:
-                if (this.answer.uid == -1){
+                if (this.answer.answer.uid == -1){
                     Toast.makeText(this, getResources().getString(R.string.not_exist),Toast.LENGTH_SHORT).show();
                 }else {
                     startProfileActivity();
@@ -272,24 +272,24 @@ public class AnswerDetailActivity extends BaseActivity implements AnswerDetailVi
     @Override
     public void bindAnswerData(Answer answer) {
         this.answer = answer;
-        uid = answer.uid;
-        questionId = answer.question_id;
+        uid = answer.answer.uid;
+        questionId = answer.answer.question_id;
 
         if(mIntentNotiFlag == JPushNotiReceiver.INTENT_FLAG_NOTIFICATION_VALUE){
-            mPresenter.loadTitle(answer.question_id);
+            mPresenter.loadTitle(answer.answer.question_id);
         }
 
-        if (!TextUtils.isEmpty(answer.avatar_file)) {
-            Picasso.with(this).load(ApiClient.getAvatarUrl(answer.avatar_file)).into(ivAvatar);
+        if (!TextUtils.isEmpty(answer.answer.avatar_file)) {
+            Picasso.with(this).load(ApiClient.getAvatarUrl(answer.answer.avatar_file)).into(ivAvatar);
         }
-        tvUsername.setText(answer.nick_name);
-        tvSignature.setText(answer.signature);
+        tvUsername.setText(answer.answer.nick_name);
+        tvSignature.setText(answer.answer.signature);
         ivAgree.setVisibility(View.VISIBLE);
-        if (answer.vote_value == 1) {
+        if (answer.answer.vote_value == 1) {
             ivAgree.setImageResource(R.drawable.ic_action_agreed);
             ivBottomActionUpvote.setImageResource(R.drawable.ic_action_agreed);
             ivBottomActionDownvote.setImageResource(R.drawable.ic_action_disagree);
-        }else if(answer.vote_value == -1){
+        }else if(answer.answer.vote_value == -1){
             ivBottomActionDownvote.setImageResource(R.drawable.ic_action_disagreed);
             ivAgree.setImageResource(R.drawable.ic_action_agree);
             ivBottomActionUpvote.setImageResource(R.drawable.ic_action_agree);
@@ -298,19 +298,19 @@ public class AnswerDetailActivity extends BaseActivity implements AnswerDetailVi
             ivBottomActionUpvote.setImageResource(R.drawable.ic_action_agree);
             ivBottomActionDownvote.setImageResource(R.drawable.ic_action_disagree);
         }
-        if(answer.thank_value == 1){
+        if(answer.answer.thank_value == 1){
             ivBottomActionThank.setImageResource(R.drawable.ic_action_favorited);
         }else {
             ivBottomActionThank.setImageResource(R.drawable.ic_action_favorite);
         }
 
-        tvAgreeNumber.setText("" + answer.agree_count);
-        tvContent.setText(Html.fromHtml(answer.answer_content, new PicassoImageGetter(this, tvContent), null));
+        tvAgreeNumber.setText("" + answer.answer.agree_count);
+        tvContent.setText(Html.fromHtml(answer.answer.answer_content, new PicassoImageGetter(this, tvContent), null));
         tvContent.setMovementMethod(LinkMovementMethod.getInstance());
         TextviewUrlClickableBuilder.BuildTextviewUrlClickable(this,tvContent);
 
-        tvAddTime.setText(FormatHelper.formatAddDate(answer.add_time));
-        tvBottomActionCommentCount.setText("" + answer.comment_count);
+        tvAddTime.setText(FormatHelper.formatAddDate(answer.answer.add_time));
+        tvBottomActionCommentCount.setText("" + answer.answer.comment_count);
         fy_bottom_actions.setVisibility(View.VISIBLE);
     }
 
@@ -367,7 +367,7 @@ public class AnswerDetailActivity extends BaseActivity implements AnswerDetailVi
 
     @Override
     public void startProfileActivity() {
-        ProfileActivity.actionStart(this, answer.uid);
+        ProfileActivity.actionStart(this, answer.answer.uid);
     }
 
     @Override
