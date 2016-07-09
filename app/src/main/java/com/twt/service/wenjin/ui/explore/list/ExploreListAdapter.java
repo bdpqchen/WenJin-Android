@@ -139,7 +139,7 @@ public class ExploreListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                 itemHolder.tvCommentNum.setText(String.valueOf(exploreItem.comments));
                 itemHolder.tvViewNum.setText(String.valueOf(exploreItem.views));
                 itemHolder._tvTitle.setText(exploreItem.title);
-                itemHolder._tvTime.setText(FormatHelper.getTimeFromNow(exploreItem.add_time));
+                //itemHolder._tvTime.setText(FormatHelper.getTimeFromNow(exploreItem.add_time));
                 itemHolder._tvContent.setVisibility(View.GONE);
                 if(exploreItem.user_info != null) {
                     itemHolder._tvUser.setText(exploreItem.user_info.nick_name);
@@ -157,8 +157,9 @@ public class ExploreListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             itemHolder.tvViewNum.setText(String.valueOf(exploreItem.view_count));
             itemHolder.tvArticleLabel.setVisibility(View.GONE);
             itemHolder._tvTitle.setText(exploreItem.question_content);
-            itemHolder._tvTime.setText(FormatHelper.getTimeFromNow(exploreItem.update_time));
+            //itemHolder._tvTime.setText(FormatHelper.getTimeFromNow(exploreItem.update_time));
             itemHolder._tvContent.setVisibility(View.VISIBLE);
+            itemHolder._tvTime.setVisibility(View.INVISIBLE);
             if(0 == exploreItem.answer_count){
                 if(exploreItem.user_info != null) {
                     itemHolder._tvUser.setText(exploreItem.user_info.nick_name);

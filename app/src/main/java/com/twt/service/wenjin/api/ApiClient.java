@@ -235,7 +235,7 @@ public class ApiClient {
     }
 
     public static String getTopicPicUrl(String url) {
-        return BASE_IMG_URL + "uploads/topic/" + url;
+        return url;
     }
 
     public static String getPicUrl(String url){
@@ -469,6 +469,10 @@ public class ApiClient {
         String rootName = url.split("/")[1];
         String msg = rootName + ResourceHelper.getString(R.string.WENJIN_APPKEY);
         String md = MD5Utils.hashKeyFromUrl(msg);
+        if(rootName == "topic"){
+            Log.d("lqy",rootName+ " " +md);
+        }
+
         argParams.put(PARAM_SIGN, md);
     }
 

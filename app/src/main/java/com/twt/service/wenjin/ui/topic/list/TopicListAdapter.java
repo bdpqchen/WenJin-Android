@@ -3,12 +3,14 @@ package com.twt.service.wenjin.ui.topic.list;
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.squareup.picasso.Picasso;
 import com.twt.service.wenjin.R;
 import com.twt.service.wenjin.api.ApiClient;
@@ -94,7 +96,7 @@ public class TopicListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             if (TextUtils.isEmpty(topic.topic_pic)) {
                 itemHolder.imageView.setImageResource(R.drawable.ic_topic_pic);
             } else {
-                Picasso.with(mContext).load(ApiClient.getTopicPicUrl(topic.topic_pic)).into(itemHolder.imageView);
+                Glide.with(mContext).load(ApiClient.getTopicPicUrl(topic.topic_pic)).error(R.drawable.ic_topic_pic).into(itemHolder.imageView);
             }
         }
     }
