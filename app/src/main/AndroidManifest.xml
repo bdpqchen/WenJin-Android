@@ -67,10 +67,10 @@
             android:value="WenJin.db" />
         <meta-data
             android:name="AA_DB_VERSION"
-            android:value="2" />
+            android:value="3" />
         <meta-data
             android:name="AA_MODELS"
-            android:value=".bean.CrashInfo, .bean.QuestionDraft" />
+            android:value="com.twt.service.wenjin.bean.CrashInfo, com.twt.service.wenjin.bean.QuestionDraft, com.twt.service.wenjin.bean.AnswerDraft" />
 
         <activity
             android:name=".ui.welcome.WelcomeActivity"
