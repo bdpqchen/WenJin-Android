@@ -33,11 +33,15 @@ public class ExploreInteractorImpl implements ExploreInteractor {
                 try{
                     switch (response.getInt(ApiClient.RESP_ERROR_CODE_KEY)){
                         case ApiClient.SUCCESS_CODE:
-                            Gson gson = new Gson();
-                            ExploreResponse erm =
-                                    gson.fromJson(response.getJSONObject(ApiClient.RESP_MSG_KEY).toString(),ExploreResponse.class);
-                            LogHelper.v(LOG_TAG, erm.toString());
-                            onGetExploreItemsCallback.onSuccess(erm);
+//                            if(response.getJSONObject(ApiClient.RESP_MSG_KEY).getString("rows") == "false"){
+//                                onGetExploreItemsCallback.onFailed(response.getString(ApiClient.RESP_ERROR_MSG_KEY));
+//                            }else {
+                                Gson gson = new Gson();
+                                ExploreResponse erm =
+                                        gson.fromJson(response.getJSONObject(ApiClient.RESP_MSG_KEY).toString(), ExploreResponse.class);
+                                LogHelper.v(LOG_TAG, erm.toString());
+                                onGetExploreItemsCallback.onSuccess(erm);
+//                            }
                             break;
                         case ApiClient.ERROR_CODE:
                             onGetExploreItemsCallback.onFailed(response.getString(ApiClient.RESP_ERROR_MSG_KEY));

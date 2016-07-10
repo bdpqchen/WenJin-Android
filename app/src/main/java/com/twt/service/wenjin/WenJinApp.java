@@ -6,7 +6,9 @@ import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.support.multidex.MultiDexApplication;
+import android.util.Log;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.activeandroid.ActiveAndroid;
 
@@ -42,6 +44,7 @@ public class WenJinApp extends MultiDexApplication {
     private ObjectGraph objectGraph;
 
 
+    private static final String TAG = "WenJinApp";
 
 
     @Override

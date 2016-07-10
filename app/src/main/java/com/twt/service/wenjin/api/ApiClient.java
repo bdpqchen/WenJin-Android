@@ -18,6 +18,7 @@ import com.twt.service.wenjin.support.ResourceHelper;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.Random;
 
 /**
  * Created by M on 2015/3/23.
@@ -46,44 +47,44 @@ public class ApiClient {
     private static final String BASE_URL = "http://api.wenjin.in/";
     private static final String BASE_IMG_URL = "http://wenjin.in/";
 //    private static final String BASE_URL = "http://wenjin.test.twtstudio.com/";
-    private static final String TOKEN_URL = "api/inbox/get_token/";
-    private static final String LOGIN_URL = "api/account/login_process/";
+    private static final String TOKEN_URL = "v2/inbox/get_token/";
+    private static final String LOGIN_URL = "v2/account/login_process/";
     public static final  String GREEN_CHANNEL_URL = "http://wenjin.in/account/green/";
-    private static final String HOME_URL = "api/home/";
-    private static final String EXPLORE_URL = "api/explore/";
-    private static final String TOPIC_URL = "api/topic/hot_topics/";
-    private static final String TOPIC_DETAIL_URL = "api/topic/topic/";
-    private static final String TOPIC_BEST_ANSWER = "api/topic/topic_best_answer/";
+    private static final String HOME_URL = "v2/home/";
+    private static final String EXPLORE_URL = "v2/explore/";
+    private static final String TOPIC_URL = "v2/topic/hot_topics/";
+    private static final String TOPIC_DETAIL_URL = "v2/topic/topic/";
+    private static final String TOPIC_BEST_ANSWER = "v2/topic/topic_best_answer/";
     private static final String FOCUS_TOPIC_URL = "/topic/ajax/focus_topic/";
-    private static final String QUESTION_URL = "api/question/";
+    private static final String QUESTION_URL = "v2/question/";
     private static final String FOCUS_QUESTION_URL = "/question/ajax/focus/";
-    private static final String ANSWER_DETAIL_URL = "api/question/answer/";
+    private static final String ANSWER_DETAIL_URL = "v2/question/answer/";
     private static final String ANSWER_VOTE_URL = "/question/ajax/answer_vote/";
-    private static final String ANSWER_THANK_URL = "api/question/answer_vote/";
-    private static final String UPLOAD_FILE_URL = "api/publish/attach_upload/";
-    private static final String PUBLISH_QUESTION_URL = "api/publish/publish_question/";
-    private static final String ANSWER_URL = "api/publish/save_answer/";
-    private static final String USER_INFO_URL = "api/account/get_userinfo/";
+    private static final String ANSWER_THANK_URL = "v2/question/answer_vote/";
+    private static final String UPLOAD_FILE_URL = "v2/publish/attach_upload/";
+    private static final String PUBLISH_QUESTION_URL = "v2/publish/publish_question/";
+    private static final String ANSWER_URL = "v2/publish/save_answer/";
+    private static final String USER_INFO_URL = "v2/account/get_userinfo/";
     private static final String FOCUS_USER_URL = "/follow/ajax/follow_people/";
-    private static final String COMMENT_URL = "api/answer_comment.php";
+    private static final String COMMENT_URL = "v2/answer_comment.php";
     private static final String PUBLISH_COMMENT_URL = "/question/ajax/save_answer_comment/";
-    private static final String MY_ANSWER_URL = "api/my_answer.php";
-    private static final String MY_QUESTION_URL = "api/my_question.php";
-    private static final String FEEDBACK_URL = "api/ticket/publish/";
-    private static final String CHECK_UPDATE_URL = "api/update/check/";
-    private static final String MY_FOCUS_USER = "api/my_focus_user.php";
-    private static final String MY_FANS_USER = "api/my_fans_user.php";
-    private static final String PROFILE_EDIT_URL = "api/profile_setting.php";
-    private static final String ARTICLE_ARTICLE_URL = "api/article/";
-    private static final String ARTICLE_COMMENT_URL = "api/article/comment/";
-    private static final String PUBLISH_ARTICLE_COMMENT_URL = "api/publish/save_comment/";
+    private static final String MY_ANSWER_URL = "v2/my_answer.php";
+    private static final String MY_QUESTION_URL = "v2/my_question.php";
+    private static final String FEEDBACK_URL = "v2/ticket/publish/";
+    private static final String CHECK_UPDATE_URL = "v2/update/check/";
+    private static final String MY_FOCUS_USER = "v2/my_focus_user.php";
+    private static final String MY_FANS_USER = "v2/my_fans_user.php";
+    private static final String PROFILE_EDIT_URL = "v2/profile_setting.php";
+    private static final String ARTICLE_ARTICLE_URL = "v2/article/";
+    private static final String ARTICLE_COMMENT_URL = "v2/article/comment/";
+    private static final String PUBLISH_ARTICLE_COMMENT_URL = "v2/publish/save_comment/";
     private static final String ARTICLE_VOTE_URL = "?/article/ajax/article_vote/";
-    private static final String AVATAR_UPLOAD_URL = "api/account/avatar_upload/";
-    private static final String SEARCH_URL = "api/search/";
+    private static final String AVATAR_UPLOAD_URL = "v2/account/avatar_upload/";
+    private static final String SEARCH_URL = "v2/search/";
 
-    private static final String NOTIFICATIONS_URL = "?/api/notification/notifications/";
-    private static final String NOTIFICATIONS_LIST_URL = "?/api/notification/list/";
-    private static final String NOTIFICATIONS_MARKASREAD_URL = "?/api/notification/read_notification/";
+    private static final String NOTIFICATIONS_URL = "v2/notification/notifications/";
+    private static final String NOTIFICATIONS_LIST_URL = "v2/notification/list/";
+    private static final String NOTIFICATIONS_MARKASREAD_URL = "v2/notification/read_notification/";
 
     static {
         sClient.setTimeout(DEFAULT_TIMEOUT);
@@ -154,7 +155,7 @@ public class ApiClient {
             params.put("anonymous", 0);
         }
 
-        sClient.post(BASE_URL + PUBLISH_QUESTION_URL, params, handler);
+        sClient.post(BASE_URL + buildSignatureURL(PUBLISH_QUESTION_URL,false), params, handler);
     }
 
     public static void getHome(int perPage, int page, JsonHttpResponseHandler handler) {
@@ -213,8 +214,9 @@ public class ApiClient {
     public static void getTopicDetail(int topicId, int uid, JsonHttpResponseHandler handler) {
         RequestParams params = new RequestParams();
         buildGetSignatureToURL(params, TOPIC_DETAIL_URL);
-        params.put("uid", uid);
-        params.put("topic_id", topicId);
+//        params.put("uid", uid);
+//        params.put("topic_id", topicId);
+        params.put("id",topicId);
 
         sClient.get(BASE_URL + TOPIC_DETAIL_URL, params, handler);
     }
@@ -465,13 +467,29 @@ public class ApiClient {
         sClient.get(BASE_URL + NOTIFICATIONS_MARKASREAD_URL,handler);
     }
 
+    private static String buildSignatureURL(String url, boolean useNonce) {
+        String rootName = url.split("/")[1];
+        String msg = rootName + ResourceHelper.getString(R.string.WENJIN_APPKEY);
+        String urlExtra = "";
+        if (useNonce) {
+            long time = System.currentTimeMillis()/1000;
+            int nonce = (new Random()).nextInt();
+            if (nonce < 10000) nonce += 10000;
+
+            msg += time + nonce;
+            urlExtra = "&time=" + time + "&nonce=" + nonce;
+        }
+        String md = MD5Utils.hashKeyFromUrl(msg);
+        Log.d("lqy", rootName+ " " + md + "?mobile_sign=" + md + urlExtra);
+
+        return url + "?mobile_sign=" + md + urlExtra;
+    }
+
     private static void buildGetSignatureToURL(RequestParams argParams, String url){
         String rootName = url.split("/")[1];
         String msg = rootName + ResourceHelper.getString(R.string.WENJIN_APPKEY);
         String md = MD5Utils.hashKeyFromUrl(msg);
-        if(rootName == "topic"){
-            Log.d("lqy",rootName+ " " +md);
-        }
+        Log.d("lqy",rootName+ " " +md);
 
         argParams.put(PARAM_SIGN, md);
     }

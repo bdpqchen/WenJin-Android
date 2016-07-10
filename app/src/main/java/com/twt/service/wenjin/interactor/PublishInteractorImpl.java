@@ -1,5 +1,7 @@
 package com.twt.service.wenjin.interactor;
 
+import android.util.Log;
+
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.twt.service.wenjin.api.ApiClient;
 import com.twt.service.wenjin.support.LogHelper;
@@ -38,6 +40,12 @@ public class PublishInteractorImpl implements PublishInteractor {
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+                super.onFailure(statusCode, headers, throwable, errorResponse);
+
             }
         });
     }
