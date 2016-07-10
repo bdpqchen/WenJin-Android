@@ -1,5 +1,7 @@
 package com.twt.service.wenjin.ui.publish;
 
+import android.util.Log;
+
 import com.twt.service.wenjin.R;
 import com.twt.service.wenjin.interactor.PublishInteractor;
 import com.twt.service.wenjin.support.LogHelper;

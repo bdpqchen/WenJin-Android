@@ -3,6 +3,7 @@ package com.twt.service.wenjin.support;
 import android.content.Context;
 import android.os.Environment;
 import android.os.StatFs;
+import android.util.Log;
 
 import com.jakewharton.disklrucache.DiskLruCache;
 import com.twt.service.wenjin.WenJinApp;
