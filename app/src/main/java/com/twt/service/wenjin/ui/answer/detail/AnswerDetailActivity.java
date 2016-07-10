@@ -279,10 +279,11 @@ public class AnswerDetailActivity extends BaseActivity implements AnswerDetailVi
             mPresenter.loadTitle(answer.answer.question_id);
         }
 
-        if (!TextUtils.isEmpty(answer.answer.avatar_file)) {
-            Picasso.with(this).load(ApiClient.getAvatarUrl(answer.answer.avatar_file)).into(ivAvatar);
+        if (!TextUtils.isEmpty(answer.answer.user_info.avatar_file)) {
+            Picasso.with(this).load(answer.answer.user_info.avatar_file).error(R.drawable.ic_action_fab_article).into(ivAvatar);
         }
-        tvUsername.setText(answer.answer.nick_name);
+        tvUsername.setText(answer.answer.user_info.nick_name
+        );
         tvSignature.setText(answer.answer.signature);
         ivAgree.setVisibility(View.VISIBLE);
         if (answer.answer.vote_value == 1) {

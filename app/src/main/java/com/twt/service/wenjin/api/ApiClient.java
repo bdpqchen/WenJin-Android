@@ -54,7 +54,7 @@ public class ApiClient {
     private static final String EXPLORE_URL = "v2/explore/";
     private static final String TOPIC_URL = "v2/topic/hot_topics/";
     private static final String TOPIC_DETAIL_URL = "v2/topic/topic/";
-    private static final String TOPIC_BEST_ANSWER = "v2/topic/topic_best_answer/";
+    private static final String TOPIC_BEST_ANSWER = "v2/topic/topic_best_answer_list/";
     private static final String FOCUS_TOPIC_URL = "/topic/ajax/focus_topic/";
     private static final String QUESTION_URL = "v2/question/";
     private static final String FOCUS_QUESTION_URL = "/question/ajax/focus/";
@@ -224,7 +224,7 @@ public class ApiClient {
     public static void getTopicBestAnswer(int topicId, JsonHttpResponseHandler handler) {
         RequestParams params = new RequestParams();
         buildGetSignatureToURL(params, TOPIC_BEST_ANSWER);
-        params.put("id", topicId);
+        params.put("topic_id", topicId);
 
         sClient.get(BASE_URL + TOPIC_BEST_ANSWER, params, handler);
     }
