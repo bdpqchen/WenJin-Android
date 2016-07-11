@@ -166,6 +166,7 @@
     <string name="profile_answer">Answer</string>
     <string name="profile_detail">Detail</string>
     <string name="action_edit">Edit</string>
+    <string name="profile_focus_detail">Read detail in "Topic -> Focus Topic"</string>
 
     <!-- Comment activity -->
     <string name="title_activity_comment">Comment</string>

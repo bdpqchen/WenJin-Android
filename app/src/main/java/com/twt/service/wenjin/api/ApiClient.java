@@ -36,6 +36,8 @@ public class ApiClient {
     public static final String RESP_ERROR_MSG_KEY = "err";
 
     public static final String PARAM_SIGN = "mobile_sign";
+    public static final String PARAM_TIME = "timestamp";
+    public static final String PARAM_NONCE = "nonce";
 
     public static final int SUCCESS_CODE = 1;
     public static final int ERROR_CODE = -1;
@@ -53,9 +55,11 @@ public class ApiClient {
     private static final String HOME_URL = "v2/home/";
     private static final String EXPLORE_URL = "v2/explore/";
     private static final String TOPIC_URL = "v2/topic/hot_topics/";
+    private static final String FOCUS_TOPIC_LIST_URL = "v2/people/topics/";
     private static final String TOPIC_DETAIL_URL = "v2/topic/topic/";
     private static final String TOPIC_BEST_ANSWER = "v2/topic/topic_best_answer_list/";
-    private static final String FOCUS_TOPIC_URL = "/topic/ajax/focus_topic/";
+    private static final String FOCUS_TOPIC_URL = "v2/topic/focus_topic/";
+    private static final String MY_FOLLOWS_USER_URL = "v2/people/follows/";
     private static final String QUESTION_URL = "v2/question/";
     private static final String FOCUS_QUESTION_URL = "/question/ajax/focus/";
     private static final String ANSWER_DETAIL_URL = "v2/question/answer/";
@@ -65,15 +69,13 @@ public class ApiClient {
     private static final String PUBLISH_QUESTION_URL = "v2/publish/publish_question/";
     private static final String ANSWER_URL = "v2/publish/save_answer/";
     private static final String USER_INFO_URL = "v2/account/get_userinfo/";
-    private static final String FOCUS_USER_URL = "/follow/ajax/follow_people/";
+    private static final String FOCUS_USER_URL = "v2/people/follow_people/";
     private static final String COMMENT_URL = "v2/answer_comment.php";
     private static final String PUBLISH_COMMENT_URL = "/question/ajax/save_answer_comment/";
     private static final String MY_ANSWER_URL = "v2/my_answer.php";
     private static final String MY_QUESTION_URL = "v2/my_question.php";
     private static final String FEEDBACK_URL = "v2/ticket/publish/";
     private static final String CHECK_UPDATE_URL = "v2/update/check/";
-    private static final String MY_FOCUS_USER = "v2/my_focus_user.php";
-    private static final String MY_FANS_USER = "v2/my_fans_user.php";
     private static final String PROFILE_EDIT_URL = "v2/profile_setting.php";
     private static final String ARTICLE_ARTICLE_URL = "v2/article/";
     private static final String ARTICLE_COMMENT_URL = "v2/article/comment/";
@@ -145,6 +147,7 @@ public class ApiClient {
 
     public static void publishQuestion(String title, String content, String attachKey, String topics, boolean isAnonymous, JsonHttpResponseHandler handler) {
         RequestParams params = new RequestParams();
+        buildSignatureURL(params,PUBLISH_QUESTION_URL,false);
         params.put("question_content", title);
         params.put("question_detail", content);
         params.put("attach_access_key", attachKey);
@@ -155,7 +158,7 @@ public class ApiClient {
             params.put("anonymous", 0);
         }
 
-        sClient.post(BASE_URL + buildSignatureURL(PUBLISH_QUESTION_URL,false), params, handler);
+        sClient.post(BASE_URL + PUBLISH_QUESTION_URL, params, handler);
     }
 
     public static void getHome(int perPage, int page, JsonHttpResponseHandler handler) {
@@ -202,13 +205,24 @@ public class ApiClient {
 
     }
 
-    public static void getTopics(String type, int page, JsonHttpResponseHandler handler) {
+    public static void getTopics(String day, int page, JsonHttpResponseHandler handler) {
         RequestParams params = new RequestParams();
         buildGetSignatureToURL(params, TOPIC_URL);
-        params.put("id", type);
+        params.put("day", day);
         params.put("page", page);
 
         sClient.get(BASE_URL + TOPIC_URL, params, handler);
+    }
+
+    public static void getFoucsTopics(int uid,int page,int per_page,JsonHttpResponseHandler handler){
+        RequestParams params = new RequestParams();
+//        buildSignatureURL(params,FOCUS_TOPIC_LIST_URL,false);
+        buildGetSignatureToURL(params,FOCUS_TOPIC_LIST_URL);
+        params.put("uid",uid);
+        params.put("page",page);
+        params.put("per_page",per_page);
+
+        sClient.get(BASE_URL + FOCUS_TOPIC_LIST_URL,params,handler);
     }
 
     public static void getTopicDetail(int topicId, int uid, JsonHttpResponseHandler handler) {
@@ -231,16 +245,13 @@ public class ApiClient {
 
     public static void focusTopic(int topicId, JsonHttpResponseHandler handler) {
         RequestParams params = new RequestParams();
+        buildGetSignatureToURL(params,FOCUS_TOPIC_URL);
         params.put("topic_id", topicId);
 
         sClient.get(BASE_URL + FOCUS_TOPIC_URL, params, handler);
     }
 
     public static String getTopicPicUrl(String url) {
-        return url;
-    }
-
-    public static String getPicUrl(String url){
         return url;
     }
 
@@ -340,6 +351,7 @@ public class ApiClient {
 
     public static void focusUser(int uid, JsonHttpResponseHandler handler) {
         RequestParams params = new RequestParams();
+        buildGetSignatureToURL(params,FOCUS_USER_URL);
         params.put("uid", uid);
 
         sClient.get(BASE_URL + FOCUS_USER_URL, params, handler);
@@ -400,13 +412,14 @@ public class ApiClient {
         sClient.post(BASE_URL + FEEDBACK_URL, params, handler);
     }
 
-    public static void getMyFocusUser(int uid,int page,int perPage,JsonHttpResponseHandler handler){
+    public static void getMyFollowsUser(int uid, String type, int page, int per_page, JsonHttpResponseHandler handler){
         RequestParams params = new RequestParams();
-        buildGetSignatureToURL(params, MY_FOCUS_USER);
+        buildGetSignatureToURL(params,MY_FOLLOWS_USER_URL);
         params.put("uid",uid);
+        params.put("type",type);
         params.put("page",page);
-        params.put("per_page",perPage);
-        sClient.get(BASE_URL + MY_FOCUS_USER, params, handler);
+        params.put("per_page",per_page);
+        sClient.get(BASE_URL + MY_FOLLOWS_USER_URL, params, handler);
     }
 
     public static void checkNewVersion(String version, JsonHttpResponseHandler handler) {
@@ -414,15 +427,6 @@ public class ApiClient {
         params.put("version", version);
 
         sClient.post(BASE_URL + CHECK_UPDATE_URL, params, handler);
-    }
-
-    public static void getMyFansUser(int uid,int page,int perPage,JsonHttpResponseHandler handler){
-        RequestParams params = new RequestParams();
-        buildGetSignatureToURL(params, MY_FANS_USER);
-        params.put("uid",uid);
-        params.put("page",page);
-        params.put("per_page",perPage);
-        sClient.get(BASE_URL + MY_FANS_USER, params, handler);
     }
 
     public static void editProfile(int uid, String username, String signature, JsonHttpResponseHandler handler) {
@@ -467,29 +471,26 @@ public class ApiClient {
         sClient.get(BASE_URL + NOTIFICATIONS_MARKASREAD_URL,handler);
     }
 
-    private static String buildSignatureURL(String url, boolean useNonce) {
+    private static void buildSignatureURL(RequestParams argParams,String url, boolean useNonce) {
         String rootName = url.split("/")[1];
         String msg = rootName + ResourceHelper.getString(R.string.WENJIN_APPKEY);
-        String urlExtra = "";
         if (useNonce) {
-            long time = System.currentTimeMillis()/1000;
+            long timestamp = System.currentTimeMillis()/1000;
             int nonce = (new Random()).nextInt();
             if (nonce < 10000) nonce += 10000;
-
-            msg += time + nonce;
-            urlExtra = "&time=" + time + "&nonce=" + nonce;
+            msg += timestamp + nonce;
+            argParams.put(PARAM_TIME,timestamp);
+            argParams.put(PARAM_NONCE,nonce);
         }
         String md = MD5Utils.hashKeyFromUrl(msg);
-        Log.d("lqy", rootName+ " " + md + "?mobile_sign=" + md + urlExtra);
 
-        return url + "?mobile_sign=" + md + urlExtra;
+        argParams.put(PARAM_SIGN,md);
     }
 
     private static void buildGetSignatureToURL(RequestParams argParams, String url){
         String rootName = url.split("/")[1];
         String msg = rootName + ResourceHelper.getString(R.string.WENJIN_APPKEY);
         String md = MD5Utils.hashKeyFromUrl(msg);
-        Log.d("lqy",rootName+ " " +md);
 
         argParams.put(PARAM_SIGN, md);
     }

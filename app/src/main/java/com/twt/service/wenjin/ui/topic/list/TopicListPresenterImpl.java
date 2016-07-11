@@ -3,6 +3,7 @@ package com.twt.service.wenjin.ui.topic.list;
 import com.twt.service.wenjin.R;
 import com.twt.service.wenjin.bean.Topic;
 import com.twt.service.wenjin.interactor.TopicListInteractor;
+import com.twt.service.wenjin.support.PrefUtils;
 import com.twt.service.wenjin.support.ResourceHelper;
 
 /**
@@ -24,16 +25,16 @@ public class TopicListPresenterImpl implements TopicListPresenter, OnGetTopicsCa
 
     @Override
     public void loadMoreTopics(int type) {
-//        mView.startRefresh();
+        mView.startRefresh();
         if(isLoadMore){return;}
         page += 1;
         isLoadMore = true;
         switch (type) {
             case 0:
-                mInteractor.getTopics("hot", page, this);
+                mInteractor.getTopics("all", page, this);
                 break;
             case 1:
-                mInteractor.getTopics("focus", page, this);
+                mInteractor.getFoucsTopics(PrefUtils.getPrefUid(),page,10,this);
                 break;
         }
     }
@@ -44,10 +45,10 @@ public class TopicListPresenterImpl implements TopicListPresenter, OnGetTopicsCa
         page = 1;
         switch (type) {
             case 0:
-                mInteractor.getTopics("hot", page, this);
+                mInteractor.getTopics("all", page, this);
                 break;
             case 1:
-                mInteractor.getTopics("focus", page, this);
+                mInteractor.getFoucsTopics(PrefUtils.getPrefUid(),page,10,this);
                 break;
         }
     }
@@ -60,7 +61,7 @@ public class TopicListPresenterImpl implements TopicListPresenter, OnGetTopicsCa
                 mView.addTopics(topics);
             } else {
                 mView.updateTopics(topics);
-                mView.showFooter();
+//                mView.showFooter();
             }
         } else {
             mView.hideFooter();

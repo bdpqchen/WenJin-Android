@@ -169,12 +169,15 @@ public class TopicDetailActivity extends BaseActivity implements TopicDetailView
     @Override
     public void onItemClicked(View view, int position) {
         switch (view.getId()) {
-            case R.id.tv_explore_item_title:
+            case R.id.cd_explore_item:
                 this.startQuestionActivity(position);
                 break;
-            case R.id.iv_explore_item_avatar:
-                this.startProfileActivity(position);
-                break;
+//            case R.id.tv_explore_item_title:
+//                this.startQuestionActivity(position);
+//                break;
+//            case R.id.iv_explore_item_avatar:
+//                this.startProfileActivity(position);
+//                break;
         }
     }
 }

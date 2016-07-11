@@ -7,6 +7,7 @@ import com.twt.service.wenjin.ui.topic.list.OnGetTopicsCallback;
  */
 public interface TopicListInteractor {
 
-    void getTopics(String type, int page, OnGetTopicsCallback callback);
+    void getTopics(String day, int page, OnGetTopicsCallback callback);
+    void getFoucsTopics(int uid, int page, int per_page, OnGetTopicsCallback callback);
 
 }

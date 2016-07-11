@@ -9,4 +9,6 @@ public class BestAnswer {
 
     public AnswerInfo answer_info;
 
+    public UserInfo user_info;
+
 }

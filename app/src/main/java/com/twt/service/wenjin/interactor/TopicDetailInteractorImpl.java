@@ -1,10 +1,14 @@
 package com.twt.service.wenjin.interactor;
 
+import android.nfc.Tag;
+import android.util.Log;
+
 import com.google.gson.Gson;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.twt.service.wenjin.api.ApiClient;
 import com.twt.service.wenjin.bean.BestAnswer;
 import com.twt.service.wenjin.bean.Topic;
+import com.twt.service.wenjin.support.LogHelper;
 import com.twt.service.wenjin.ui.topic.detail.OnFocusCallback;
 import com.twt.service.wenjin.ui.topic.detail.OnGetBestAnswerCallback;
 import com.twt.service.wenjin.ui.topic.detail.OnGetDetailCallback;
