@@ -24,6 +24,7 @@ import com.twt.service.wenjin.support.PrefUtils;
 import com.twt.service.wenjin.support.ResourceHelper;
 import com.twt.service.wenjin.ui.BaseActivity;
 import com.twt.service.wenjin.ui.common.NumberTextView;
+import com.twt.service.wenjin.ui.main.MainActivity;
 import com.twt.service.wenjin.ui.profile.askanswer.ProfileAskanswerActivity;
 import com.twt.service.wenjin.ui.profile.edit.ProfileEditActivity;
 import com.twt.service.wenjin.ui.profile.follows.FollowsActivity;
@@ -196,6 +197,7 @@ public class ProfileActivity extends BaseActivity implements ProfileView, OnClic
         tvAnswer.setOnClickListener(this);
         ntvFans.setOnClickListener(this);
         ntvFriends.setOnClickListener(this);
+        ntvFocus.setOnClickListener(this);
     }
 
     @Override
@@ -233,7 +235,6 @@ public class ProfileActivity extends BaseActivity implements ProfileView, OnClic
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.bt_profile_focus:
-
                 mPresenter.actionFocus(uid);
                 break;
             case R.id.tv_profile_ask:
@@ -241,6 +242,9 @@ public class ProfileActivity extends BaseActivity implements ProfileView, OnClic
                 break;
             case R.id.tv_profile_answer:
                 ProfileAskanswerActivity.anctionStart(this, ACTION_TYPE_ANSWER, uid, _userInfo.nick_name, _userInfo.avatar_file);
+                break;
+            case R.id.ntv_profile_focus_number:
+                toastMessage(this.getString(R.string.profile_focus_detail));
                 break;
             case R.id.ntv_profile_friends_number:
                 FollowsActivity.actionStart(this, ACTION_TYPE_FOLLOWING, uid);

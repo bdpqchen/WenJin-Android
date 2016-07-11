@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.squareup.picasso.Picasso;
 import com.twt.service.wenjin.R;
 import com.twt.service.wenjin.api.ApiClient;
@@ -71,16 +72,17 @@ public class TopicDetailAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             }
         };
         itemHolder.tvTitle.setText(bestAnswer.question_info.question_content);
-        itemHolder.tvUsername.setText(bestAnswer.answer_info.nick_name);
-        if (!TextUtils.isEmpty(bestAnswer.answer_info.avatar_file)) {
-            Picasso.with(mContext).load(ApiClient.getAvatarUrl(bestAnswer.answer_info.avatar_file)).into(itemHolder.ivAvatar);
+        itemHolder.tvUsername.setText(bestAnswer.user_info.nick_name);
+        if (!TextUtils.isEmpty(bestAnswer.user_info.avatar_file)) {
+            Glide.with(mContext).load(ApiClient.getAvatarUrl(bestAnswer.user_info.avatar_file)).into(itemHolder.ivAvatar);
         } else {
             itemHolder.ivAvatar.setImageResource(R.drawable.ic_user_avatar);
         }
         itemHolder.tvAddTime.setVisibility(View.GONE);
+        itemHolder.itemView.setOnClickListener(clickListener);
 
-        itemHolder.tvTitle.setOnClickListener(clickListener);
-        itemHolder.ivAvatar.setOnClickListener(clickListener);
+//        itemHolder.tvTitle.setOnClickListener(clickListener);
+//        itemHolder.ivAvatar.setOnClickListener(clickListener);
     }
 
     @Override

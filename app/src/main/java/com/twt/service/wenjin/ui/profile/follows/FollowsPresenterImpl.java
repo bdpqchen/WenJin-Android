@@ -68,11 +68,11 @@ public class FollowsPresenterImpl implements FollowsPresenter,OnGetFollowCallbac
 
     private void getItems(String type,int uid){
         if(type.compareTo(ACTION_TYPE_FOLLOWERS) == 0){
-            _interactor.getFollowersItems(uid, _page, 10, this);
+            _interactor.getFollowersItems(uid,"follows", _page, 10, this);
         }
 
         if(type.compareTo(ACTION_TYPE_FOLLOWING) == 0 ){
-            _interactor.getFollowingItems(uid,_page,10,this);
+            _interactor.getFollowersItems(uid,"fans",_page,10,this);
         }
     }
 }

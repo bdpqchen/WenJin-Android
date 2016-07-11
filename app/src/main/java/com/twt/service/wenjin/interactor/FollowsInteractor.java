@@ -7,7 +7,5 @@ import com.twt.service.wenjin.ui.profile.follows.OnGetFollowCallback;
  */
 public interface FollowsInteractor {
 
-    void getFollowersItems(int uid,int page,int perPage,OnGetFollowCallback onGetFollowCallback);
-
-    void getFollowingItems(int uid,int page,int perPage,OnGetFollowCallback onGetFollowCallback);
+    void getFollowersItems(int uid,String type, int page,int perPage,OnGetFollowCallback onGetFollowCallback);
 }

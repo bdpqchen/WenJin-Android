@@ -129,6 +129,7 @@ public class TopicListFragment extends BaseFragment implements
     public void startRefresh() {
         if (!mRefreshLayout.isRefreshing()) {
             mRefreshLayout.setRefreshing(true);
+            showFooter();
         }
     }
 
@@ -141,6 +142,7 @@ public class TopicListFragment extends BaseFragment implements
     public void stopRefresh() {
         if (mRefreshLayout.isRefreshing()) {
             mRefreshLayout.setRefreshing(false);
+            hideFooter();
         }
     }
 
