@@ -220,6 +220,9 @@
     <!-- Profile Edit activity -->
     <string name="title_activity_profile_edit">Profile Edit</string>
 
+    <!--Profile Topic Activity-->
+    <string name="title_activity_profile_topic">\'s Focus Topic</string>
+
     <!-- Prompt Dialog strings -->
     <string name="save_as_draft">Are want to save as draft?</string>
     <string name="save_successfully">save successfully</string>
