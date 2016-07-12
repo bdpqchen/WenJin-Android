@@ -9,14 +9,17 @@ public class Comment {
 
     public String uid;
 
-    public String user_name;
+//    public String user_name;
+//
+//    public String nick_name;
 
-    public String nick_name;
+    public UserInfo user_info;
 
-    public String content;
+    public String message;
 
-    public long add_time;
+    public long time;
 
     public UserInfo at_user;
 
+    public int anonymous;
 }
