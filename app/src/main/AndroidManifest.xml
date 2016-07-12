@@ -177,6 +177,9 @@
             android:name=".ui.profile.edit.ProfileEditActivity"
             android:label="@string/title_activity_profile_edit" >
         </activity>
+        <activity android:name=".ui.profile.topic.FocusTopicActivity"
+            android:label="@string/title_activity_profile_topic">
+        </activity>
         <activity
             android:name=".ui.article.ArticleActivity"
             android:label="@string/title_activity_article" />

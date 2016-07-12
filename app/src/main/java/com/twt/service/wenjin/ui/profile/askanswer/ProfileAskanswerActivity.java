@@ -44,7 +44,7 @@ public class ProfileAskanswerActivity extends BaseActivity implements ProfileAsk
     private static final String ACTION_TYPE_ASK = "ask";
     private static final String ACTION_TYPE_ANSWER = "answer";
     private static final String USER_ID = "uid";
-    private static final String USER_NAME = "uname";
+    private static final String USER_NAME = "username";
     private static final String USER_AVATAR_URL = "avatarurl";
 
     /*Activity类型:答过/问过*/
@@ -56,7 +56,7 @@ public class ProfileAskanswerActivity extends BaseActivity implements ProfileAsk
     private String _uname;
     private String _avatarurl;
 
-    public static void anctionStart(Context context,String type,int uid,String userName,String avatarUrl){
+    public static void actionStart(Context context,String type,int uid,String userName,String avatarUrl){
         Intent intent = new Intent(context,ProfileAskanswerActivity.class);
         intent.putExtra(ACTION_TYPE,type);
         intent.putExtra(USER_ID,uid);

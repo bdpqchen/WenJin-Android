@@ -5,8 +5,8 @@ package com.twt.service.wenjin.ui.topic.list;
  */
 public interface TopicListPresenter {
 
-    void loadMoreTopics(int type);
+    void loadMoreTopics(int uid, int type);
 
-    void refreshTopics(int type);
+    void refreshTopics(int uid, int type);
 
 }

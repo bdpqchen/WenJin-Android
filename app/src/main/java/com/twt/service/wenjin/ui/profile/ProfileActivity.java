@@ -18,16 +18,14 @@ import android.widget.Toast;
 import com.squareup.picasso.Picasso;
 import com.twt.service.wenjin.R;
 import com.twt.service.wenjin.api.ApiClient;
-import com.twt.service.wenjin.bean.Follows;
 import com.twt.service.wenjin.bean.UserInfo;
 import com.twt.service.wenjin.support.PrefUtils;
-import com.twt.service.wenjin.support.ResourceHelper;
 import com.twt.service.wenjin.ui.BaseActivity;
 import com.twt.service.wenjin.ui.common.NumberTextView;
-import com.twt.service.wenjin.ui.main.MainActivity;
 import com.twt.service.wenjin.ui.profile.askanswer.ProfileAskanswerActivity;
 import com.twt.service.wenjin.ui.profile.edit.ProfileEditActivity;
 import com.twt.service.wenjin.ui.profile.follows.FollowsActivity;
+import com.twt.service.wenjin.ui.profile.topic.FocusTopicActivity;
 
 import java.util.Arrays;
 import java.util.List;
@@ -238,13 +236,13 @@ public class ProfileActivity extends BaseActivity implements ProfileView, OnClic
                 mPresenter.actionFocus(uid);
                 break;
             case R.id.tv_profile_ask:
-                ProfileAskanswerActivity.anctionStart(this, ACTION_TYPE_ASK, uid, _userInfo.nick_name, _userInfo.avatar_file);
+                ProfileAskanswerActivity.actionStart(this, ACTION_TYPE_ASK, uid, _userInfo.nick_name, _userInfo.avatar_file);
                 break;
             case R.id.tv_profile_answer:
-                ProfileAskanswerActivity.anctionStart(this, ACTION_TYPE_ANSWER, uid, _userInfo.nick_name, _userInfo.avatar_file);
+                ProfileAskanswerActivity.actionStart(this, ACTION_TYPE_ANSWER, uid, _userInfo.nick_name, _userInfo.avatar_file);
                 break;
             case R.id.ntv_profile_focus_number:
-                toastMessage(this.getString(R.string.profile_focus_detail));
+                FocusTopicActivity.actionStart(this,uid,_userInfo.nick_name);
                 break;
             case R.id.ntv_profile_friends_number:
                 FollowsActivity.actionStart(this, ACTION_TYPE_FOLLOWING, uid);

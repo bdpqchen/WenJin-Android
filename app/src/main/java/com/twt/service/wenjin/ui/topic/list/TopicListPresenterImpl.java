@@ -24,7 +24,7 @@ public class TopicListPresenterImpl implements TopicListPresenter, OnGetTopicsCa
     }
 
     @Override
-    public void loadMoreTopics(int type) {
+    public void loadMoreTopics(int uid, int type) {
         mView.startRefresh();
         if(isLoadMore){return;}
         page += 1;
@@ -34,13 +34,13 @@ public class TopicListPresenterImpl implements TopicListPresenter, OnGetTopicsCa
                 mInteractor.getTopics("all", page, this);
                 break;
             case 1:
-                mInteractor.getFoucsTopics(PrefUtils.getPrefUid(),page,10,this);
+                mInteractor.getFoucsTopics(uid,page,10,this);
                 break;
         }
     }
 
     @Override
-    public void refreshTopics(int type) {
+    public void refreshTopics(int uid, int type) {
         mView.startRefresh();
         page = 1;
         switch (type) {
@@ -48,7 +48,7 @@ public class TopicListPresenterImpl implements TopicListPresenter, OnGetTopicsCa
                 mInteractor.getTopics("all", page, this);
                 break;
             case 1:
-                mInteractor.getFoucsTopics(PrefUtils.getPrefUid(),page,10,this);
+                mInteractor.getFoucsTopics(uid, page,10,this);
                 break;
         }
     }

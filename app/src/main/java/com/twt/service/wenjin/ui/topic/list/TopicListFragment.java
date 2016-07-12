@@ -14,6 +14,7 @@ import com.twt.service.wenjin.R;
 import com.twt.service.wenjin.bean.Topic;
 import com.twt.service.wenjin.interactor.TopicDetailInteractor;
 import com.twt.service.wenjin.support.LogHelper;
+import com.twt.service.wenjin.support.PrefUtils;
 import com.twt.service.wenjin.support.ResourceHelper;
 import com.twt.service.wenjin.ui.BaseFragment;
 import com.twt.service.wenjin.ui.common.OnItemClickListener;
@@ -44,6 +45,7 @@ public class TopicListFragment extends BaseFragment implements
 
     private TopicListAdapter mAdapter;
     private int type;
+    private int uid;
 
     public TopicListFragment() {
     }
@@ -61,6 +63,7 @@ public class TopicListFragment extends BaseFragment implements
         super.onCreate(savedInstanceState);
         type = getArguments().getInt(PARAM_TYPE);
         LogHelper.v(LOG_TAG, "onCreate, type: " + type);
+        uid = PrefUtils.getPrefUid();
     }
 
     @Override
@@ -82,12 +85,12 @@ public class TopicListFragment extends BaseFragment implements
                 super.onScrolled(recyclerView, dx, dy);
                 int lastitemposition = linearLayoutManager.findLastCompletelyVisibleItemPosition();
                 if (lastitemposition == linearLayoutManager.getItemCount() - 1 && dy > 0) {
-                    mPresenter.loadMoreTopics(type);
+                    mPresenter.loadMoreTopics(uid,type);
                 }
             }
         });
 
-        mPresenter.refreshTopics(type);
+        mPresenter.refreshTopics(uid,type);
 
         return rootView;
     }
@@ -111,7 +114,7 @@ public class TopicListFragment extends BaseFragment implements
 
     @Override
     public void onRefresh() {
-        mPresenter.refreshTopics(type);
+        mPresenter.refreshTopics(uid, type);
     }
 
     @Override
