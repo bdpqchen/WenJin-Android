@@ -221,4 +221,8 @@
     <!-- Green Channel activity-->
     <string name="title_activity_green_channel">快速注册</string>
 
+    <!--PromptDialog-->
+    <string name="dialog_save">保存</string>
+    <string name="dialog_delete">删除</string>
+    <string name="dialog_cancel">取消</string>
 </resources>

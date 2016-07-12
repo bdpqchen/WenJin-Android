@@ -63,7 +63,7 @@ public class ApiClient {
     private static final String QUESTION_URL = "v2/question/";
     private static final String FOCUS_QUESTION_URL = "/question/ajax/focus/";
     private static final String ANSWER_DETAIL_URL = "v2/question/answer/";
-    private static final String ANSWER_VOTE_URL = "/question/ajax/answer_vote/";
+    private static final String ANSWER_VOTE_URL = "v2/question/answer_vote/";
     private static final String ANSWER_THANK_URL = "v2/question/answer_vote/";
     private static final String UPLOAD_FILE_URL = "v2/publish/attach_upload/";
     private static final String PUBLISH_QUESTION_URL = "v2/publish/publish_question/";
@@ -72,6 +72,7 @@ public class ApiClient {
     private static final String FOCUS_USER_URL = "v2/people/follow_people/";
     private static final String COMMENT_URL = "v2/answer_comment.php";
     private static final String PUBLISH_COMMENT_URL = "/question/ajax/save_answer_comment/";
+    private static final String MY_ACTIONS_URL = "v2/people/user_actions/";
     private static final String MY_ANSWER_URL = "v2/my_answer.php";
     private static final String MY_QUESTION_URL = "v2/my_question.php";
     private static final String FEEDBACK_URL = "v2/ticket/publish/";
@@ -113,15 +114,11 @@ public class ApiClient {
     }
 
     public static void userLogin(String username, String password, JsonHttpResponseHandler handler) {
-        Uri url = Uri.parse(BASE_URL + LOGIN_URL).buildUpon()
-                .appendQueryParameter(PARAM_SIGN, buildPostSignature(LOGIN_URL))
-                .build();
-        LogHelper.v("APIClient", url.toString());
         RequestParams params = new RequestParams();
         params.put("user_name", username);
         params.put("password", password);
 
-        sClient.post(url.toString(), params, handler);
+        sClient.post(BASE_URL + buildPostSignatureToURL(LOGIN_URL,false), params, handler);
     }
 
     public static void userLogout() {
@@ -147,7 +144,6 @@ public class ApiClient {
 
     public static void publishQuestion(String title, String content, String attachKey, String topics, boolean isAnonymous, JsonHttpResponseHandler handler) {
         RequestParams params = new RequestParams();
-        buildSignatureURL(params,PUBLISH_QUESTION_URL,false);
         params.put("question_content", title);
         params.put("question_detail", content);
         params.put("attach_access_key", attachKey);
@@ -158,7 +154,7 @@ public class ApiClient {
             params.put("anonymous", 0);
         }
 
-        sClient.post(BASE_URL + PUBLISH_QUESTION_URL, params, handler);
+        sClient.post(BASE_URL + buildPostSignatureToURL(PUBLISH_QUESTION_URL,false), params, handler);
     }
 
     public static void getHome(int perPage, int page, JsonHttpResponseHandler handler) {
@@ -216,7 +212,6 @@ public class ApiClient {
 
     public static void getFoucsTopics(int uid,int page,int per_page,JsonHttpResponseHandler handler){
         RequestParams params = new RequestParams();
-//        buildSignatureURL(params,FOCUS_TOPIC_LIST_URL,false);
         buildGetSignatureToURL(params,FOCUS_TOPIC_LIST_URL);
         params.put("uid",uid);
         params.put("page",page);
@@ -252,7 +247,7 @@ public class ApiClient {
     }
 
     public static String getTopicPicUrl(String url) {
-        return url;
+        return BASE_IMG_URL + "uploads/topic/"+url;
     }
 
     public static void getQuestion(int questionId, JsonHttpResponseHandler handler) {
@@ -290,7 +285,7 @@ public class ApiClient {
         RequestParams params = new RequestParams();
         params.put("article_id", articleId);
         params.put("message", message);
-        sClient.post(BASE_URL + PUBLISH_ARTICLE_COMMENT_URL, params, handler);
+        sClient.post(BASE_URL + buildPostSignatureToURL(PUBLISH_ARTICLE_COMMENT_URL,false), params, handler);
 
     }
 
@@ -304,9 +299,10 @@ public class ApiClient {
 
     public static void voteAnswer(int answerId, int value) {
         RequestParams params = new RequestParams();
+
         params.put("answer_id", answerId);
         params.put("value", value);
-        sClient.post(BASE_URL + ANSWER_VOTE_URL, params, new JsonHttpResponseHandler());
+        sClient.post(BASE_URL + buildPostSignatureToURL(ANSWER_VOTE_URL,false), params, new JsonHttpResponseHandler());
     }
 
     public static void thankAnswer(int answerId, String type, JsonHttpResponseHandler handler){
@@ -314,7 +310,7 @@ public class ApiClient {
         params.put("answer_id", answerId);
         params.put("type", "thanks");
 
-        sClient.post(BASE_URL + ANSWER_THANK_URL, params, new JsonHttpResponseHandler());
+        sClient.post(BASE_URL + buildPostSignatureToURL(ANSWER_THANK_URL,false), params, new JsonHttpResponseHandler());
     }
 
     public static void voteArticle(int articleId, int value) {
@@ -322,7 +318,7 @@ public class ApiClient {
         params.put("type", "article");
         params.put("item_id", articleId);
         params.put("rating", value);
-        sClient.post(BASE_URL + ARTICLE_VOTE_URL, params, new JsonHttpResponseHandler());
+        sClient.post(BASE_URL + buildPostSignatureToURL(ARTICLE_VOTE_URL,false), params, new JsonHttpResponseHandler());
 
     }
 
@@ -337,7 +333,7 @@ public class ApiClient {
             params.put("anonymous", 0);
         }
 
-        sClient.post(BASE_URL + ANSWER_URL, params, handler);
+        sClient.post(BASE_URL + buildPostSignatureToURL(ANSWER_URL,false), params, handler);
     }
 
     public static void getUserInfo(int uid, JsonHttpResponseHandler handler) {
@@ -381,6 +377,16 @@ public class ApiClient {
         sClient.post(url.toString(), params, handler);
     }
 
+    public static void getActions(int actions, int uid, int page, int perPage, JsonHttpResponseHandler handler){
+        RequestParams params = new RequestParams();
+        buildGetSignatureToURL(params,MY_ACTIONS_URL);
+        params.put("actions",actions);
+        params.put("uid", uid);
+        params.put("page", page);
+        params.put("per_page", perPage);
+
+        sClient.get(BASE_URL + MY_ACTIONS_URL, params, handler);
+    }
     public static void getMyAnswer(int uid, int page, int perPage, JsonHttpResponseHandler handler) {
         RequestParams params = new RequestParams();
         buildGetSignatureToURL(params, MY_ANSWER_URL);
@@ -409,7 +415,7 @@ public class ApiClient {
         params.put("system", DeviceUtils.getSystemVersion());
         params.put("source", DeviceUtils.getSource());
 
-        sClient.post(BASE_URL + FEEDBACK_URL, params, handler);
+        sClient.post(BASE_URL + buildPostSignatureToURL(FEEDBACK_URL,false), params, handler);
     }
 
     public static void getMyFollowsUser(int uid, String type, int page, int per_page, JsonHttpResponseHandler handler){
@@ -426,7 +432,7 @@ public class ApiClient {
         RequestParams params = new RequestParams();
         params.put("version", version);
 
-        sClient.post(BASE_URL + CHECK_UPDATE_URL, params, handler);
+        sClient.post(BASE_URL + buildPostSignatureToURL(CHECK_UPDATE_URL,false), params, handler);
     }
 
     public static void editProfile(int uid, String username, String signature, JsonHttpResponseHandler handler) {
@@ -437,23 +443,25 @@ public class ApiClient {
             params.put("signature", signature);
         }
 
-        sClient.post(BASE_URL + PROFILE_EDIT_URL, params, handler);
+        sClient.post(BASE_URL + buildPostSignatureToURL(PROFILE_EDIT_URL,false), params, handler);
     }
 
     public static void avatarUpload(int uid,  String user_avatar, JsonHttpResponseHandler handler) throws FileNotFoundException {
         RequestParams params = new RequestParams();
             params.put("user_avatar", new File(user_avatar));
-        sClient.post(BASE_URL + AVATAR_UPLOAD_URL, params, handler);
+        sClient.post(BASE_URL + buildPostSignatureToURL(AVATAR_UPLOAD_URL,false), params, handler);
     }
 
     public static void getNotificationsNumberInfo(long argTimestampNow, JsonHttpResponseHandler handler){
         RequestParams params = new RequestParams();
+        buildGetSignatureToURL(params,NOTIFICATIONS_URL);
         params.put("time", argTimestampNow);
         sClient.get(BASE_URL + NOTIFICATIONS_URL, params, handler);
     }
 
     public static void getNotificationsList(int argPageNum, int argIsUnreadFlag, JsonHttpResponseHandler handler){
         RequestParams params = new RequestParams();
+        buildGetSignatureToURL(params,NOTIFICATIONS_LIST_URL);
         params.put("page", argPageNum);
         params.put("flag", argIsUnreadFlag);  //0:未读  1:已读
 
@@ -471,20 +479,21 @@ public class ApiClient {
         sClient.get(BASE_URL + NOTIFICATIONS_MARKASREAD_URL,handler);
     }
 
-    private static void buildSignatureURL(RequestParams argParams,String url, boolean useNonce) {
+    private static String buildPostSignatureToURL(String url, boolean useNonce) {
         String rootName = url.split("/")[1];
         String msg = rootName + ResourceHelper.getString(R.string.WENJIN_APPKEY);
+        String urlExtra = "";
         if (useNonce) {
-            long timestamp = System.currentTimeMillis()/1000;
+            long time = System.currentTimeMillis()/1000;
             int nonce = (new Random()).nextInt();
             if (nonce < 10000) nonce += 10000;
-            msg += timestamp + nonce;
-            argParams.put(PARAM_TIME,timestamp);
-            argParams.put(PARAM_NONCE,nonce);
+
+            msg += time + nonce;
+            urlExtra = "&time=" + time + "&nonce=" + nonce;
         }
         String md = MD5Utils.hashKeyFromUrl(msg);
 
-        argParams.put(PARAM_SIGN,md);
+        return url + "?mobile_sign=" + md + urlExtra;
     }
 
     private static void buildGetSignatureToURL(RequestParams argParams, String url){
@@ -493,14 +502,6 @@ public class ApiClient {
         String md = MD5Utils.hashKeyFromUrl(msg);
 
         argParams.put(PARAM_SIGN, md);
-    }
-
-    private static String buildPostSignature(String url){
-        String rootName = url.split("/")[1];
-        LogHelper.v("APIClient",rootName);
-        String msg = rootName + ResourceHelper.getString(R.string.WENJIN_APPKEY);
-        LogHelper.v("APIClient", MD5Utils.hashKeyFromUrl(msg));
-        return MD5Utils.hashKeyFromUrl(msg);
     }
 
     private static void buildGetSignatureRootName(RequestParams argParams, String rootName){

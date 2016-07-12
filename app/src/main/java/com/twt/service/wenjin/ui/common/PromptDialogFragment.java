@@ -40,8 +40,9 @@ public class PromptDialogFragment extends DialogFragment {
         textView.setText(getArguments().getString(PARAM_PROMPT));
         return new MaterialDialog.Builder(getActivity())
                 .customView(textView, true)
-                .positiveText(android.R.string.ok)
-                .negativeText(android.R.string.cancel)
+                .positiveText(R.string.dialog_save)
+                .neutralText(R.string.dialog_cancel)
+                .negativeText(R.string.dialog_delete)
                 .callback(callback)
                 .build();
     }

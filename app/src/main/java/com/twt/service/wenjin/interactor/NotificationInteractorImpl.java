@@ -25,7 +25,7 @@ public class NotificationInteractorImpl implements NotificationInteractor {
         ApiClient.getNotificationsNumberInfo(argTimestampNow, new JsonHttpResponseHandler(){
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-                LogHelper.v(LOG_TAG, response.toString());
+                LogHelper.v(LOG_TAG + "numberInfo", response.toString());
                 super.onSuccess(statusCode, headers, response);
                 try {
                     int errorCode = response.getInt(ApiClient.RESP_ERROR_CODE_KEY);
@@ -47,15 +47,9 @@ public class NotificationInteractorImpl implements NotificationInteractor {
             }
 
             @Override
-            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
-                super.onFailure(statusCode, headers, throwable, errorResponse);
-                //LogHelper.v(LOG_TAG, errorResponse.toString());
-            }
-
-            @Override
             public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
                 super.onFailure(statusCode, headers, responseString, throwable);
-                LogHelper.v(LOG_TAG, responseString);
+                LogHelper.v(LOG_TAG + "numberInfo", responseString);
 
             }
         });
@@ -66,7 +60,7 @@ public class NotificationInteractorImpl implements NotificationInteractor {
         ApiClient.getNotificationsList(argPage, type , new JsonHttpResponseHandler(){
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-                LogHelper.v(LOG_TAG, response.toString());
+                LogHelper.v(LOG_TAG + "getList", response.toString());
                 super.onSuccess(statusCode, headers, response);
                 try{
                     int errorCode = response.getInt(ApiClient.RESP_ERROR_CODE_KEY);
@@ -89,7 +83,7 @@ public class NotificationInteractorImpl implements NotificationInteractor {
             @Override
             public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
                 super.onFailure(statusCode, headers, responseString, throwable);
-                LogHelper.v(LOG_TAG, responseString);
+                LogHelper.v(LOG_TAG + "getList", responseString);
             }
         });
     }

@@ -146,12 +146,12 @@ public class FollowsActivity extends BaseActivity implements FollowsView,OnItemC
 
     @Override
     public void addData(List<Follows> followsList,int totalRows) {
-        if(_followsAdapter.getItemCount() < totalRows){
+//        if(_followsAdapter.getItemCount() < totalRows){
             _followsAdapter.addData(followsList);
             _isScrollListenerLoadingItems = false;
-        }else{
-            showMSG(ResourceHelper.getString(R.string.no_more_information));
-        }
+//        }else{
+//            showMSG(ResourceHelper.getString(R.string.no_more_information));
+//        }
     }
 
     @Override

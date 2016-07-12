@@ -5,22 +5,8 @@ package com.twt.service.wenjin.bean;
  */
 public class MyAnswer {
 
-    /*回答id*/
-    public int answer_id;
+    public AnswerInfo answer_info;
 
-    /*问题id*/
-    public int question_id;
-
-    /*回复内容*/
-    public String answer_content;
-
-    /*赞同数目*/
-    public int agree_count;
-
-    /*头像*/
-    public String avatar_file;
-
-    /*问题标题*/
-    public String question_title;
+    public QuestionInfo question_info;
 
 }

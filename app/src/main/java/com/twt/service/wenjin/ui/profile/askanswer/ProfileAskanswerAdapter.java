@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.squareup.picasso.Picasso;
 import com.twt.service.wenjin.R;
 import com.twt.service.wenjin.api.ApiClient;
@@ -131,7 +132,7 @@ public class ProfileAskanswerAdapter extends RecyclerView.Adapter<RecyclerView.V
             itemHolder._tvUser.setText(_uname);
 
             if(_avatarurl != null){
-                Picasso.with(_context).load(ApiClient.getAvatarUrl(_avatarurl)).into(itemHolder._ivAvatar);
+                Glide.with(_context).load(ApiClient.getAvatarUrl(_avatarurl)).into(itemHolder._ivAvatar);
             }
 
             if(_actionType.compareTo(ACTION_TYPE_ASK) == 0){
@@ -140,7 +141,7 @@ public class ProfileAskanswerAdapter extends RecyclerView.Adapter<RecyclerView.V
                 itemHolder._tvState.setText(ResourceHelper.getString(R.string.post_question));
                 itemHolder._vDivider.setVisibility(View.VISIBLE);
                 itemHolder._tvContent.setVisibility(View.GONE);
-                itemHolder._tvTitle.setText(myQuestion.title);
+                itemHolder._tvTitle.setText(myQuestion.question_info.question_content);
                 itemHolder._tvTime.setVisibility(View.VISIBLE);
                 itemHolder._tvTime.setText(FormatHelper.getTimeFromNow(myQuestion.add_time));
             }
@@ -151,10 +152,10 @@ public class ProfileAskanswerAdapter extends RecyclerView.Adapter<RecyclerView.V
                 MyAnswer myAnswer = (MyAnswer)_DataSet.get(position);
                 itemHolder._tvState.setText(ResourceHelper.getString(R.string.reply_question));
                 itemHolder._vDivider.setVisibility(View.GONE);
-                itemHolder._tvTitle.setText(myAnswer.question_title);
+                itemHolder._tvTitle.setText(myAnswer.question_info.question_content);
                 itemHolder._tvTime.setVisibility(View.GONE);
                 itemHolder._tvContent.setVisibility(View.VISIBLE);
-                itemHolder._tvContent.setText(myAnswer.answer_content);
+                itemHolder._tvContent.setText(myAnswer.answer_info.answer_content);
             }
 
         }
