@@ -187,7 +187,8 @@ public class ProfileActivity extends BaseActivity implements ProfileView, OnClic
                 removeFocus();
             }
             btFocus.setVisibility(View.VISIBLE);
-            btContact.setVisibility(View.VISIBLE);
+            //私信不允许使用
+            //btContact.setVisibility(View.VISIBLE);
         }
         btFocus.setOnClickListener(this);
         btContact.setOnClickListener(this);
