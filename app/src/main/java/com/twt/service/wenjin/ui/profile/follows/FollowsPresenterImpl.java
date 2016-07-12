@@ -1,5 +1,6 @@
 package com.twt.service.wenjin.ui.profile.follows;
 
+import android.util.Log;
 import android.view.View;
 
 import com.twt.service.wenjin.R;
@@ -37,7 +38,6 @@ public class FollowsPresenterImpl implements FollowsPresenter,OnGetFollowCallbac
             if(_isLoadMore){
                 _followsView.addData(followsList, response.total_rows);
                 _isLoadMore = false;
-            }else{
             }
         }else{
             _followsView.showMSG(ResourceHelper.getString(R.string.no_more_information));
@@ -68,11 +68,11 @@ public class FollowsPresenterImpl implements FollowsPresenter,OnGetFollowCallbac
 
     private void getItems(String type,int uid){
         if(type.compareTo(ACTION_TYPE_FOLLOWERS) == 0){
-            _interactor.getFollowersItems(uid,"follows", _page, 10, this);
+            _interactor.getFollowersItems(uid,"fans", _page, 10, this);
         }
 
         if(type.compareTo(ACTION_TYPE_FOLLOWING) == 0 ){
-            _interactor.getFollowersItems(uid,"fans",_page,10,this);
+            _interactor.getFollowersItems(uid,"follows",_page,10,this);
         }
     }
 }

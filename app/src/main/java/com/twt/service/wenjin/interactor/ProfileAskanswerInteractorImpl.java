@@ -1,5 +1,7 @@
 package com.twt.service.wenjin.interactor;
 
+import android.util.Log;
+
 import com.google.gson.Gson;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.twt.service.wenjin.api.ApiClient;
@@ -19,10 +21,11 @@ public class ProfileAskanswerInteractorImpl implements ProfileAskanswerInteracto
 
     @Override
     public void getAskItems(int uid, int page, int perPage,final OnGetAskCallback onGetAskCallback) {
-        ApiClient.getMyQuestion(uid,page,perPage,new JsonHttpResponseHandler(){
+        ApiClient.getActions(101,uid,page,perPage,new JsonHttpResponseHandler(){
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                 super.onSuccess(statusCode, headers, response);
+                Log.d("lqy",response.toString());
                 try{
                     switch (response.getInt(ApiClient.RESP_ERROR_CODE_KEY)){
                         case ApiClient.SUCCESS_CODE:
@@ -44,7 +47,7 @@ public class ProfileAskanswerInteractorImpl implements ProfileAskanswerInteracto
 
     @Override
     public void getAnswerItems(int uid, int page, int perPage,final OnGetAnswerCallback onGetAnswerCallback) {
-        ApiClient.getMyAnswer(uid,page,perPage,new JsonHttpResponseHandler(){
+        ApiClient.getActions(201,uid,page,perPage,new JsonHttpResponseHandler(){
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                 super.onSuccess(statusCode, headers, response);

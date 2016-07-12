@@ -1,5 +1,8 @@
 package com.twt.service.wenjin.ui.answer.detail;
 
+import android.util.Log;
+
+import com.loopj.android.http.JsonHttpResponseHandler;
 import com.twt.service.wenjin.R;
 import com.twt.service.wenjin.api.ApiClient;
 import com.twt.service.wenjin.bean.Answer;
@@ -9,6 +12,10 @@ import com.twt.service.wenjin.interactor.NotificationInteractor;
 import com.twt.service.wenjin.support.LogHelper;
 import com.twt.service.wenjin.support.ResourceHelper;
 import com.twt.service.wenjin.ui.question.OnGetQuestionCallback;
+
+import org.json.JSONObject;
+
+import cz.msebera.android.httpclient.Header;
 
 /**
  * Created by M on 2015/3/29.

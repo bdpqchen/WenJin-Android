@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.squareup.picasso.Picasso;
 import com.twt.service.wenjin.R;
 import com.twt.service.wenjin.api.ApiClient;
@@ -167,13 +168,13 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             if(homeItem.topic_info != null){
                 itemHolder.tvUsername.setText(homeItem.topic_info.topic_title);
                 if (!TextUtils.isEmpty(homeItem.topic_info.topic_pic)) {
-                    Picasso.with(mContext).load(ApiClient.getTopicPicUrl(homeItem.topic_info.topic_pic)).into(itemHolder.ivAvatar);
+                    Glide.with(mContext).load(ApiClient.getTopicPicUrl(homeItem.topic_info.topic_pic)).into(itemHolder.ivAvatar);
                 } else {
                     itemHolder.ivAvatar.setImageResource(R.drawable.ic_topic_pic);
                 }
             }else {
                 if (!TextUtils.isEmpty(homeItem.user_info.avatar_file)) {
-                    Picasso.with(mContext).load(ApiClient.getAvatarUrl(homeItem.user_info.avatar_file)).into(itemHolder.ivAvatar);
+                    Glide.with(mContext).load(ApiClient.getAvatarUrl(homeItem.user_info.avatar_file)).into(itemHolder.ivAvatar);
                 } else {
                     itemHolder.ivAvatar.setImageResource(R.drawable.ic_user_avatar);
                 }

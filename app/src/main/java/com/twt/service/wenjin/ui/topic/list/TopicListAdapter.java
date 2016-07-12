@@ -96,7 +96,7 @@ public class TopicListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             if (TextUtils.isEmpty(topic.topic_pic)) {
                 itemHolder.imageView.setImageResource(R.drawable.ic_topic_pic);
             } else {
-                Glide.with(mContext).load(ApiClient.getTopicPicUrl(topic.topic_pic)).error(R.drawable.ic_topic_pic).into(itemHolder.imageView);
+                Glide.with(mContext).load(topic.topic_pic).error(R.drawable.ic_topic_pic).into(itemHolder.imageView);
             }
         }
     }

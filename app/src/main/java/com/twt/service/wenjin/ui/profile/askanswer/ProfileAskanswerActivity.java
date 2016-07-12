@@ -157,12 +157,12 @@ public class ProfileAskanswerActivity extends BaseActivity implements ProfileAsk
     public void startQuestionActivity(int position) {
         if(_type.compareTo(ACTION_TYPE_ASK) == 0){
             MyQuestion item = (MyQuestion)_adapter.getItem(position);
-            QuestionActivity.actionStart(this, item.id);
+            QuestionActivity.actionStart(this, item.question_info.question_id);
         }
 
         if(_type.compareTo(ACTION_TYPE_ANSWER) == 0){
             MyAnswer item = (MyAnswer)_adapter.getItem(position);
-            QuestionActivity.actionStart(this,item.question_id);
+            QuestionActivity.actionStart(this,item.question_info.question_id);
         }
 
     }
@@ -170,7 +170,7 @@ public class ProfileAskanswerActivity extends BaseActivity implements ProfileAsk
     @Override
     public void startAnswerActivity(int position) {
         MyAnswer item = (MyAnswer)_adapter.getItem(position);
-        AnswerDetailActivity.actionStart(this, item.answer_id, item.question_title);
+        AnswerDetailActivity.actionStart(this, item.answer_info.answer_id, item.question_info.question_content);
     }
 
     @Override

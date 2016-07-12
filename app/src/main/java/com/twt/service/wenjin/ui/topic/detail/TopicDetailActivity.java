@@ -14,6 +14,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.squareup.picasso.Picasso;
 import com.twt.service.wenjin.R;
 import com.twt.service.wenjin.api.ApiClient;
@@ -107,7 +108,7 @@ public class TopicDetailActivity extends BaseActivity implements TopicDetailView
         tvTitle.setText(topic.topic_title);
         tvDescription.setText(topic.topic_description);
         if (!TextUtils.isEmpty(topic.topic_pic)) {
-            Picasso.with(this).load(ApiClient.getTopicPicUrl(topic.topic_pic)).into(ivTopicPic);
+            Glide.with(this).load(topic.topic_pic).into(ivTopicPic);
         }
         if (topic.has_focus == 1) {
             addFocus();
