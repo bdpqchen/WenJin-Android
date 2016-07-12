@@ -58,8 +58,8 @@ public class FormatHelper {
         return new SimpleDateFormat("yyyy-MM-dd HH:mm").format(date);
     }
 
-    public static String formatCommentReply(String username, String content) {
-        return ResourceHelper.getString(R.string.reply) + " " + username + ": " + content;
+    public static String formatCommentReply(String content) {
+        return ResourceHelper.getString(R.string.reply) + " " + content;
     }
 
     public static String formatCommentAtUser(String username) {

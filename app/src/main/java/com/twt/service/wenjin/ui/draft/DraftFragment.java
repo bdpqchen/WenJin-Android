@@ -13,6 +13,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.twt.service.wenjin.R;
 import com.twt.service.wenjin.bean.AnswerDraft;
@@ -78,12 +79,17 @@ public class DraftFragment extends BaseFragment implements DraftView, OnItemClic
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_delete:
-                if (mAdapter.isDeleteMode()) {
-                    mAdapter.setDeleteMode(false);
-                    mActionDelete.setIcon(R.drawable.ic_action_delete);
-                } else {
-                    mAdapter.setDeleteMode(true);
-                    mActionDelete.setIcon(R.drawable.ic_action_done);
+                if(mAdapter == null){
+                    Toast.makeText(getActivity(),R.string.no_any_drafts,Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    if (mAdapter.isDeleteMode()) {
+                        mAdapter.setDeleteMode(false);
+                        mActionDelete.setIcon(R.drawable.ic_action_delete);
+                    } else {
+                        mAdapter.setDeleteMode(true);
+                        mActionDelete.setIcon(R.drawable.ic_action_done);
+                    }
                 }
                 break;
         }
@@ -124,4 +130,6 @@ public class DraftFragment extends BaseFragment implements DraftView, OnItemClic
             mAdapter.deleteAnswerDraft(position);
         }
     }
+
+
 }

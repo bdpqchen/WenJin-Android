@@ -61,19 +61,23 @@ public class CommentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     public void onBindViewHolder(RecyclerView.ViewHolder viewHolder, final int i) {
         Comment item = mDataSet.get(i);
         ItemHolder itemHolder = (ItemHolder) viewHolder;
-        itemHolder.rootView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                listener.onItemClicked(v, i);
-            }
-        });
-        itemHolder.tvUsername.setText(item.nick_name);
-        if (item.at_user != null) {
-            itemHolder.tvContent.setText(FormatHelper.formatCommentReply(item.at_user.nick_name, item.content));
-        } else {
-            itemHolder.tvContent.setText(item.content);
+        if (item.anonymous == 0) {
+
+            itemHolder.rootView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    listener.onItemClicked(v, i);
+                }
+            });
+
+            itemHolder.tvUsername.setText(item.user_info.nick_name);
         }
-        itemHolder.tvAddTime.setText(FormatHelper.formatAddDateWithoutAddinString(item.add_time));
+        if (item.at_user != null) {
+            itemHolder.tvContent.setText(FormatHelper.formatCommentReply(item.message));
+        } else {
+            itemHolder.tvContent.setText(item.message);
+        }
+        itemHolder.tvAddTime.setText(FormatHelper.formatAddDateWithoutAddinString(item.time));
     }
 
     @Override
@@ -90,6 +94,6 @@ public class CommentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     }
 
     public String getUsername(int position) {
-        return mDataSet.get(position).nick_name;
+        return mDataSet.get(position).user_info.nick_name;
     }
 }

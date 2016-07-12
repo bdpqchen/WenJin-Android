@@ -139,7 +139,7 @@
             android:layout_below="@+id/tv_answer_signature"
             android:layout_width="match_parent"
             android:layout_height="1px"
-            android:background="@color/color_divider1"
+            android:background="@color/color_divider_black"
             android:layout_marginTop="6dp"
             android:layout_marginLeft="2dp"
             android:layout_marginRight="2dp"

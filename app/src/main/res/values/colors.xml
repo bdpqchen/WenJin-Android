@@ -24,7 +24,7 @@
     <color name="color_text_primary">#212121</color>
     <color name="color_text_secondary">#727272</color>
     <color name="color_divider">#00b6b6b6</color>
-    <color name="color_divider1">#B6B6B6</color>
+    <color name="color_divider_black">#B6B6B6</color>
     <color name="color_answer_detail_title">#cccccc</color>
 
     <color name="color_button">#99CC00</color>
