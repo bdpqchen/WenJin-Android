@@ -43,7 +43,6 @@
         android:layout_alignRight="@+id/tv_comment_item_username"
         android:layout_alignEnd="@+id/tv_comment_item_username"
         android:layout_below="@+id/tv_comment_item_add_time" />
-z
 
     <View
         android:background="@color/color_divider"
