@@ -77,10 +77,10 @@ public class ApiClient {
     private static final String MY_QUESTION_URL = "v2/my_question.php";
     private static final String FEEDBACK_URL = "v2/ticket/publish/";
     private static final String CHECK_UPDATE_URL = "v2/update/check/";
-    private static final String PROFILE_EDIT_URL = "v2/profile_setting.php";
+    private static final String PROFILE_EDIT_URL = "v2/people/profile_setting";
     private static final String ARTICLE_ARTICLE_URL = "v2/article/";
-    private static final String ARTICLE_COMMENT_URL = "v2/article/comment/";
-    private static final String PUBLISH_ARTICLE_COMMENT_URL = "v2/publish/save_comment/";
+    private static final String ARTICLE_COMMENT_URL = "v2/article/article_comments/";
+    private static final String PUBLISH_ARTICLE_COMMENT_URL = "v2/article/save_comment/";
     private static final String ARTICLE_VOTE_URL = "?/article/ajax/article_vote/";
     private static final String AVATAR_UPLOAD_URL = "v2/account/avatar_upload/";
     private static final String SEARCH_URL = "v2/search/";

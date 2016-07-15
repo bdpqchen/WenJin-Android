@@ -199,12 +199,12 @@ public class ArticleActivity extends BaseActivity implements ArticleView, View.O
     @Override
     public void bindArticleData(Article article) {
         this.article = article;
-        if (!TextUtils.isEmpty(article.article_info.avatar_file)) {
-            Picasso.with(this).load(ApiClient.getAvatarUrl(article.article_info.avatar_file)).into(ivArticleAvatar);
+        if (!TextUtils.isEmpty(article.article_info.user_info.avatar_file)) {
+            Picasso.with(this).load(ApiClient.getAvatarUrl(article.article_info.user_info.avatar_file)).into(ivArticleAvatar);
         }
         ivArticleAgree.setVisibility(View.VISIBLE);
         ivArticleDisagree.setVisibility(View.VISIBLE);
-        tvArticleUsername.setText(article.article_info.nick_name);
+        tvArticleUsername.setText(article.article_info.user_info.nick_name);
         if (article.article_info.vote_value == 1) {
             ivArticleAgree.setImageResource(R.drawable.ic_action_agreed);
             tvArticleAgreeCount.setTextColor(getResources().getColor(R.color.color_did));
