@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
@@ -27,6 +28,7 @@ import com.twt.service.wenjin.support.FormatHelper;
 import com.twt.service.wenjin.support.HtmlUtils;
 import com.twt.service.wenjin.support.JavascriptInterface;
 import com.twt.service.wenjin.support.LogHelper;
+import com.twt.service.wenjin.support.StringHelper;
 import com.twt.service.wenjin.support.UmengShareHelper;
 import com.twt.service.wenjin.ui.BaseActivity;
 import com.twt.service.wenjin.ui.article.comment.CommentActivlty;
@@ -194,7 +196,6 @@ public class ArticleActivity extends BaseActivity implements ArticleView, View.O
         pbArticleLoading.setVisibility(View.GONE);
 
     }
-
     @SuppressLint("JavascriptInterface")
     @Override
     public void bindArticleData(Article article) {
@@ -222,7 +223,11 @@ public class ArticleActivity extends BaseActivity implements ArticleView, View.O
             }
         });
         wvArticleContent.getSettings().setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
-        wvArticleContent.loadDataWithBaseURL(null, HtmlUtils.format(article.article_info.message), "text/html", "UTF-8", null);
+        String message = article.article_info.message;
+        if(article.article_info.has_attach == 1){
+            message = StringHelper.replace(article.article_info.message,article.article_info.attachs,article.article_info.attachs_ids);
+        }
+        wvArticleContent.loadDataWithBaseURL(null, HtmlUtils.format(message), "text/html", "UTF-8", null);
         wvArticleContent.addJavascriptInterface(new JavascriptInterface(this), "imagelistener");
         wvArticleContent.setWebViewClient(new MyWebViewClient());
         tvArticleAgreeCount.setText(String.valueOf(article.article_info.votes));

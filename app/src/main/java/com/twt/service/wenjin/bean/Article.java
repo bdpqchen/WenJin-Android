@@ -17,12 +17,14 @@ public class Article {
         public String title;
         public String message;
         public int comments;
-        public int is_attach;
+        public int has_attach;
         public int views;
         public int votes;
         public UserInfo user_info;
         public String signature;
         public int vote_value;
+        public Attach[] attachs;
+        public String[] attachs_ids;
     }
 
     public static class ArticleTopic {

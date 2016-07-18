@@ -43,6 +43,7 @@ import com.twt.service.wenjin.bean.Answer;
 import com.twt.service.wenjin.receiver.JPushNotiReceiver;
 import com.twt.service.wenjin.support.FormatHelper;
 import com.twt.service.wenjin.support.LogHelper;
+import com.twt.service.wenjin.support.StringHelper;
 import com.twt.service.wenjin.support.TextviewUrlClickableBuilder;
 import com.twt.service.wenjin.support.TextviewUrlClickableBuilder.IClickUrlLink;
 import com.twt.service.wenjin.support.UmengShareHelper;
@@ -306,7 +307,11 @@ public class AnswerDetailActivity extends BaseActivity implements AnswerDetailVi
         }
 
         tvAgreeNumber.setText("" + answer.answer.agree_count);
-        tvContent.setText(Html.fromHtml(answer.answer.answer_content, new PicassoImageGetter(this, tvContent), null));
+        String context = answer.answer.answer_content;
+        if(answer.answer.has_attach == 1){
+            StringHelper.replace(context,answer.answer.attachs,answer.answer.attachs_ids);
+        }
+        tvContent.setText(Html.fromHtml(context, new PicassoImageGetter(this, tvContent), null));
         tvContent.setMovementMethod(LinkMovementMethod.getInstance());
         TextviewUrlClickableBuilder.BuildTextviewUrlClickable(this,tvContent);
 
