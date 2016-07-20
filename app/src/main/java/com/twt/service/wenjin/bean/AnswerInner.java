@@ -30,5 +30,11 @@ public class AnswerInner {
 
     public int thank_value;
 
+    public int has_attach;
+
+    public Attach[] attachs;
+
+    public String[] attachs_ids;
+
     public UserInfo user_info;
 }

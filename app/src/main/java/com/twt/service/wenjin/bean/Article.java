@@ -16,12 +16,15 @@ public class Article {
         public int uid;
         public String title;
         public String message;
+        public int comments;
+        public int has_attach;
+        public int views;
         public int votes;
-        public String user_name;
-        public String nick_name;
-        public String avatar_file;
+        public UserInfo user_info;
         public String signature;
         public int vote_value;
+        public Attach[] attachs;
+        public String[] attachs_ids;
     }
 
     public static class ArticleTopic {

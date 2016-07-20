@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:background="@android:color/white"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content">
 
     <!--<ImageView-->
         <!--android:id="@+id/iv_comment_item_avatar"-->
@@ -45,7 +45,7 @@
         android:layout_below="@+id/tv_comment_item_add_time" />
 
     <View
-        android:background="@color/color_divider"
+        android:background="@color/color_divider_black"
         android:layout_width="match_parent"
         android:layout_marginLeft="2dp"
         android:layout_marginRight="2dp"

@@ -5,7 +5,6 @@ import com.loopj.android.http.JsonHttpResponseHandler;
 import com.twt.service.wenjin.api.ApiClient;
 import com.twt.service.wenjin.bean.Answer;
 import com.twt.service.wenjin.bean.QuestionResponse;
-import com.twt.service.wenjin.support.LogHelper;
 import com.twt.service.wenjin.ui.answer.detail.OnGetAnswerCallback;
 import com.twt.service.wenjin.ui.question.OnGetQuestionCallback;
 

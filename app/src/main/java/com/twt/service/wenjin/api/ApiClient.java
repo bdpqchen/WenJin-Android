@@ -70,17 +70,17 @@ public class ApiClient {
     private static final String ANSWER_URL = "v2/publish/save_answer/";
     private static final String USER_INFO_URL = "v2/account/get_userinfo/";
     private static final String FOCUS_USER_URL = "v2/people/follow_people/";
-    private static final String COMMENT_URL = "v2/answer_comment.php";
-    private static final String PUBLISH_COMMENT_URL = "/question/ajax/save_answer_comment/";
+    private static final String COMMENT_URL = "v2/question/answer_comments/";
+    private static final String PUBLISH_COMMENT_URL = "v2/question/save_answer_comment/";
     private static final String MY_ACTIONS_URL = "v2/people/user_actions/";
     private static final String MY_ANSWER_URL = "v2/my_answer.php";
     private static final String MY_QUESTION_URL = "v2/my_question.php";
     private static final String FEEDBACK_URL = "v2/ticket/publish/";
     private static final String CHECK_UPDATE_URL = "v2/update/check/";
-    private static final String PROFILE_EDIT_URL = "v2/profile_setting.php";
+    private static final String PROFILE_EDIT_URL = "v2/people/profile_setting/";
     private static final String ARTICLE_ARTICLE_URL = "v2/article/";
-    private static final String ARTICLE_COMMENT_URL = "v2/article/comment/";
-    private static final String PUBLISH_ARTICLE_COMMENT_URL = "v2/publish/save_comment/";
+    private static final String ARTICLE_COMMENT_URL = "v2/article/article_comments/";
+    private static final String PUBLISH_ARTICLE_COMMENT_URL = "v2/article/save_comment/";
     private static final String ARTICLE_VOTE_URL = "?/article/ajax/article_vote/";
     private static final String AVATAR_UPLOAD_URL = "v2/account/avatar_upload/";
     private static final String SEARCH_URL = "v2/search/";
@@ -361,20 +361,17 @@ public class ApiClient {
     public static void getComments(int answerId, JsonHttpResponseHandler handler) {
         RequestParams params = new RequestParams();
         buildGetSignatureToURL(params, COMMENT_URL);
-        params.put("id", answerId);
+        params.put("answer_id", answerId);
 
         sClient.get(BASE_URL + COMMENT_URL, params, handler);
     }
 
     public static void publishComment(int answerId, String content, JsonHttpResponseHandler handler) {
-        Uri url = Uri.parse(BASE_URL + PUBLISH_COMMENT_URL).buildUpon()
-                .appendQueryParameter("answer_id", String.valueOf(answerId))
-                .build();
         RequestParams params = new RequestParams();
-//        params.put("answer_id", answerId);
+        params.put("answer_id", answerId);
         params.put("message", content);
 
-        sClient.post(url.toString(), params, handler);
+        sClient.post(BASE_URL + buildPostSignatureToURL(PUBLISH_COMMENT_URL,false), params, handler);
     }
 
     public static void getActions(int actions, int uid, int page, int perPage, JsonHttpResponseHandler handler){
@@ -437,7 +434,6 @@ public class ApiClient {
 
     public static void editProfile(int uid, String username, String signature, JsonHttpResponseHandler handler) {
         RequestParams params = new RequestParams();
-        params.put("uid", uid);
         params.put("nick_name", username);
         if (!TextUtils.isEmpty(signature)) {
             params.put("signature", signature);
