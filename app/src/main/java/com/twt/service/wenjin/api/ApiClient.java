@@ -77,7 +77,7 @@ public class ApiClient {
     private static final String MY_QUESTION_URL = "v2/my_question.php";
     private static final String FEEDBACK_URL = "v2/ticket/publish/";
     private static final String CHECK_UPDATE_URL = "v2/update/check/";
-    private static final String PROFILE_EDIT_URL = "v2/people/profile_setting";
+    private static final String PROFILE_EDIT_URL = "v2/people/profile_setting/";
     private static final String ARTICLE_ARTICLE_URL = "v2/article/";
     private static final String ARTICLE_COMMENT_URL = "v2/article/article_comments/";
     private static final String PUBLISH_ARTICLE_COMMENT_URL = "v2/article/save_comment/";
@@ -434,7 +434,6 @@ public class ApiClient {
 
     public static void editProfile(int uid, String username, String signature, JsonHttpResponseHandler handler) {
         RequestParams params = new RequestParams();
-        params.put("uid", uid);
         params.put("nick_name", username);
         if (!TextUtils.isEmpty(signature)) {
             params.put("signature", signature);

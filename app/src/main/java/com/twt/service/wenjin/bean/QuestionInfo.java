@@ -11,6 +11,12 @@ public class QuestionInfo {
 
     public String question_detail;
 
+    public int has_attach;
+
+    public Attach[] attachs;
+
+    public String[] attachs_ids;
+
     public int focus_count;
 
     public int has_focus;
