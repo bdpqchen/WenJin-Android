@@ -112,6 +112,7 @@ public class PublishActivity extends BaseActivity implements PublishView {
                 if(tagGroup.getInputTag() != null){
                     tagGroup.submitTag();
                 }
+
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
