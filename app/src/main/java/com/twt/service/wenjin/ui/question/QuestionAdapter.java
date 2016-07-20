@@ -21,6 +21,7 @@ import com.twt.service.wenjin.bean.QuestionResponse;
 import com.twt.service.wenjin.bean.Topic;
 import com.twt.service.wenjin.support.FormatHelper;
 import com.twt.service.wenjin.support.ResourceHelper;
+import com.twt.service.wenjin.support.StringHelper;
 import com.twt.service.wenjin.ui.common.OnItemClickListener;
 import com.twt.service.wenjin.ui.common.PicassoImageGetter;
 
@@ -121,8 +122,12 @@ public class QuestionAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                 QuestionHolder question = (QuestionHolder) holder;
 
                 question.tvTitle.setText(mQuestionResponse.question_info.question_content);
+                String content = mQuestionResponse.question_info.question_detail;
+                if(mQuestionResponse.question_info.has_attach == 1){
+                    content = StringHelper.replace(content, mQuestionResponse.question_info.attachs,mQuestionResponse.question_info.attachs_ids);
+                }
                 question.tvContent
-                        .setText(Html.fromHtml(mQuestionResponse.question_info.question_detail,
+                        .setText(Html.fromHtml(content,
                                 new PicassoImageGetter(mContext, question.tvContent),
                                 null));
 

@@ -7,8 +7,10 @@ import android.support.v7.widget.Toolbar;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.ImageSpan;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -59,6 +61,18 @@ public class PublishActivity extends BaseActivity implements PublishView {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
+
+        View.OnFocusChangeListener changeListener = new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if(hasFocus && tagGroup.getInputTag() != null){
+                    tagGroup.submitTag();
+                }
+            }
+        };
+        etTitle.setOnFocusChangeListener(changeListener);
+        etContent.setOnFocusChangeListener(changeListener);
+        cbAnonymous.setOnFocusChangeListener(changeListener);
     }
 
     @Override
@@ -95,6 +109,9 @@ public class PublishActivity extends BaseActivity implements PublishView {
                 break;
             case R.id.action_publish:
                 item.setEnabled(false);
+                if(tagGroup.getInputTag() != null){
+                    tagGroup.submitTag();
+                }
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
