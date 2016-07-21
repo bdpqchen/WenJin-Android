@@ -81,7 +81,6 @@ public class LoginActivity extends BaseActivity implements LoginView, View.OnCli
             case R.id.bt_green_channel:
                 GreenChannelActivity.actionStart(this);
         }
-
     }
 
     @Override

@@ -81,7 +81,7 @@
         android:paddingRight="14dp"
         android:paddingTop="8dp"
         android:paddingBottom="8dp"
-        android:text="@string/login_signin"
+        android:text="@string/login_signup"
         android:textColor="@color/color_text_secondary"/>
 
     <ProgressBar

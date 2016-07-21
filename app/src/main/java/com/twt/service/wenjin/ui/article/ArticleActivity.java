@@ -222,6 +222,7 @@ public class ArticleActivity extends BaseActivity implements ArticleView, View.O
                 return (event.getAction() == MotionEvent.ACTION_MOVE);
             }
         });
+        //设置webview底层的布局算法
         wvArticleContent.getSettings().setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
         String message = article.article_info.message;
         if(article.article_info.has_attach == 1){

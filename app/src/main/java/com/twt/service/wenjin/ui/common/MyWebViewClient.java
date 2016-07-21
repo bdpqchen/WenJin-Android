@@ -29,8 +29,6 @@ public class MyWebViewClient extends WebViewClient {
                 "    }  " +
                 "}" +
                 "})()");
-
-
     }
 
     @Override

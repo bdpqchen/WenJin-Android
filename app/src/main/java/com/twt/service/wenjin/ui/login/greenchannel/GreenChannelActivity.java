@@ -48,7 +48,7 @@ public class GreenChannelActivity extends AppCompatActivity implements GreenChan
         ButterKnife.bind(this);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setTitle(ResourceHelper.getString(R.string.login_signin));
+        getSupportActionBar().setTitle(ResourceHelper.getString(R.string.login_signup));
         greenChannelPresenter = new GreenChannelPresenter(this);
         greenChannelPresenter.loadGreenChannel();
     }

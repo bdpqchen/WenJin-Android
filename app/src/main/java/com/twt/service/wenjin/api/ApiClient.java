@@ -20,10 +20,15 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Random;
 
+import cz.msebera.android.httpclient.client.CookieStore;
+import cz.msebera.android.httpclient.client.protocol.ClientContext;
+import cz.msebera.android.httpclient.cookie.Cookie;
+import cz.msebera.android.httpclient.protocol.HttpContext;
+
 /**
  * Created by M on 2015/3/23.
  */
-public class ApiClient {
+public class ApiClient implements CookieCallback {
 
     /*
     接口总是会返回一个json，包含三个字段
@@ -43,7 +48,7 @@ public class ApiClient {
     public static final int ERROR_CODE = -1;
 
     private static AsyncHttpClient sClient = new AsyncHttpClient();
-    private static final PersistentCookieStore sCookieStore = new PersistentCookieStore(WenJinApp.getContext());
+    private static  PersistentCookieStore sCookieStore = new PersistentCookieStore(WenJinApp.getContext());
     public static final int DEFAULT_TIMEOUT = 20000;
 
     private static final String BASE_URL = "http://api.wenjin.in/";
@@ -196,6 +201,14 @@ public class ApiClient {
         params.put("day", day);
         params.put("is_recommend", isRecommend);
         params.put("sort_type", sortType);
+        HttpContext httpContext=sClient.getHttpContext();
+        CookieStore cookies= (CookieStore) httpContext.getAttribute(ClientContext.COOKIE_STORE);
+        if (cookies!=null)
+        {
+            for (Cookie c:cookies.getCookies()) {
+                Log.d("ApiClient", "cookie: "+c.getName()+"--->"+c.getValue()+"--->"+c.getExpiryDate());
+            }
+        }
 
         sClient.get(BASE_URL + EXPLORE_URL, params, handler);
 
@@ -506,4 +519,8 @@ public class ApiClient {
         argParams.put(PARAM_SIGN, md);
     }
 
+    @Override
+    public void setCookieStore(PersistentCookieStore cookieStore) {
+        sCookieStore=cookieStore;
+    }
 }

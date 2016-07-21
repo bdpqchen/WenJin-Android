@@ -71,7 +71,7 @@ public class NotificationMainFragment extends Fragment {
 
     @Override
     public void onStart() {
-        super.onResume();
+        super.onStart();
     }
 
     @Override
