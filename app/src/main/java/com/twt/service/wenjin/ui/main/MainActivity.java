@@ -59,6 +59,7 @@ import com.twt.service.wenjin.ui.explore.ExploreFragment;
 import com.twt.service.wenjin.ui.feedback.FeedbackActivity;
 import com.twt.service.wenjin.ui.home.HomeFragment;
 import com.twt.service.wenjin.ui.login.LoginActivity;
+import com.twt.service.wenjin.ui.login_sign.LoginSignActivity;
 import com.twt.service.wenjin.ui.notification.NotificationMainFragment;
 import com.twt.service.wenjin.ui.notification.readlist.NotificationFragment;
 import com.twt.service.wenjin.ui.profile.ProfileActivity;
@@ -66,6 +67,7 @@ import com.twt.service.wenjin.ui.publish.PublishActivity;
 import com.twt.service.wenjin.ui.search.SearchActivity;
 import com.twt.service.wenjin.ui.setting.SettingsActivity;
 import com.twt.service.wenjin.ui.topic.TopicFragment;
+import com.twt.service.wenjin.ui.welcome.WelcomeActivity;
 import com.twt.service.wenjin.ui.welcome.WenJinIntro;
 
 import butterknife.Bind;
@@ -491,7 +493,7 @@ public class MainActivity extends BaseActivity implements MainView,OnGetNotifica
 
     @Override
     public void startLoginActivity() {
-        startActivity(new Intent(this, LoginActivity.class));
+        startActivity(new Intent(this, LoginSignActivity.class));
         this.finish();
     }
 

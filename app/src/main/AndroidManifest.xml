@@ -94,6 +94,11 @@
             android:name=".ui.login.LoginActivity"
             android:label="@string/title_activity_login" >
         </activity>
+        <activity android:name=".ui.login_sign.LoginSignWebActivity"/>
+        <activity
+            android:name=".ui.login_sign.LoginSignActivity"
+            android:label="@string/title_activity_login" >
+        </activity>
         <activity
             android:name=".ui.question.QuestionActivity"
             android:label="@string/title_activity_question"

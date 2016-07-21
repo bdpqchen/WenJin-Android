@@ -11,5 +11,4 @@
         android:layout_height="match_parent"
         android:src="@drawable/intro_third"
         />
-
 </LinearLayout>

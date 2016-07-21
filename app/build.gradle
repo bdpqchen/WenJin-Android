@@ -29,6 +29,7 @@ repositories {
     mavenCentral()
     maven {
         url "https://oss.sonatype.org/content/repositories/snapshots/"}
+
 }
 
 
@@ -61,6 +62,7 @@ dependencies {
     compile 'com.github.paolorotolo:appintro:4.0.0'
     compile 'com.github.bumptech.glide:glide:3.7.0'
     compile 'com.android.support:support-v4:23.1.0'
+    compile 'com.github.lzyzsd:jsbridge:1.0.4'
     compile('com.mikepenz:materialdrawer:4.4.9@aar') {
         transitive = true
     }
