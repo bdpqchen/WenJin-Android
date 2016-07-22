@@ -7,7 +7,8 @@
         android:id="@+id/action_insert_photo"
         android:icon="@drawable/ic_action_insert_photo_white"
         android:title="@string/action_insert_photo"
-        app:showAsAction="always" />
+        app:showAsAction="always"
+        android:visible="false"/>
 
     <item
         android:id="@+id/action_publish"

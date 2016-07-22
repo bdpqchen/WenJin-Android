@@ -274,8 +274,6 @@
         <meta-data android:name="JPUSH_APPKEY" android:value="@string/JPUSH_APPKEY" /> <!--  </>值来自开发者平台取得的AppKey-->
 
 
-
-
         <activity
             android:name=".ui.image.ShowWebImageActivity"
             android:label="@string/title_activity_show_web_image" >

@@ -119,16 +119,21 @@ public class ExploreListFragment extends BaseFragment implements ExploreListView
 
     @Override
     public void startRefresh() {
-        if(!_swipeRefreshLayout.isRefreshing()){
-            _swipeRefreshLayout.setRefreshing(true);
+        if (_swipeRefreshLayout != null) {
+            if(!_swipeRefreshLayout.isRefreshing()){
+                _swipeRefreshLayout.setRefreshing(true);
+            }
         }
     }
 
     @Override
     public void stopRefresh() {
-        if(_swipeRefreshLayout.isRefreshing()){
-            _swipeRefreshLayout.setRefreshing(false);
+        if (_swipeRefreshLayout != null) {
+            if(_swipeRefreshLayout.isRefreshing()){
+                _swipeRefreshLayout.setRefreshing(false);
+            }
         }
+
     }
 
     @Override
