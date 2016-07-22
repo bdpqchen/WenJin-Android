@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.Button;
 
 import com.twt.service.wenjin.R;
+import com.twt.service.wenjin.api.ApiClient;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -26,6 +27,9 @@ public class LoginSignActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login_sign);
         ButterKnife.bind(this);
+
+
+        ApiClient.userLogout();
     }
 
     @OnClick({R.id.bt_login, R.id.bt_signup})
@@ -38,5 +42,6 @@ public class LoginSignActivity extends AppCompatActivity {
                 LoginSignWebActivity.actionStart(this,"signup");
                 break;
         }
+        finish();
     }
 }

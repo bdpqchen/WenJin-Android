@@ -49,8 +49,8 @@ public class ApiClient {
     public static final int SUCCESS_CODE = 1;
     public static final int ERROR_CODE = -1;
 
-    private static AsyncHttpClient sClient = new AsyncHttpClient();
-    private static  PersistentCookieStore sCookieStore = new PersistentCookieStore(WenJinApp.getContext());
+    private static AsyncHttpClient sClient = null;
+    private static PersistentCookieStore sCookieStore = new PersistentCookieStore(WenJinApp.getContext());
     public static final int DEFAULT_TIMEOUT = 20000;
 
     private static final String BASE_URL = "http://api.wenjin.in/";
@@ -96,13 +96,22 @@ public class ApiClient {
     private static final String NOTIFICATIONS_LIST_URL = "v2/notification/list/";
     private static final String NOTIFICATIONS_MARKASREAD_URL = "v2/notification/read_notification/";
 
-    static {
+//    static {
+//        sClient.setTimeout(DEFAULT_TIMEOUT);
+//        sClient.setCookieStore(sCookieStore);
+//        sClient.addHeader("User-Agent", getUserAgent());
+//        Log.d("ApiClient", "static initializer: started ");
+//    }
+    public static void createClient(){
+        sClient = new AsyncHttpClient();
         sClient.setTimeout(DEFAULT_TIMEOUT);
+        for (int i = 0; i < sCookieStore.getCookies().size(); i++) {
+            Log.d("lqy",sCookieStore.getCookies().get(i).getName());
+        }
         sClient.setCookieStore(sCookieStore);
         sClient.addHeader("User-Agent", getUserAgent());
         Log.d("ApiClient", "static initializer: started ");
     }
-
     public static AsyncHttpClient getInstance() {
         return sClient;
     }
@@ -131,7 +140,7 @@ public class ApiClient {
 
     public static void userLogout() {
         sCookieStore.clear();
-//        PrefUtils.setLogin(false);
+        PrefUtils.setLogin(false);
     }
 
     public static void uploadFile(String type, String attachKey, File file, JsonHttpResponseHandler handler) {
@@ -532,6 +541,5 @@ public class ApiClient {
         {
             sCookieStore.addCookie(cookie);
         }
-        sClient.setCookieStore(sCookieStore);
     }
 }

@@ -23,7 +23,7 @@ import com.twt.service.wenjin.support.PrefUtils;
 import com.twt.service.wenjin.ui.BaseFragment;
 import com.twt.service.wenjin.ui.common.OnItemClickListener;
 import com.twt.service.wenjin.ui.feedback.FeedbackActivity;
-import com.twt.service.wenjin.ui.login.LoginActivity;
+import com.twt.service.wenjin.ui.login_sign.LoginSignActivity;
 import com.twt.service.wenjin.ui.profile.ProfileActivity;
 import com.twt.service.wenjin.ui.setting.SettingsActivity;
 
@@ -228,7 +228,6 @@ public class DrawerFragment extends BaseFragment implements DrawerView,
     public void onUserClick(View view) {
         LogHelper.v(LOG_TAG, "user profile clicked");
         ProfileActivity.actionStart(getActivity(), PrefUtils.getPrefUid());
-//        startActivity(new Intent(getActivity(), LoginActivity.class));
     }
 
     @Override
@@ -272,7 +271,7 @@ public class DrawerFragment extends BaseFragment implements DrawerView,
 
     @Override
     public void startLoginActivity() {
-        startActivity(new Intent(getActivity(), LoginActivity.class));
+        startActivity(new Intent(getActivity(), LoginSignActivity.class));
         getActivity().finish();
     }
 

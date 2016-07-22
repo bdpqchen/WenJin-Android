@@ -15,7 +15,7 @@ import com.twt.service.wenjin.support.JPushHelper;
 import com.twt.service.wenjin.support.LogHelper;
 import com.twt.service.wenjin.support.NetworkHelper;
 import com.twt.service.wenjin.support.PrefUtils;
-import com.twt.service.wenjin.ui.login.LoginActivity;
+import com.twt.service.wenjin.ui.login_sign.LoginSignActivity;
 import com.twt.service.wenjin.ui.main.MainActivity;
 import com.umeng.analytics.MobclickAgent;
 
@@ -51,7 +51,7 @@ public class WelcomeActivity extends Activity {
                 if (PrefUtils.isLogin()) {
                     intent = new Intent(WelcomeActivity.this, MainActivity.class);
                 } else {
-                    intent = new Intent(WelcomeActivity.this, LoginActivity.class);
+                    intent = new Intent(WelcomeActivity.this, LoginSignActivity.class);
                 }
                 WelcomeActivity.this.startActivity(intent);
                 WelcomeActivity.this.finish();
