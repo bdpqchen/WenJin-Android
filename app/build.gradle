@@ -66,5 +66,6 @@ dependencies {
     compile('com.mikepenz:materialdrawer:4.4.9@aar') {
         transitive = true
     }
-    compile files('libs/jpush-sdk-release1.7.4.jar')
+    compile 'com.github.lovetuzitong:MultiImageSelector:1.2'
+    compile files('libs/jpush-android-2.1.7.jar')
 }

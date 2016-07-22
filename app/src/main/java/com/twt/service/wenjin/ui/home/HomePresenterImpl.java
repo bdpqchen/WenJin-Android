@@ -1,5 +1,6 @@
 package com.twt.service.wenjin.ui.home;
 
+import android.util.Log;
 import android.view.View;
 
 import com.google.gson.Gson;
@@ -48,6 +49,7 @@ public class HomePresenterImpl implements HomePresenter, OnGetItemsCallback {
     @Override
     public void firstTimeRefreshHomeItems() {
         // 第一次并不进行加载，只是加载缓存
+        Log.d("jcy_debug", "firstTimeRefreshHomeItems: cache loaded.. ");
         mPage = 0;
         JSONObject jsonObject = CacheHelper.getInstance().loadJSONObjectFromDiskCache("http://test");
         if (jsonObject != null) {

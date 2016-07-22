@@ -18,17 +18,19 @@ import com.twt.service.wenjin.support.ResourceHelper;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.List;
 import java.util.Random;
 
 import cz.msebera.android.httpclient.client.CookieStore;
 import cz.msebera.android.httpclient.client.protocol.ClientContext;
 import cz.msebera.android.httpclient.cookie.Cookie;
+import cz.msebera.android.httpclient.impl.cookie.BasicClientCookie;
 import cz.msebera.android.httpclient.protocol.HttpContext;
 
 /**
  * Created by M on 2015/3/23.
  */
-public class ApiClient implements CookieCallback {
+public class ApiClient {
 
     /*
     接口总是会返回一个json，包含三个字段
@@ -98,6 +100,7 @@ public class ApiClient implements CookieCallback {
         sClient.setTimeout(DEFAULT_TIMEOUT);
         sClient.setCookieStore(sCookieStore);
         sClient.addHeader("User-Agent", getUserAgent());
+        Log.d("ApiClient", "static initializer: started ");
     }
 
     public static AsyncHttpClient getInstance() {
@@ -128,7 +131,7 @@ public class ApiClient implements CookieCallback {
 
     public static void userLogout() {
         sCookieStore.clear();
-        PrefUtils.setLogin(false);
+//        PrefUtils.setLogin(false);
     }
 
     public static void uploadFile(String type, String attachKey, File file, JsonHttpResponseHandler handler) {
@@ -167,7 +170,8 @@ public class ApiClient implements CookieCallback {
         buildGetSignatureToURL(params, HOME_URL);
         params.put("per_page", perPage);
         params.put("page", page);
-
+        //test
+        sClient.setCookieStore(sCookieStore);
         sClient.get(BASE_URL + HOME_URL, params, handler);
     }
 
@@ -201,6 +205,9 @@ public class ApiClient implements CookieCallback {
         params.put("day", day);
         params.put("is_recommend", isRecommend);
         params.put("sort_type", sortType);
+
+        sClient.setCookieStore(sCookieStore);
+        //测试cookie代码
         HttpContext httpContext=sClient.getHttpContext();
         CookieStore cookies= (CookieStore) httpContext.getAttribute(ClientContext.COOKIE_STORE);
         if (cookies!=null)
@@ -209,7 +216,6 @@ public class ApiClient implements CookieCallback {
                 Log.d("ApiClient", "cookie: "+c.getName()+"--->"+c.getValue()+"--->"+c.getExpiryDate());
             }
         }
-
         sClient.get(BASE_URL + EXPLORE_URL, params, handler);
 
     }
@@ -519,8 +525,13 @@ public class ApiClient implements CookieCallback {
         argParams.put(PARAM_SIGN, md);
     }
 
-    @Override
-    public void setCookieStore(PersistentCookieStore cookieStore) {
-        sCookieStore=cookieStore;
+    public static void setcookie(List<BasicClientCookie> clientCookieList)
+    {
+        sCookieStore.clear();
+        for(BasicClientCookie cookie:clientCookieList)
+        {
+            sCookieStore.addCookie(cookie);
+        }
+        sClient.setCookieStore(sCookieStore);
     }
 }

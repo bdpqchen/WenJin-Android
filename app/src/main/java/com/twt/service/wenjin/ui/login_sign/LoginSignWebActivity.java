@@ -12,14 +12,20 @@ import android.webkit.CookieSyncManager;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 
+import com.github.lzyzsd.jsbridge.BridgeHandler;
 import com.github.lzyzsd.jsbridge.BridgeWebView;
+import com.github.lzyzsd.jsbridge.CallBackFunction;
+import com.google.gson.Gson;
 import com.loopj.android.http.PersistentCookieStore;
 import com.twt.service.wenjin.R;
 import com.twt.service.wenjin.WenJinApp;
 import com.twt.service.wenjin.api.ApiClient;
+import com.twt.service.wenjin.bean.JsResponseBean;
+import com.twt.service.wenjin.ui.main.MainActivity;
 
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
@@ -43,6 +49,8 @@ public class LoginSignWebActivity extends AppCompatActivity {
     @Bind(R.id.wb_login)
     BridgeWebView wbLogin;
 
+
+    private List<BasicClientCookie> cookiesList=new ArrayList<>();
     public static final String URL_LOGIN="http://wenjin.in/sso_login/";
 
     @Override
@@ -55,14 +63,34 @@ public class LoginSignWebActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         type = intent.getStringExtra("TYPE");
-//        CookieSyncManager.createInstance(this);
+
+        WebSettings webSettings=wbLogin.getSettings();
+        webSettings.setJavaScriptEnabled(true);
+        webSettings.setUserAgentString(ApiClient.getUserAgent());
+        CookieSyncManager.createInstance(this);
         CookieManager cookieManager = CookieManager.getInstance();
         String CookieStr=cookieManager.getCookie(URL_LOGIN);
 
         PersistentCookieStore sCookieStore=new PersistentCookieStore(WenJinApp.getContext());
         sCookieStore.clear();
+        wbLogin.loadUrl(URL_LOGIN);
+        wbLogin.registerHandler("loginSuccessHandler", new BridgeHandler() {
+            @Override
+            public void handler(String data, CallBackFunction function) {
+                Gson gson=new Gson();
+                Log.d("lqy", "handler: "+data);
+                Intent intent1=new Intent(LoginSignWebActivity.this, MainActivity.class);
+                startActivity(intent1);
+//                JsResponseBean responsebean=gson.fromJson(data,JsResponseBean.class);
+//                BasicClientCookie cookie1=new BasicClientCookie("nof__Session",responsebean.getRsm().getCookie().getNof__Session());
+//                BasicClientCookie cookie2=new BasicClientCookie("nof__user_login",responsebean.getRsm().getCookie().getNof__user_login());
+//                List<BasicClientCookie> cookiesList=new ArrayList<>();
+//                cookiesList.add(cookie1);
+//                cookiesList.add(cookie2);
+//                ApiClient.setcookie(cookiesList);
 
-
+            }
+        });
         if("login".equals(type)){
             if (TextUtils.isEmpty(CookieStr))
             {
@@ -78,11 +106,17 @@ public class LoginSignWebActivity extends AppCompatActivity {
                     String cookieValue = cookies[i].split("=")[1];
                     Log.d("lqy","name = "+ cookieName + " value = " + cookieValue);
                     newCookie = new BasicClientCookie(cookieName,cookieValue);
+                    newCookie.setVersion(1);
+                    newCookie.setDomain("api.wenjin.in");
+                    newCookie.setPath("/");
                     sCookieStore.addCookie(newCookie);
+                    cookiesList.add(newCookie);
                 }
             }
-            wbLogin.loadUrl(URL_LOGIN);
+
             Log.d("lqy",""+sCookieStore.getCookies().size());
+
+            ApiClient.setcookie(cookiesList);
         }
     }
 
