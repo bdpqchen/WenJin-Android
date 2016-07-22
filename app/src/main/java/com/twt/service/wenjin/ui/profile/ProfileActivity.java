@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -164,8 +165,8 @@ public class ProfileActivity extends BaseActivity implements ProfileView, OnClic
     @Override
     public void bindUserInfo(UserInfo userInfo) {
         _userInfo = userInfo;
-        if (!TextUtils.isEmpty(userInfo.avatar_file)) {
-            Picasso.with(this).load(ApiClient.getAvatarUrl(userInfo.avatar_file)).skipMemoryCache().into(ivAvatar);
+        if (!TextUtils.isEmpty(PrefUtils.getPrefAvatarFile())) {
+            Picasso.with(this).load(ApiClient.getAvatarUrl(PrefUtils.getPrefAvatarFile())).skipMemoryCache().into(ivAvatar);
         }
         tvUsername.setText(userInfo.nick_name);
         tvSignature.setText(userInfo.signature);

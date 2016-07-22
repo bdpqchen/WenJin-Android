@@ -58,7 +58,6 @@ import com.twt.service.wenjin.ui.draft.DraftFragment;
 import com.twt.service.wenjin.ui.explore.ExploreFragment;
 import com.twt.service.wenjin.ui.feedback.FeedbackActivity;
 import com.twt.service.wenjin.ui.home.HomeFragment;
-import com.twt.service.wenjin.ui.login.LoginActivity;
 import com.twt.service.wenjin.ui.login_sign.LoginSignActivity;
 import com.twt.service.wenjin.ui.notification.NotificationMainFragment;
 import com.twt.service.wenjin.ui.notification.readlist.NotificationFragment;
@@ -143,6 +142,8 @@ public class MainActivity extends BaseActivity implements MainView,OnGetNotifica
                 .commit();
         setMainTitle(0);
 
+
+        ApiClient.createClient();
 
         mReceiver = new JPushNotifiInMainReceiver(this);
         registerReceiver(mReceiver, JPushNotifiInMainReceiver.getIntentFilterInstance());

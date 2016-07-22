@@ -39,7 +39,7 @@ public class PrefUtils {
                 .putString(PREF_USERNAME, userInfo.nick_name)
                 .putString(PREF_AVATAR_FILE, userInfo.avatar_file)
                 .putString(PREF_SIGNATURE, userInfo.signature)
-                .putString(PREF_IMPASSWORD,userInfo.im_password)
+//                .putString(PREF_IMPASSWORD,userInfo.im_password)
                 .apply();
     }
 

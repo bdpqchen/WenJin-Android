@@ -21,6 +21,8 @@ import com.twt.service.wenjin.R;
 import com.twt.service.wenjin.WenJinApp;
 import com.twt.service.wenjin.api.ApiClient;
 import com.twt.service.wenjin.bean.JsResponseBean;
+import com.twt.service.wenjin.bean.UserInfo;
+import com.twt.service.wenjin.support.PrefUtils;
 import com.twt.service.wenjin.ui.main.MainActivity;
 
 
@@ -50,6 +52,8 @@ public class LoginSignWebActivity extends AppCompatActivity {
     BridgeWebView wbLogin;
 
 
+    String CookieStr;
+
     private List<BasicClientCookie> cookiesList=new ArrayList<>();
     public static final String URL_LOGIN="http://wenjin.in/sso_login/";
 
@@ -59,64 +63,71 @@ public class LoginSignWebActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login_web);
         ButterKnife.bind(this);
 
-        ApiClient.userLogout();
-
         Intent intent = getIntent();
         type = intent.getStringExtra("TYPE");
 
         WebSettings webSettings=wbLogin.getSettings();
         webSettings.setJavaScriptEnabled(true);
         webSettings.setUserAgentString(ApiClient.getUserAgent());
-        CookieSyncManager.createInstance(this);
-        CookieManager cookieManager = CookieManager.getInstance();
-        String CookieStr=cookieManager.getCookie(URL_LOGIN);
 
-        PersistentCookieStore sCookieStore=new PersistentCookieStore(WenJinApp.getContext());
-        sCookieStore.clear();
-        wbLogin.loadUrl(URL_LOGIN);
-        wbLogin.registerHandler("loginSuccessHandler", new BridgeHandler() {
-            @Override
-            public void handler(String data, CallBackFunction function) {
-                Gson gson=new Gson();
-                Log.d("lqy", "handler: "+data);
-                Intent intent1=new Intent(LoginSignWebActivity.this, MainActivity.class);
-                startActivity(intent1);
-//                JsResponseBean responsebean=gson.fromJson(data,JsResponseBean.class);
-//                BasicClientCookie cookie1=new BasicClientCookie("nof__Session",responsebean.getRsm().getCookie().getNof__Session());
-//                BasicClientCookie cookie2=new BasicClientCookie("nof__user_login",responsebean.getRsm().getCookie().getNof__user_login());
-//                List<BasicClientCookie> cookiesList=new ArrayList<>();
-//                cookiesList.add(cookie1);
-//                cookiesList.add(cookie2);
-//                ApiClient.setcookie(cookiesList);
 
-            }
-        });
         if("login".equals(type)){
-            if (TextUtils.isEmpty(CookieStr))
-            {
-                Log.d("lqy", "cookie is null");
-            }else {
-                Log.d("lqy", "cookie is: "+CookieStr);
-                BasicClientCookie newCookie = null;
-                String[] cookies = CookieStr.split(";");
 
-                Log.d("lqy",cookies.length+"");
-                for (int i = 0; i < cookies.length; i++) {
-                    String cookieName = cookies[i].split("=")[0];
-                    String cookieValue = cookies[i].split("=")[1];
-                    Log.d("lqy","name = "+ cookieName + " value = " + cookieValue);
-                    newCookie = new BasicClientCookie(cookieName,cookieValue);
-                    newCookie.setVersion(1);
-                    newCookie.setDomain("api.wenjin.in");
-                    newCookie.setPath("/");
-                    sCookieStore.addCookie(newCookie);
-                    cookiesList.add(newCookie);
+
+            wbLogin.loadUrl(URL_LOGIN);
+
+            wbLogin.registerHandler("loginSuccessHandler", new BridgeHandler() {
+                @Override
+                public void handler(String data, CallBackFunction function) {
+                    Gson gson=new Gson();
+                    Log.d("lqy", "handler: "+data);
+                    Intent intent1=new Intent(LoginSignWebActivity.this, MainActivity.class);
+                    startActivity(intent1);
+                    JsResponseBean responsebean=gson.fromJson(data,JsResponseBean.class);
+
+                    if(responsebean == null){
+                        Log.d("lqy","null");
+                    }else {
+                        UserInfo userInfo = new UserInfo();
+                        userInfo.uid = responsebean.getRsm().getUid();
+                        userInfo.nick_name = responsebean.getRsm().getNick_name();
+                        userInfo.user_name = responsebean.getRsm().getUser_name();
+                        userInfo.avatar_file = responsebean.getRsm().getAvatar_file();
+                        Log.d("lqy",responsebean.getRsm().getAvatar_file());
+                        userInfo.signature = responsebean.getRsm().getSignature();
+                        PrefUtils.setDefaultPrefUserInfo(userInfo);
+                        PrefUtils.setLogin(true);
+                    }
+
+                    CookieManager cookieManager = CookieManager.getInstance();
+                    CookieStr=cookieManager.getCookie(URL_LOGIN);
+
+                    if (TextUtils.isEmpty(CookieStr))
+                    {
+                        Log.d("lqy", "cookie is null");
+                    }else {
+                        Log.d("lqy", "cookie is: "+CookieStr);
+                        BasicClientCookie newCookie = null;
+                        String[] cookies = CookieStr.split(";");
+
+                        Log.d("lqy",cookies.length+"");
+                        for (int i = 0; i < cookies.length; i++) {
+                            String cookieName = cookies[i].split("=")[0];
+                            String cookieValue = cookies[i].split("=")[1];
+                            Log.d("lqy","name = "+ cookieName + " value = " + cookieValue);
+                            newCookie = new BasicClientCookie(cookieName,cookieValue);
+                            newCookie.setVersion(1);
+                            newCookie.setDomain("api.wenjin.in");
+                            newCookie.setPath("/");
+                            cookiesList.add(newCookie);
+                        }
+                    }
+                    ApiClient.setcookie(cookiesList);
+                    finish();
                 }
-            }
+            });
 
-            Log.d("lqy",""+sCookieStore.getCookies().size());
 
-            ApiClient.setcookie(cookiesList);
         }
     }
 
