@@ -21,8 +21,11 @@ import android.util.DisplayMetrics;
 import android.view.Display;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebSettings;
+import android.webkit.WebView;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -42,6 +45,8 @@ import com.twt.service.wenjin.api.ApiClient;
 import com.twt.service.wenjin.bean.Answer;
 import com.twt.service.wenjin.receiver.JPushNotiReceiver;
 import com.twt.service.wenjin.support.FormatHelper;
+import com.twt.service.wenjin.support.HtmlUtils;
+import com.twt.service.wenjin.support.JavascriptInterface;
 import com.twt.service.wenjin.support.LogHelper;
 import com.twt.service.wenjin.support.StringHelper;
 import com.twt.service.wenjin.support.TextviewUrlClickableBuilder;
@@ -50,6 +55,7 @@ import com.twt.service.wenjin.support.UmengShareHelper;
 import com.twt.service.wenjin.support.UrlHandleHeler;
 import com.twt.service.wenjin.ui.BaseActivity;
 import com.twt.service.wenjin.ui.answer.comment.CommentActivity;
+import com.twt.service.wenjin.ui.common.MyWebViewClient;
 import com.twt.service.wenjin.ui.common.PicassoImageGetter;
 import com.twt.service.wenjin.ui.innerweb.InnerWebActivity;
 import com.twt.service.wenjin.ui.main.MainActivity;
@@ -99,7 +105,7 @@ public class AnswerDetailActivity extends BaseActivity implements AnswerDetailVi
     @Bind(R.id.tv_answer_signature)
     TextView tvSignature;
     @Bind(R.id.tv_answer_content)
-    TextView tvContent;
+    WebView tvContent;
     @Bind(R.id.tv_answer_add_time)
     TextView tvAddTime;
     @Bind(R.id.obscroll)
@@ -316,11 +322,23 @@ public class AnswerDetailActivity extends BaseActivity implements AnswerDetailVi
         tvAgreeNumber.setText("" + answer.answer.agree_count);
         String context = answer.answer.answer_content;
         if(answer.answer.has_attach == 1){
-            StringHelper.replace(context,answer.answer.attachs,answer.answer.attachs_ids);
+            context = StringHelper.replace(context,answer.answer.attachs,answer.answer.attachs_ids);
         }
-        tvContent.setText(Html.fromHtml(context, new PicassoImageGetter(this, tvContent), null));
-        tvContent.setMovementMethod(LinkMovementMethod.getInstance());
-        TextviewUrlClickableBuilder.BuildTextviewUrlClickable(this,tvContent);
+        tvContent.getSettings().setJavaScriptEnabled(true);
+        tvContent.getSettings().setBuiltInZoomControls(false);
+        tvContent.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                return (event.getAction() == MotionEvent.ACTION_MOVE);
+            }
+        });
+        tvContent.getSettings().setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
+        tvContent.loadDataWithBaseURL(null, HtmlUtils.format(context), "text/html", "UTF-8", null);
+        tvContent.addJavascriptInterface(new JavascriptInterface(this), "imagelistener");
+        tvContent.setWebViewClient(new MyWebViewClient());
+//        tvContent.setText(Html.fromHtml(context, new PicassoImageGetter(this, tvContent), null));
+//        tvContent.setMovementMethod(LinkMovementMethod.getInstance());
+//        TextviewUrlClickableBuilder.BuildTextviewUrlClickable(this,tvContent);
 
         tvAddTime.setText(FormatHelper.formatAddDate(answer.answer.add_time));
         tvBottomActionCommentCount.setText("" + answer.answer.comment_count);
