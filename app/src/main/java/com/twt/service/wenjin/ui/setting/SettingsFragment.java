@@ -6,6 +6,7 @@ import android.preference.Preference;
 import android.preference.PreferenceFragment;
 import android.preference.SwitchPreference;
 import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -83,12 +84,13 @@ public class SettingsFragment extends PreferenceFragment {
                     public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                         super.onSuccess(statusCode, headers, response);
                         try {
+                            Log.d("lqy",response.toString());
                             String isNew = response.getJSONObject(ApiClient.RESP_MSG_KEY).getJSONObject("info").getString("is_new");
                             if (isNew.equals("1")) {
                                 String url = response.getJSONObject(ApiClient.RESP_MSG_KEY).getJSONObject("info").getString("url");
                                 String description = response.getJSONObject(ApiClient.RESP_MSG_KEY).getJSONObject("info").getString("description");
                                 UpdateDialogFragment.newInstance(url, description).show((ActionBarActivity) getActivity());
-                            } else {
+                            } else if(isNew.equals("0") || isNew == null){
                                 TextDialogFragment.newInstance(getString(R.string.no_new_version)).show((ActionBarActivity) getActivity());
                             }
                         } catch (JSONException e) {

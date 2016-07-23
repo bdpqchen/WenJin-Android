@@ -26,9 +26,9 @@ public class AnswerInner {
 
     public String signature;
 
-    public int vote_value;
+    public int user_vote_status;
 
-    public int thank_value;
+    public int user_thanks_status;
 
     public int has_attach;
 

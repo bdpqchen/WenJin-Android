@@ -1,5 +1,7 @@
 package com.twt.service.wenjin.interactor;
 
+import android.util.Log;
+
 import com.google.gson.Gson;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.twt.service.wenjin.api.ApiClient;
@@ -95,6 +97,7 @@ public class NotificationInteractorImpl implements NotificationInteractor {
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                 super.onSuccess(statusCode, headers, response);
                 LogHelper.v(LOG_TAG, response.toString());
+                Log.d("lqy",response.toString());
 
                 try{
                     int errorCode = response.getInt(ApiClient.RESP_ERROR_CODE_KEY);

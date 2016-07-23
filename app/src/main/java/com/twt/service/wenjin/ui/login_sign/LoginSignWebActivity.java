@@ -55,7 +55,10 @@ public class LoginSignWebActivity extends AppCompatActivity {
     String CookieStr;
 
     private List<BasicClientCookie> cookiesList=new ArrayList<>();
-    public static final String URL_LOGIN="http://wenjin.in/sso_login/";
+    public static final String URL="http://wenjin.in/sso_mobile/?type=";
+    private String typeNumber;
+
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -70,65 +73,62 @@ public class LoginSignWebActivity extends AppCompatActivity {
         webSettings.setJavaScriptEnabled(true);
         webSettings.setUserAgentString(ApiClient.getUserAgent());
 
-
         if("login".equals(type)){
-
-
-            wbLogin.loadUrl(URL_LOGIN);
-
-            wbLogin.registerHandler("loginSuccessHandler", new BridgeHandler() {
-                @Override
-                public void handler(String data, CallBackFunction function) {
-                    Gson gson=new Gson();
-                    Log.d("lqy", "handler: "+data);
-                    Intent intent1=new Intent(LoginSignWebActivity.this, MainActivity.class);
-                    startActivity(intent1);
-                    JsResponseBean responsebean=gson.fromJson(data,JsResponseBean.class);
-
-                    if(responsebean == null){
-                        Log.d("lqy","null");
-                    }else {
-                        UserInfo userInfo = new UserInfo();
-                        userInfo.uid = responsebean.getRsm().getUid();
-                        userInfo.nick_name = responsebean.getRsm().getNick_name();
-                        userInfo.user_name = responsebean.getRsm().getUser_name();
-                        userInfo.avatar_file = responsebean.getRsm().getAvatar_file();
-                        Log.d("lqy",responsebean.getRsm().getAvatar_file());
-                        userInfo.signature = responsebean.getRsm().getSignature();
-                        PrefUtils.setDefaultPrefUserInfo(userInfo);
-                        PrefUtils.setLogin(true);
-                    }
-
-                    CookieManager cookieManager = CookieManager.getInstance();
-                    CookieStr=cookieManager.getCookie(URL_LOGIN);
-
-                    if (TextUtils.isEmpty(CookieStr))
-                    {
-                        Log.d("lqy", "cookie is null");
-                    }else {
-                        Log.d("lqy", "cookie is: "+CookieStr);
-                        BasicClientCookie newCookie = null;
-                        String[] cookies = CookieStr.split(";");
-
-                        Log.d("lqy",cookies.length+"");
-                        for (int i = 0; i < cookies.length; i++) {
-                            String cookieName = cookies[i].split("=")[0];
-                            String cookieValue = cookies[i].split("=")[1];
-                            Log.d("lqy","name = "+ cookieName + " value = " + cookieValue);
-                            newCookie = new BasicClientCookie(cookieName,cookieValue);
-                            newCookie.setVersion(1);
-                            newCookie.setDomain("api.wenjin.in");
-                            newCookie.setPath("/");
-                            cookiesList.add(newCookie);
-                        }
-                    }
-                    ApiClient.setcookie(cookiesList);
-                    finish();
-                }
-            });
-
-
+            typeNumber = "0";
+        }else  if ("signup".equals(type)){
+            typeNumber = "1";
         }
+        wbLogin.loadUrl(URL + typeNumber);
+
+        wbLogin.registerHandler("loginSuccessHandler", new BridgeHandler() {
+            @Override
+            public void handler(String data, CallBackFunction function) {
+                Gson gson = new Gson();
+                Log.d("lqy", "handler: " + data);
+                Intent intent1 = new Intent(LoginSignWebActivity.this, MainActivity.class);
+                startActivity(intent1);
+                JsResponseBean responsebean = gson.fromJson(data, JsResponseBean.class);
+
+                if (responsebean == null) {
+                    Log.d("lqy", "null");
+                } else {
+                    UserInfo userInfo = new UserInfo();
+                    userInfo.uid = responsebean.getRsm().getUid();
+                    userInfo.nick_name = responsebean.getRsm().getNick_name();
+                    userInfo.user_name = responsebean.getRsm().getUser_name();
+                    userInfo.avatar_file = responsebean.getRsm().getAvatar_file();
+                    Log.d("lqy", responsebean.getRsm().getAvatar_file());
+                    userInfo.signature = responsebean.getRsm().getSignature();
+                    PrefUtils.setDefaultPrefUserInfo(userInfo);
+                    PrefUtils.setLogin(true);
+                }
+
+                CookieManager cookieManager = CookieManager.getInstance();
+                CookieStr = cookieManager.getCookie(URL + typeNumber);
+
+                if (TextUtils.isEmpty(CookieStr)) {
+                    Log.d("lqy", "cookie is null");
+                } else {
+                    Log.d("lqy", "cookie is: " + CookieStr);
+                    BasicClientCookie newCookie = null;
+                    String[] cookies = CookieStr.split(";");
+
+                    Log.d("lqy", cookies.length + "");
+                    for (int i = 0; i < cookies.length; i++) {
+                        String cookieName = cookies[i].split("=")[0];
+                        String cookieValue = cookies[i].split("=")[1];
+                        Log.d("lqy", "name = " + cookieName + " value = " + cookieValue);
+                        newCookie = new BasicClientCookie(cookieName, cookieValue);
+                        newCookie.setVersion(1);
+                        newCookie.setDomain("api.wenjin.in");
+                        newCookie.setPath("/");
+                        cookiesList.add(newCookie);
+                    }
+                }
+                ApiClient.setcookie(cookiesList);
+                finish();
+            }
+        });
     }
 
     public static void actionStart(Context context,String type){

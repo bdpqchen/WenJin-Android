@@ -165,8 +165,8 @@ public class ProfileActivity extends BaseActivity implements ProfileView, OnClic
     @Override
     public void bindUserInfo(UserInfo userInfo) {
         _userInfo = userInfo;
-        if (!TextUtils.isEmpty(PrefUtils.getPrefAvatarFile())) {
-            Picasso.with(this).load(ApiClient.getAvatarUrl(PrefUtils.getPrefAvatarFile())).skipMemoryCache().into(ivAvatar);
+        if (!TextUtils.isEmpty(userInfo.avatar_file)) {
+            Picasso.with(this).load(ApiClient.getAvatarUrl(userInfo.avatar_file)).skipMemoryCache().into(ivAvatar);
         }
         tvUsername.setText(userInfo.nick_name);
         tvSignature.setText(userInfo.signature);
