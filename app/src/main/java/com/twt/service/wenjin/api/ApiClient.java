@@ -121,12 +121,7 @@ public class ApiClient {
         String isRooted = DeviceUtils.isRooted() ? "rooted" : "unrooted";
         String userAgent = "Wenjin/" + DeviceUtils.getVersionName() + " (" +
                 "Android; " +
-                DeviceUtils.getSystemVersion() + "; " +
-                DeviceUtils.getBrand() + "; " +
-                DeviceUtils.getModel() + "; " +
-                DeviceUtils.getNetworkType() + "; " +
-                isRooted +
-                ")";
+                DeviceUtils.getSystemVersion() + ")";
         return userAgent;
     }
 
