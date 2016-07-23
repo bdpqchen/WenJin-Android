@@ -287,11 +287,11 @@ public class AnswerDetailActivity extends BaseActivity implements AnswerDetailVi
         );
         tvSignature.setText(answer.answer.signature);
         ivAgree.setVisibility(View.VISIBLE);
-        if (answer.answer.vote_value == 1) {
+        if (answer.answer.user_vote_status == 1) {
             ivAgree.setImageResource(R.drawable.ic_action_agreed);
             ivBottomActionUpvote.setImageResource(R.drawable.ic_action_agreed);
             ivBottomActionDownvote.setImageResource(R.drawable.ic_action_disagree);
-        }else if(answer.answer.vote_value == -1){
+        }else if(answer.answer.user_vote_status == -1){
             ivBottomActionDownvote.setImageResource(R.drawable.ic_action_disagreed);
             ivAgree.setImageResource(R.drawable.ic_action_agree);
             ivBottomActionUpvote.setImageResource(R.drawable.ic_action_agree);
@@ -300,7 +300,7 @@ public class AnswerDetailActivity extends BaseActivity implements AnswerDetailVi
             ivBottomActionUpvote.setImageResource(R.drawable.ic_action_agree);
             ivBottomActionDownvote.setImageResource(R.drawable.ic_action_disagree);
         }
-        if(answer.answer.thank_value == 1){
+        if(answer.answer.user_thanks_status == 1){
             ivBottomActionThank.setImageResource(R.drawable.ic_action_favorited);
         }else {
             ivBottomActionThank.setImageResource(R.drawable.ic_action_favorite);

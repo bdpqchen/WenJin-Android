@@ -1,5 +1,6 @@
 package com.twt.service.wenjin.ui.notification.readlist;
 
+import android.util.Log;
 import android.view.View;
 
 import com.twt.service.wenjin.R;
@@ -80,12 +81,15 @@ public class NotificationPresenterImpl implements NotificationPresenter , OnGetN
             case R.id.tv_notifi_item_title:
                 mView.startQuestionArticleActivity(argPosition);
                 mView.deleteItem(argPosition);
+                Log.d("lqy","deleteItem1");
                 break;
             case R.id.tv_notifi_item_content:
                 mView.startAnswerActivity(argPosition);
+                Log.d("lqy","deleteItem2");
                 break;
             case R.id.tv_notifi_item_markasread:
                 mView.deleteItem(argPosition);
+                Log.d("lqy","deleteItem3");
                 break;
         }
     }

@@ -83,7 +83,7 @@ public class ApiClient {
     private static final String MY_ANSWER_URL = "v2/my_answer.php";
     private static final String MY_QUESTION_URL = "v2/my_question.php";
     private static final String FEEDBACK_URL = "v2/ticket/publish/";
-    private static final String CHECK_UPDATE_URL = "v2/update/check/";
+    private static final String CHECK_UPDATE_URL = "?/api/update/check/";
     private static final String PROFILE_EDIT_URL = "v2/people/profile_setting/";
     private static final String ARTICLE_ARTICLE_URL = "v2/article/";
     private static final String ARTICLE_COMMENT_URL = "v2/article/article_comments/";
@@ -222,7 +222,7 @@ public class ApiClient {
         if (cookies!=null)
         {
             for (Cookie c:cookies.getCookies()) {
-                Log.d("ApiClient", "cookie: "+c.getName()+"--->"+c.getValue()+"--->"+c.getExpiryDate());
+                Log.d("ApiClient", "cookie: "+c.getName()+"--->"+c.getValue()+"--->"+c.getExpiryDate() + "--->" + c.getDomain());
             }
         }
         sClient.get(BASE_URL + EXPLORE_URL, params, handler);
@@ -457,7 +457,7 @@ public class ApiClient {
         RequestParams params = new RequestParams();
         params.put("version", version);
 
-        sClient.post(BASE_URL + buildPostSignatureToURL(CHECK_UPDATE_URL,false), params, handler);
+        sClient.post(BASE_IMG_URL + CHECK_UPDATE_URL, params, handler);
     }
 
     public static void editProfile(int uid, String username, String signature, JsonHttpResponseHandler handler) {
@@ -494,12 +494,15 @@ public class ApiClient {
 
     public static void setNotificationsMarkasread(int argNotificationId, JsonHttpResponseHandler handler){
         RequestParams params = new RequestParams();
+        buildGetSignatureToURL(params,NOTIFICATIONS_MARKASREAD_URL);
         params.put("notification_id", argNotificationId);
 
         sClient.get(BASE_URL + NOTIFICATIONS_MARKASREAD_URL, params, handler);
     }
 
     public static void setNotificationsMarkAllasread(JsonHttpResponseHandler handler){
+        RequestParams params = new RequestParams();
+        buildGetSignatureToURL(params,NOTIFICATIONS_LIST_URL);
         sClient.get(BASE_URL + NOTIFICATIONS_MARKASREAD_URL,handler);
     }
 
