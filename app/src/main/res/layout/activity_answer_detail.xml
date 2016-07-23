@@ -158,10 +158,10 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:paddingLeft="16dp"
-            android:paddingRight="16dp">
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp">
 
-            <TextView
+            <WebView
                 android:id="@+id/tv_answer_content"
                 android:textSize="18sp"
                 android:textColor="@color/color_text_primary"

@@ -24,7 +24,7 @@ public class StringHelper {
 //            Pattern r = Pattern.compile("\\[attach\\]"+id[i]+"\\[/attach\\]");
 //            Matcher m = r.matcher("[attach]"+id[i]+"[/attach]");
 //            m.replaceAll("<img src=\""+replace[i].attachment+"\">");
-            Log.e("lqy", "<img src=\""+replace[i].attachment+"\">");
+            Log.e("lqy", "id = "+ id[i] + "<img src=\""+replace[i].attachment+"\">");
         }
         return input;
     }
