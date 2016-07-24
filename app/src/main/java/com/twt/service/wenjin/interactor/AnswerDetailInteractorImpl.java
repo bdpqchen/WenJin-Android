@@ -1,5 +1,7 @@
 package com.twt.service.wenjin.interactor;
 
+import android.util.Log;
+
 import com.google.gson.Gson;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.twt.service.wenjin.api.ApiClient;
@@ -24,6 +26,7 @@ public class AnswerDetailInteractorImpl implements AnswerDetailInteractor {
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                 super.onSuccess(statusCode, headers, response);
                 try {
+                    Log.d("lqy", response.toString());
                     switch (response.getInt(ApiClient.RESP_ERROR_CODE_KEY)) {
                         case ApiClient.SUCCESS_CODE:
                             Gson gson = new Gson();

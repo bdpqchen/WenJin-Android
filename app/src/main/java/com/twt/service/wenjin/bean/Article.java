@@ -22,7 +22,7 @@ public class Article {
         public int votes;
         public UserInfo user_info;
         public String signature;
-        public int vote_value;
+        public VoteInfo vote_info;
         public Attach[] attachs;
         public String[] attachs_ids;
     }
@@ -30,5 +30,9 @@ public class Article {
     public static class ArticleTopic {
         public int topic_id;
         public String topic_title;
+    }
+
+    public static class VoteInfo{
+        public int rating;
     }
 }

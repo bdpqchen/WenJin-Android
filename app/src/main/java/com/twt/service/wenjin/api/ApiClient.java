@@ -71,7 +71,7 @@ public class ApiClient {
     private static final String FOCUS_QUESTION_URL = "/question/ajax/focus/";
     private static final String ANSWER_DETAIL_URL = "v2/question/answer/";
     private static final String ANSWER_VOTE_URL = "v2/question/answer_vote/";
-    private static final String ANSWER_THANK_URL = "v2/question/answer_vote/";
+    private static final String ANSWER_THANK_URL = "v2/question/question_answer_rate/";
     private static final String UPLOAD_FILE_URL = "v2/publish/attach_upload/";
     private static final String PUBLISH_QUESTION_URL = "v2/publish/publish_question/";
     private static final String ANSWER_URL = "v2/publish/save_answer/";
@@ -88,7 +88,7 @@ public class ApiClient {
     private static final String ARTICLE_ARTICLE_URL = "v2/article/";
     private static final String ARTICLE_COMMENT_URL = "v2/article/article_comments/";
     private static final String PUBLISH_ARTICLE_COMMENT_URL = "v2/article/save_comment/";
-    private static final String ARTICLE_VOTE_URL = "?/article/ajax/article_vote/";
+    private static final String ARTICLE_VOTE_URL = "v2/article/article_vote/";
     private static final String AVATAR_UPLOAD_URL = "v2/account/avatar_upload/";
     private static final String SEARCH_URL = "v2/search/";
 
@@ -327,7 +327,6 @@ public class ApiClient {
 
     public static void voteAnswer(int answerId, int value) {
         RequestParams params = new RequestParams();
-
         params.put("answer_id", answerId);
         params.put("value", value);
         sClient.post(BASE_URL + buildPostSignatureToURL(ANSWER_VOTE_URL,false), params, new JsonHttpResponseHandler());

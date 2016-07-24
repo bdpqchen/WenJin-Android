@@ -11,6 +11,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.twt.service.wenjin.R;
@@ -52,6 +53,8 @@ public class NotificationFragment extends BaseFragment implements NotificationVi
     SwipeRefreshLayout mRefreshLayout;
     @Bind(R.id.notification_recycler_view)
     RecyclerView mRecyclerView;
+    @Bind(R.id.tv_empty_notification)
+    TextView mTextView;
 
     private View mTvMarkall;
     private NotificationAdapter mAdapter;
@@ -294,5 +297,11 @@ public class NotificationFragment extends BaseFragment implements NotificationVi
                         }
                     });
         }
+    }
+
+    @Override
+    public void showEmptyText() {
+        mTextView.setVisibility(View.VISIBLE);
+        mTextView.setText("没有更多通知");
     }
 }

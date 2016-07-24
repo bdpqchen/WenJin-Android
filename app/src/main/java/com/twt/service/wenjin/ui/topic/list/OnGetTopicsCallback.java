@@ -11,4 +11,5 @@ public interface OnGetTopicsCallback {
 
     void onGetTopicsFailure(String errorMsg);
 
+    void onGetEmptyTopic();
 }

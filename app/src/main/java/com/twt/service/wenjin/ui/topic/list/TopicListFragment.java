@@ -8,6 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.twt.service.wenjin.R;
@@ -42,6 +43,8 @@ public class TopicListFragment extends BaseFragment implements
     SwipeRefreshLayout mRefreshLayout;
     @Bind(R.id.recycler_view_topic)
     RecyclerView mRecyclerView;
+    @Bind(R.id.tv_empty_topic)
+    TextView mTextView;
 
     private TopicListAdapter mAdapter;
     private int type;
@@ -170,4 +173,9 @@ public class TopicListFragment extends BaseFragment implements
         TopicDetailActivity.actionStart(getActivity(), topic.topic_id, topic.topic_title);
     }
 
+    @Override
+    public void setEmptyText(String msg) {
+        mTextView.setVisibility(View.VISIBLE);
+        mTextView.setText(msg);
+    }
 }

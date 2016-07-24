@@ -206,11 +206,11 @@ public class ArticleActivity extends BaseActivity implements ArticleView, View.O
         ivArticleAgree.setVisibility(View.VISIBLE);
         ivArticleDisagree.setVisibility(View.VISIBLE);
         tvArticleUsername.setText(article.article_info.user_info.nick_name);
-        if (article.article_info.vote_value == 1) {
+        if (article.article_info.vote_info.rating == 1) {
             ivArticleAgree.setImageResource(R.drawable.ic_action_agreed);
             tvArticleAgreeCount.setTextColor(getResources().getColor(R.color.color_did));
             tvArticleAgree.setTextColor(getResources().getColor(R.color.color_did));
-        } else if (article.article_info.vote_value == -1) {
+        } else if (article.article_info.vote_info.rating == -1) {
             ivArticleDisagree.setImageResource(R.drawable.ic_action_disagreed);
         }
         tvArticleTitle.setText(article.article_info.title);

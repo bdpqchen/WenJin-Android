@@ -34,4 +34,6 @@ public interface NotificationView {
     void startAnswerActivity(int position);
 
     void startProfileActivity(int position);
+
+    void showEmptyText();
 }
