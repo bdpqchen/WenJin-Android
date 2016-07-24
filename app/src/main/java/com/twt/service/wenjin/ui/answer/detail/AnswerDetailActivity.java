@@ -18,6 +18,7 @@ import android.text.method.LinkMovementMethod;
 import android.text.style.ClickableSpan;
 import android.text.style.URLSpan;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.Display;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -257,6 +258,7 @@ public class AnswerDetailActivity extends BaseActivity implements AnswerDetailVi
                 break;
             case R.id.iv_bottom_action_thank:
                 mPresenter.actionThank(answerId);
+                Log.d("lqy", "onClick: ");
                 break;
             case R.id.iv_bottom_action_upvote:
                 mPresenter.actionVote(answerId, 1);

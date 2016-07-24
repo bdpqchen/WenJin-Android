@@ -72,7 +72,7 @@ public class ArticlePresenterImpl implements ArticlePresenter, OnGetArticleCallb
 
     @Override
     public void onSuccess(Article article) {
-        voteState = article.article_info.vote_value;
+        voteState = article.article_info.vote_info.rating;
         agreeCount = article.article_info.votes;
         articleView.bindArticleData(article);
 

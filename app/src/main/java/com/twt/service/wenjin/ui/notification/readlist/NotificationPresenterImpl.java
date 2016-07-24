@@ -97,7 +97,7 @@ public class NotificationPresenterImpl implements NotificationPresenter , OnGetN
     @Override
     public void onGetNotificationListSuccess(NotificationResponse argResponse) {
         mView.stopRefresh();
-        if(argResponse.total_rows > 0){
+        if(argResponse.total_rows > 0 && argResponse.rows.size() != 0){
             List<NotificationItem> items = argResponse.rows;
             if(isLoadingMore){
                 mView.addMoreItems(items, argResponse.total_rows);
@@ -112,7 +112,8 @@ public class NotificationPresenterImpl implements NotificationPresenter , OnGetN
             }
         }else {
             mView.hideLoadMoreFooter();
-            mView.toastMessage(ResourceHelper.getString(R.string.no_more_information));
+            mView.showEmptyText();
+//            mView.toastMessage(ResourceHelper.getString(R.string.no_more_information));
         }
 
         isLoadingMore = false;

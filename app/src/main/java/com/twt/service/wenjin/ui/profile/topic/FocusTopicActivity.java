@@ -8,6 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.twt.service.wenjin.R;
@@ -46,6 +47,8 @@ public class FocusTopicActivity extends BaseActivity implements OnItemClickListe
     Toolbar toolbar;
     @Bind(R.id.profile_topic_recycler_view)
     RecyclerView recyclerView;
+    @Bind(R.id.tv_empty_topic)
+    TextView textView;
 
     private TopicListAdapter topicListAdapter;
     private RecyclerView.OnScrollListener onScrollListener;
@@ -151,4 +154,10 @@ public class FocusTopicActivity extends BaseActivity implements OnItemClickListe
         return Arrays.<Object>asList(new FocusTopicModule(this));
     }
 
+    @Override
+    public void setEmptyText(String msg) {
+        recyclerView.setVisibility(View.INVISIBLE);
+        textView.setVisibility(View.VISIBLE);
+        textView.setText(msg);
+    }
 }

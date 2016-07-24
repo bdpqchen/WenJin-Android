@@ -65,8 +65,19 @@ public class TopicListPresenterImpl implements TopicListPresenter, OnGetTopicsCa
             }
         } else {
             mView.hideFooter();
-            mView.toastMessage(ResourceHelper.getString(R.string.no_more_information));
+//            mView.toastMessage(ResourceHelper.getString(R.string.no_more_information));
+            mView.setEmptyText(ResourceHelper.getString(R.string.no_more_information));
         }
+        isLoadMore = false;
+        isRefreshing = false;
+    }
+
+    @Override
+    public void onGetEmptyTopic() {
+        mView.stopRefresh();
+        mView.hideFooter();
+//        mView.toastMessage(ResourceHelper.getString(R.string.no_more_information));
+        mView.setEmptyText(ResourceHelper.getString(R.string.no_more_information));
         isLoadMore = false;
         isRefreshing = false;
     }

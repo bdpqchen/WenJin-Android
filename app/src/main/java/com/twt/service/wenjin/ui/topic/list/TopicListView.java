@@ -23,4 +23,5 @@ public interface TopicListView {
 
     void startTopicDetailActivity(int position);
 
+    void setEmptyText(String msg);
 }
