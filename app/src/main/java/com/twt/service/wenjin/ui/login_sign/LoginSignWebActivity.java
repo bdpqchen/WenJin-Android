@@ -118,11 +118,13 @@ public class LoginSignWebActivity extends AppCompatActivity {
                         String cookieName = cookies[i].split("=")[0];
                         String cookieValue = cookies[i].split("=")[1];
                         Log.d("lqy", "name = " + cookieName + " value = " + cookieValue);
-                        newCookie = new BasicClientCookie(cookieName, cookieValue);
-                        newCookie.setVersion(1);
-                        newCookie.setDomain("api.wenjin.in");
-                        newCookie.setPath("/");
-                        cookiesList.add(newCookie);
+                        if(!cookieName.equals("nof__Session")) {
+                            newCookie = new BasicClientCookie(cookieName, cookieValue);
+                            newCookie.setVersion(1);
+                            newCookie.setDomain("api.wenjin.in");
+                            newCookie.setPath("/");
+                            cookiesList.add(newCookie);
+                        }
                     }
                 }
                 ApiClient.setcookie(cookiesList);

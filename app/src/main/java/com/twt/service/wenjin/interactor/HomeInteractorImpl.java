@@ -28,10 +28,10 @@ public class HomeInteractorImpl implements HomeInteractor {
         ApiClient.getHome(perPgae, page, new ResponseHandler() {
             @Override
             public void success(JSONObject response) {
-                if (page == 0) {
-                    // TODO: 2015/11/23 cache response
-                    CacheHelper.getInstance().cacheJSONObject("http://test", response);
-                }
+//                if (page == 0) {
+//                    // TODO: 2015/11/23 cache response
+//                    CacheHelper.getInstance().cacheJSONObject("http://test", response);
+//                }
                 HomeResponse homeResponse = new Gson()
                         .fromJson(response.toString(), HomeResponse.class);
                 onGetItemsCallback.onSuccess(homeResponse);

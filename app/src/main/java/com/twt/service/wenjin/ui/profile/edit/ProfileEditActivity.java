@@ -87,12 +87,12 @@ public class ProfileEditActivity extends BaseActivity implements ProfileEditView
         if (profileEditPresenter == null) {
             Log.e("null", "null");
         }
-        ivProfileEditAvatar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                new SelectPhotoDialogFragment().show(ProfileEditActivity.this);
-            }
-        });
+//        ivProfileEditAvatar.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                new SelectPhotoDialogFragment().show(ProfileEditActivity.this);
+//            }
+//        });
         profileEditPresenter.getUserInfo(uid);
     }
 
