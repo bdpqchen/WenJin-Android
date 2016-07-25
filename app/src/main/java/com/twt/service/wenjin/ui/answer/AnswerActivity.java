@@ -217,6 +217,10 @@ public class AnswerActivity extends BaseActivity implements AnswerView {
 
     @Override
     public void finishWithoutHint() {
+        Intent intent=new Intent();
+        intent.putExtra("isAddAnswer",true);
+        this.setResult(0,intent);
+
         finish();
     }
 

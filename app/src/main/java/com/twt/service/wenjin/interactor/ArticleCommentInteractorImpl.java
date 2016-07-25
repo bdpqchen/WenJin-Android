@@ -36,7 +36,7 @@ public class ArticleCommentInteractorImpl implements ArticleCommentInteractor {
                             onGetCommentCallback.onGetArticleCommentSuccess(articleComments);
                             break;
                         case ApiClient.ERROR_CODE:
-                            onGetCommentCallback.onGetArticleCommentFailure(ApiClient.RESP_ERROR_MSG_KEY);
+                            onGetCommentCallback.onGetArticleCommentFailure(response.getString(ApiClient.RESP_ERROR_MSG_KEY));
                             break;
                     }
                 } catch (JSONException e) {
@@ -59,7 +59,7 @@ public class ArticleCommentInteractorImpl implements ArticleCommentInteractor {
                             onPublishCommentCallback.onPublishSuccess(view);
                             break;
                         case ApiClient.ERROR_CODE:
-                            onPublishCommentCallback.onPublishFailure(ApiClient.RESP_ERROR_CODE_KEY, view);
+                            onPublishCommentCallback.onPublishFailure(response.getString(ApiClient.RESP_ERROR_MSG_KEY), view);
                             break;
                     }
                 } catch (JSONException e) {
