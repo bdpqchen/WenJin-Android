@@ -13,11 +13,14 @@ import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.squareup.otto.Subscribe;
 import com.twt.service.wenjin.R;
 import com.twt.service.wenjin.bean.Answer;
 import com.twt.service.wenjin.bean.AnswerInner;
 import com.twt.service.wenjin.bean.QuestionInfo;
 import com.twt.service.wenjin.bean.QuestionResponse;
+import com.twt.service.wenjin.event.AnswerPostEvent;
+import com.twt.service.wenjin.support.BusProvider;
 import com.twt.service.wenjin.support.FormatHelper;
 import com.twt.service.wenjin.support.LogHelper;
 import com.twt.service.wenjin.support.ResourceHelper;
@@ -78,6 +81,8 @@ public class QuestionActivity extends BaseActivity implements QuestionView, OnIt
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_question);
         ButterKnife.bind(this);
+        //上车
+        BusProvider.getBusInstance().register(this);
 
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -89,6 +94,13 @@ public class QuestionActivity extends BaseActivity implements QuestionView, OnIt
         mIntentFlag = getIntent().getIntExtra(JPushNotiReceiver.INTENT_FLAG_NOTIFICATION, 0 );
         LogHelper.v(LOG_TAG, "question id:" + questionId);
         mPresenter.loadingContent(questionId);
+    }
+
+    @Override
+    protected void onDestroy() {
+        //下车
+        BusProvider.getBusInstance().unregister(this);
+        super.onDestroy();
     }
 
     @Override
@@ -206,14 +218,19 @@ public class QuestionActivity extends BaseActivity implements QuestionView, OnIt
         ProfileActivity.actionStart(this, answer.uid);
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if(data != null){
-            isAddAnswer = data.getBooleanExtra("isAddAnswer",false);
-            if(isAddAnswer){
-                mPresenter.loadingContent(questionId);
-            }
-        }
+//    @Override
+//    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+//        super.onActivityResult(requestCode, resultCode, data);
+//        if(data != null){
+//            isAddAnswer = data.getBooleanExtra("isAddAnswer",false);
+//            if(isAddAnswer){
+//                mPresenter.loadingContent(questionId);
+//            }
+//        }
+//    }
+    @Subscribe
+    public void onAnswerPost(AnswerPostEvent answerPostEvent)
+    {
+        mPresenter.loadingContent(questionId);
     }
 }
