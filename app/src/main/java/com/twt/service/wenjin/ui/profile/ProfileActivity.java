@@ -136,6 +136,12 @@ public class ProfileActivity extends BaseActivity implements ProfileView, OnClic
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        mPresenter.getUserInfo(uid);
+    }
+
+    @Override
     protected List<Object> getModules() {
         return Arrays.<Object>asList(new ProfileModule(this));
     }

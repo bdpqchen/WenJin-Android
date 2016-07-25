@@ -361,6 +361,12 @@ public class MainActivity extends BaseActivity implements MainView,OnGetNotifica
             JPushInterface.onResume(this);
         }
         updateNotificationIcon();
+        String avatarUrl = PrefUtils.getPrefAvatarFile();
+        if(avatarUrl.equals("http://wenjin.in/uploads/avatar/")){
+            avatarUrl = "http://api.wenjin.in/static/common/avatar-max-img.png";
+        }
+        final IProfile profile = new ProfileDrawerItem().withName(PrefUtils.getPrefUsername()).withEmail(PrefUtils.getPrefSignature()).withIcon(Uri.parse(avatarUrl)).withIdentifier(100);
+        mHeaderResult.updateProfile(profile);
     }
 
     @Override

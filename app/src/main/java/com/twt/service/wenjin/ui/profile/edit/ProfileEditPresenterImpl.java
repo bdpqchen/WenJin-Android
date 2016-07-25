@@ -44,7 +44,7 @@ public class ProfileEditPresenterImpl implements ProfileEditPresenter, OnGetUser
     @Override
     public void postUserInfo(int uid, String nickname, String signature){
         interactor.OnPostUserInfo(uid, nickname, signature, this);
-        view.finishActivity();
+        //view.finishActivity();
     }
 
     @Override
@@ -56,6 +56,7 @@ public class ProfileEditPresenterImpl implements ProfileEditPresenter, OnGetUser
     @Override
     public void onPostSuccess() {
         view.toastMessage("修改成功！");
+        view.finishActivity();
     }
 
     @Override

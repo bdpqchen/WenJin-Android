@@ -30,6 +30,7 @@ import com.twt.service.wenjin.bean.UserInfo;
 import com.twt.service.wenjin.event.SelectPhotoResultEvent;
 import com.twt.service.wenjin.support.BusProvider;
 import com.twt.service.wenjin.support.LogHelper;
+import com.twt.service.wenjin.support.PrefUtils;
 import com.twt.service.wenjin.support.ResourceHelper;
 import com.twt.service.wenjin.ui.BaseActivity;
 import com.twt.service.wenjin.ui.common.SelectPhotoDialogFragment;
@@ -164,6 +165,9 @@ public class ProfileEditActivity extends BaseActivity implements ProfileEditView
 
     @Override
     public void finishActivity() {
+        _userInfo.nick_name = edtProfileEditUsername.getText().toString();
+        _userInfo.signature = edtProfileEditDescription.getText().toString();
+        PrefUtils.setDefaultPrefUserInfo(_userInfo);
         finish();
     }
 

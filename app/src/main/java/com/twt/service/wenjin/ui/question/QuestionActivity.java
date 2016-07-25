@@ -45,7 +45,7 @@ public class QuestionActivity extends BaseActivity implements QuestionView, OnIt
     private static final String LOG_TAG = QuestionActivity.class.getSimpleName();
 
     private static final String PARAM_QUESTION_ID = "question_id";
-
+    private static final String PARAM_QUESTION_TITLE = "question_title";
 
     @Inject
     QuestionPresenter mPresenter;
@@ -61,6 +61,7 @@ public class QuestionActivity extends BaseActivity implements QuestionView, OnIt
     private LinearLayoutManager mLinearLayoutManager;
     private int questionId;
     private int mIntentFlag;
+    private boolean isAddAnswer = false;
 
 //    private UMSocialService umSocialService = UMServiceFactory.getUMSocialService("com.umeng.share");
 
@@ -192,7 +193,11 @@ public class QuestionActivity extends BaseActivity implements QuestionView, OnIt
 
     @Override
     public void startAnswerActivity() {
-        AnswerActivity.actionStart(this, questionId, mQuestionAdapter.getQuestionInfo().question_content);
+        //AnswerActivity.actionStart(this, questionId, mQuestionAdapter.getQuestionInfo().question_content);
+        Intent intent = new Intent(this, AnswerActivity.class);
+        intent.putExtra(PARAM_QUESTION_ID, questionId);
+        intent.putExtra(PARAM_QUESTION_TITLE, mQuestionAdapter.getQuestionInfo().question_content);
+        startActivityForResult(intent,0);
     }
 
     @Override
@@ -201,4 +206,14 @@ public class QuestionActivity extends BaseActivity implements QuestionView, OnIt
         ProfileActivity.actionStart(this, answer.uid);
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(data != null){
+            isAddAnswer = data.getBooleanExtra("isAddAnswer",false);
+            if(isAddAnswer){
+                mPresenter.loadingContent(questionId);
+            }
+        }
+    }
 }

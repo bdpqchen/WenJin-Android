@@ -117,6 +117,7 @@ public class TopicListFragment extends BaseFragment implements
 
     @Override
     public void onRefresh() {
+        mTextView.setVisibility(View.INVISIBLE);
         mPresenter.refreshTopics(uid, type);
     }
 
