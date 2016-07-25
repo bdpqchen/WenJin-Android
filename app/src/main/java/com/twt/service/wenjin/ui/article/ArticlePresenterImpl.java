@@ -18,9 +18,9 @@ public class ArticlePresenterImpl implements ArticlePresenter, OnGetArticleCallb
     private static final int VOTE_STATE_UPVOTE = 1;
     private static final int VOTE_STATE_DOWNVOTE = -1;
     private static final int VOTE_STATE_NONE = 0;
-    private int agreeCount;
+    private int agreeCount=0;
 
-    private int voteState;
+    private int voteState=0;
 
     public ArticlePresenterImpl(ArticleView articleView, ArticleInteractor articleInteractor) {
         this.articleView = articleView;
@@ -72,7 +72,8 @@ public class ArticlePresenterImpl implements ArticlePresenter, OnGetArticleCallb
 
     @Override
     public void onSuccess(Article article) {
-        voteState = article.article_info.vote_info.rating;
+
+        //voteState = article.article_info.vote_info.rating;
         agreeCount = article.article_info.votes;
         articleView.bindArticleData(article);
 

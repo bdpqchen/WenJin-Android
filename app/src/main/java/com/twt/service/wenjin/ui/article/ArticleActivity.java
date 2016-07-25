@@ -3,6 +3,7 @@ package com.twt.service.wenjin.ui.article;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
@@ -35,6 +36,8 @@ import com.twt.service.wenjin.ui.article.comment.CommentActivlty;
 import com.twt.service.wenjin.ui.common.MyWebViewClient;
 import com.twt.service.wenjin.ui.image.ShowWebImageActivity;
 import com.twt.service.wenjin.ui.profile.ProfileActivity;
+import com.umeng.socialize.ShareAction;
+import com.umeng.socialize.media.UMImage;
 
 import java.util.Arrays;
 import java.util.List;
@@ -151,12 +154,19 @@ public class ArticleActivity extends BaseActivity implements ArticleView, View.O
                 finish();
                 break;
             case R.id.action_share:
-                UmengShareHelper.init(this);
-                UmengShareHelper.setContent(
-                        this,
-                        article.article_info.title,
-                        FormatHelper.formatArticleLink(article.article_info.id)
-                );
+//                UmengShareHelper.init(this);
+//                UmengShareHelper.setContent(
+//                        this,
+//                        article.article_info.title,
+//                        FormatHelper.formatArticleLink(article.article_info.id)
+//                );
+
+                UMImage appShareImage=new UMImage(this, BitmapFactory.decodeResource(getResources(),R.mipmap.ic_launcher));
+                new ShareAction(this).setDisplayList(UmengShareHelper.displaylist).withTitle("问津分享")
+                        .withText(article.article_info.title)
+                        .withTargetUrl(FormatHelper.formatQuestionLink(article.article_info.id))
+                        .withMedia(appShareImage)
+                        .open();
 
                 break;
         }

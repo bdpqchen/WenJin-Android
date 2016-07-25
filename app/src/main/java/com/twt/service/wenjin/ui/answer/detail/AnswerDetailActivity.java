@@ -4,6 +4,7 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.BitmapFactory;
 import android.graphics.Point;
 import android.os.Bundle;
 import android.support.v4.widget.NestedScrollView;
@@ -62,6 +63,8 @@ import com.twt.service.wenjin.ui.innerweb.InnerWebActivity;
 import com.twt.service.wenjin.ui.main.MainActivity;
 import com.twt.service.wenjin.ui.profile.ProfileActivity;
 import com.twt.service.wenjin.ui.question.QuestionActivity;
+import com.umeng.socialize.ShareAction;
+import com.umeng.socialize.media.UMImage;
 
 import java.util.Arrays;
 import java.util.List;
@@ -212,12 +215,19 @@ public class AnswerDetailActivity extends BaseActivity implements AnswerDetailVi
                 finish();
                 break;
             case R.id.action_share:
-                UmengShareHelper.init(this);
-                UmengShareHelper.setContent(
-                        this,
-                        getIntent().getStringExtra(PARAM_QUESTION),
-                        FormatHelper.formatQuestionLink(answer.answer.question_id)
-                );
+//                UmengShareHelper.init(this);
+//                UmengShareHelper.setContent(
+//                        this,
+//                        getIntent().getStringExtra(PARAM_QUESTION),
+//                        FormatHelper.formatQuestionLink(answer.answer.question_id)
+//                );
+                UMImage appShareImage=new UMImage(this, BitmapFactory.decodeResource(getResources(),R.mipmap.ic_launcher));
+                new ShareAction(this).setDisplayList(UmengShareHelper.displaylist).withTitle("问津分享")
+                        .withText(getIntent().getStringExtra(PARAM_QUESTION))
+                        .withTargetUrl(FormatHelper.formatQuestionLink(answer.answer.question_id))
+                        .withMedia(appShareImage)
+                        .open();
+
 //                Intent intent=new Intent(Intent.ACTION_SEND);
 //                intent.setType("text/plain");
 //                intent.putExtra(Intent.EXTRA_SUBJECT,"share");

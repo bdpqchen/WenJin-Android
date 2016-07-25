@@ -2,6 +2,7 @@ package com.twt.service.wenjin.ui.question;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -28,6 +29,8 @@ import com.twt.service.wenjin.ui.common.OnItemClickListener;
 import com.twt.service.wenjin.receiver.JPushNotiReceiver;
 import com.twt.service.wenjin.ui.main.MainActivity;
 import com.twt.service.wenjin.ui.profile.ProfileActivity;
+import com.umeng.socialize.ShareAction;
+import com.umeng.socialize.media.UMImage;
 
 import java.util.Arrays;
 import java.util.List;
@@ -103,12 +106,18 @@ public class QuestionActivity extends BaseActivity implements QuestionView, OnIt
                 this.startAnswerActivity();
                 break;
             case R.id.action_share:
-                UmengShareHelper.init(this);
-                UmengShareHelper.setContent(
-                        this,
-                        mQuestionAdapter.getQuestionInfo().question_content,
-                        FormatHelper.formatQuestionLink(mQuestionAdapter.getQuestionInfo().question_id)
-                );
+//                UmengShareHelper.init(this);
+//                UmengShareHelper.setContent(
+//                        this,
+//                        mQuestionAdapter.getQuestionInfo().question_content,
+//                        FormatHelper.formatQuestionLink(mQuestionAdapter.getQuestionInfo().question_id)
+//                );
+                UMImage appShareImage=new UMImage(this, BitmapFactory.decodeResource(getResources(),R.mipmap.ic_launcher));
+                new ShareAction(this).setDisplayList(UmengShareHelper.displaylist).withTitle("问津分享")
+                        .withText(mQuestionAdapter.getQuestionInfo().question_content)
+                        .withTargetUrl(FormatHelper.formatQuestionLink(mQuestionAdapter.getQuestionInfo().question_id))
+                        .withMedia(appShareImage)
+                        .open();
                 break;
         }
         return super.onOptionsItemSelected(item);

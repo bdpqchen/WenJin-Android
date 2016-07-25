@@ -24,12 +24,15 @@ import com.twt.service.wenjin.support.JPushHelper;
 import com.twt.service.wenjin.support.LogHelper;
 import com.twt.service.wenjin.support.PrefUtils;
 import com.twt.service.wenjin.support.ResourceHelper;
+import com.twt.service.wenjin.support.UmengShareHelper;
 
 import java.util.Arrays;
 import java.util.List;
 
 import cn.jpush.android.api.JPushInterface;
 import dagger.ObjectGraph;
+
+import static cn.jpush.android.api.JPushInterface.setDebugMode;
 
 
 /**
@@ -58,6 +61,7 @@ public class WenJinApp extends MultiDexApplication {
 
         ActiveAndroid.initialize(this);
 
+        UmengShareHelper.initShareSdk();
 
         JPushInterface.setDebugMode(true);
         JPushInterface.init(this);

@@ -67,5 +67,4 @@ dependencies {
         transitive = true
     }
     compile 'com.github.lovetuzitong:MultiImageSelector:1.2'
-    compile files('libs/jpush-android-2.1.7.jar')
 }
