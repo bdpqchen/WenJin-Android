@@ -94,6 +94,7 @@ public class AnswerActivity extends BaseActivity implements AnswerView {
             questionTitle = getIntent().getStringExtra(PARAM_QUESTION_TITLE);
         }
         LogHelper.i(LOG_TAG, "question id: " + questionId);
+
     }
 
     @Override
