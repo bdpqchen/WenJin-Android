@@ -22,6 +22,7 @@ import com.afollestad.materialdialogs.MaterialDialog;
 import com.squareup.otto.Subscribe;
 import com.twt.service.wenjin.R;
 import com.twt.service.wenjin.bean.AnswerDraft;
+import com.twt.service.wenjin.event.AnswerPostEvent;
 import com.twt.service.wenjin.event.SelectPhotoResultEvent;
 import com.twt.service.wenjin.support.BusProvider;
 import com.twt.service.wenjin.support.LogHelper;
@@ -58,6 +59,7 @@ public class AnswerActivity extends BaseActivity implements AnswerView {
 
     private int questionId;
     private String questionTitle;
+    private MaterialDialog mProgressDialog;
 
     public static void actionStart(Context context, int questionId, String questionTitle) {
         Intent intent = new Intent(context, AnswerActivity.class);
@@ -92,6 +94,7 @@ public class AnswerActivity extends BaseActivity implements AnswerView {
             questionTitle = getIntent().getStringExtra(PARAM_QUESTION_TITLE);
         }
         LogHelper.i(LOG_TAG, "question id: " + questionId);
+
     }
 
     @Override
@@ -140,6 +143,7 @@ public class AnswerActivity extends BaseActivity implements AnswerView {
                         etContent.getText().toString(),
                         cbAnonymous.isChecked()
                 );
+                mProgressDialog=new MaterialDialog.Builder(this).title(R.string.action_post_answer_title).content(R.string.action_post_answer_content).progress(true,0).show();
                 break;
         }
         return super.onOptionsItemSelected(item);
@@ -217,10 +221,17 @@ public class AnswerActivity extends BaseActivity implements AnswerView {
 
     @Override
     public void finishWithoutHint() {
-        Intent intent=new Intent();
-        intent.putExtra("isAddAnswer",true);
-        this.setResult(0,intent);
+//        Intent intent=new Intent();
+//        intent.putExtra("isAddAnswer",true);
+//        this.setResult(0,intent);
 
+        finish();
+    }
+
+    @Subscribe
+    public void onAnswerPostSucceed(AnswerPostEvent event)
+    {
+        mProgressDialog.dismiss();
         finish();
     }
 

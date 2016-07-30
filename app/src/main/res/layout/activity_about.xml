@@ -38,6 +38,14 @@
         android:textSize="16sp" />
 
     <TextView
+        android:text="Supported by Ji Chenyang and Li Qiyu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <TextView
+        android:text="Author Ma Zhiwei and GreenLim"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <TextView
         android:text="Powered by TWTStudio"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />

@@ -1,7 +1,11 @@
 package com.twt.service.wenjin.ui.answer;
 
+import android.util.Log;
+
 import com.twt.service.wenjin.R;
+import com.twt.service.wenjin.event.AnswerPostEvent;
 import com.twt.service.wenjin.interactor.AnswerInteractor;
+import com.twt.service.wenjin.support.BusProvider;
 import com.twt.service.wenjin.support.LogHelper;
 import com.twt.service.wenjin.support.MD5Utils;
 import com.twt.service.wenjin.support.ResourceHelper;
@@ -70,7 +74,8 @@ public class AnswerPresenterImpl implements AnswerPresenter, OnAnswerCallback, O
     @Override
     public void onAnswerSuccess(int answerId) {
         mView.toastMessage(ResourceHelper.getString(R.string.publish_success));
-        mView.finishWithoutHint();
+        Log.d("answer","post successfully");
+        BusProvider.getBusInstance().post(new AnswerPostEvent(true));
     }
 
     @Override

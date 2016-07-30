@@ -8,6 +8,7 @@ import android.view.MenuItem;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.twt.service.wenjin.R;
 import com.twt.service.wenjin.ui.BaseActivity;
 
@@ -36,7 +37,8 @@ public class FeedbackActivity extends BaseActivity implements FeedbackView {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_feedback);
         ButterKnife.bind(this);
-
+        new MaterialDialog.Builder(this).title("一点小提示").content("反馈到服务器可能收到较慢，所以..可以直接给我发邮件-->" +
+                "qq976885345@hotmail.com").positiveText("好的").negativeText("取消").show();
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }

@@ -62,6 +62,7 @@ public class PublishActivity extends BaseActivity implements PublishView {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
+        tagGroup.setTags(new String[]{"新生","学习","生活"});
         View.OnFocusChangeListener changeListener = new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
