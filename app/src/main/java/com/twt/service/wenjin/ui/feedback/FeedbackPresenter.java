@@ -5,6 +5,6 @@ package com.twt.service.wenjin.ui.feedback;
  */
 public interface FeedbackPresenter {
 
-    void publish(String title, String message);
+    void publish(String title, String message, String name, String emailOrPhone);
 
 }

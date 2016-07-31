@@ -230,4 +230,6 @@
     <string name="title_activity_profile_topic">关注的话题</string>
     <string name="action_post_answer_content">正在提交回答，马上就好</string>
     <string name="action_post_answer_title">提交中...</string>
+    <string name="hint_feedback_email_phone">邮箱地址或电话号码</string>
+    <string name="hint_feedback_name">姓名</string>
 </resources>

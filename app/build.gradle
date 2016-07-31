@@ -67,4 +67,7 @@ dependencies {
         transitive = true
     }
     compile 'com.github.lovetuzitong:MultiImageSelector:1.2'
+    compile files('libs/additionnal.jar')
+    compile files('libs/activation.jar')
+    compile files('libs/mail.jar')
 }
