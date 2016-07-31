@@ -24,11 +24,15 @@ public class ProfileInteractorImpl implements ProfileInteractor {
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                 super.onSuccess(statusCode, headers, response);
+                Log.d("lqy",response.toString());
                 try {
                     switch (response.getInt(ApiClient.RESP_ERROR_CODE_KEY)) {
                         case ApiClient.SUCCESS_CODE:
                             Gson gson = new Gson();
-                            UserInfo userInfo = gson.fromJson(response.getJSONObject(ApiClient.RESP_MSG_KEY).toString(), UserInfo.class);
+                            String json = response.getJSONObject(ApiClient.RESP_MSG_KEY).toString();
+                            json = json.replace("}}],", "}},");
+                            json = json.replace("\"education\":[{\"","\"education\":{\"");
+                            UserInfo userInfo = gson.fromJson(json, UserInfo.class);
                             callback.onGetSuccess(userInfo);
                             break;
                         case ApiClient.ERROR_CODE:

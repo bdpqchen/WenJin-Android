@@ -28,6 +28,10 @@ public class FeedbackActivity extends BaseActivity implements FeedbackView {
     EditText etContent;
     @Bind(R.id.et_feedback_detail)
     EditText etDetail;
+    @Bind(R.id.et_feedback_name)
+    EditText etName;
+    @Bind(R.id.et_feedback_email_phone)
+    EditText etEmailPhone;
 
     @Inject
     FeedbackPresenter mPresenter;
@@ -37,8 +41,8 @@ public class FeedbackActivity extends BaseActivity implements FeedbackView {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_feedback);
         ButterKnife.bind(this);
-        new MaterialDialog.Builder(this).title("一点小提示").content("反馈到服务器可能收到较慢，所以..可以直接给我发邮件-->" +
-                "qq976885345@hotmail.com").positiveText("好的").negativeText("取消").show();
+//        new MaterialDialog.Builder(this).title("一点小提示").content("反馈到服务器可能收到较慢，所以..可以直接给我发邮件-->" +
+//                "qq976885345@hotmail.com").positiveText("好的").negativeText("取消").show();
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
@@ -68,7 +72,7 @@ public class FeedbackActivity extends BaseActivity implements FeedbackView {
                         item.setEnabled(true);
                     }
                 }, 2000);
-                mPresenter.publish(etContent.getText().toString(), etDetail.getText().toString());
+                mPresenter.publish(etContent.getText().toString(), etDetail.getText().toString(),etName.getText().toString(),etEmailPhone.getText().toString());
                 break;
         }
         return super.onOptionsItemSelected(item);

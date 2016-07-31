@@ -9,4 +9,5 @@ public interface FeedbackInteractor {
 
     void publishFeedback(String title, String message, OnPublishFeedbackCallback callback);
 
+    void sendFeedBackEmail(String title, String message, String name, String emailOrPhone,String year, String departments, String major);
 }

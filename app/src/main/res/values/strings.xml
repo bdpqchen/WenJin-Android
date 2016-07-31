@@ -247,4 +247,6 @@
     <string name="dialog_save">Save</string>
     <string name="dialog_delete">Delete</string>
     <string name="dialog_cancel">Cancel</string>
+    <string name="hint_feedback_email_phone">Email or Phone</string>
+    <string name="hint_feedback_name">Name</string>
 </resources>

@@ -13,6 +13,8 @@ public class UserInfo {
 
     public String nick_name;
 
+    public String email;
+
     public String fans_count;
 
     public String friend_count;
@@ -36,4 +38,13 @@ public class UserInfo {
     public String token;
 
     public String im_password;
+
+    public Education education;
+
+    public class Education{
+        public String education_years;
+        public String school_name;
+        public String departments;
+        public String major;
+    }
 }
