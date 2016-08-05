@@ -1,6 +1,7 @@
 package com.twt.service.wenjin.ui.main;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
@@ -11,6 +12,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBar;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -33,6 +35,9 @@ import com.mikepenz.materialdrawer.model.SecondaryDrawerItem;
 import com.mikepenz.materialdrawer.model.SectionDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IProfile;
+import com.pgyersdk.javabean.AppBean;
+import com.pgyersdk.update.PgyUpdateManager;
+import com.pgyersdk.update.UpdateManagerListener;
 import com.squareup.otto.Subscribe;
 import com.twt.service.wenjin.BuildConfig;
 import com.twt.service.wenjin.R;
@@ -209,7 +214,36 @@ public class MainActivity extends BaseActivity implements MainView,OnGetNotifica
                 }
             }
         });
+        // TODO: 2016/8/5 查询蒲公英内测版本更新，正式版应去掉【以下代码还没测试】
+        PgyUpdateManager.register(this);
+        new UpdateManagerListener() {
+            @Override
+            public void onUpdateAvailable(final String result) {
 
+                // 将新版本信息封装到AppBean中
+                final AppBean appBean = getAppBeanFromString(result);
+                new AlertDialog.Builder(MainActivity.this)
+                        .setTitle("更新")
+                        .setMessage("")
+                        .setNegativeButton(
+                                "确定",
+                                new DialogInterface.OnClickListener() {
+
+                                    @Override
+                                    public void onClick(
+                                            DialogInterface dialog,
+                                            int which) {
+                                        startDownloadTask(
+                                                MainActivity.this,
+                                                appBean.getDownloadURL());
+                                    }
+                                }).show();
+            }
+
+            @Override
+            public void onNoUpdateAvailable() {
+            }
+        };
 
 
     }
