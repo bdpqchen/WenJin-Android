@@ -49,6 +49,12 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme"
         >
+
+        <meta-data
+            android:name="WenJin"
+            android:value="@string/PGY_APPKEY" >
+        </meta-data>
+
         <meta-data
             android:name="WENJIN_APP_KEY"
             android:value="@string/WENJIN_APPKEY" />
