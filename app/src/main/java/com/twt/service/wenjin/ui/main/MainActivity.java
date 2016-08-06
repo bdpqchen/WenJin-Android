@@ -1,16 +1,20 @@
 package com.twt.service.wenjin.ui.main;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
@@ -214,6 +218,11 @@ public class MainActivity extends BaseActivity implements MainView,OnGetNotifica
                 }
             }
         });
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                != PackageManager.PERMISSION_GRANTED) {
+            //申请WRITE_EXTERNAL_STORAGE权限
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},0);
+        }
         // TODO: 2016/8/5 查询蒲公英内测版本更新，正式版应去掉【以下代码还没测试】
         PgyUpdateManager.register(this);
         new UpdateManagerListener() {
@@ -236,6 +245,10 @@ public class MainActivity extends BaseActivity implements MainView,OnGetNotifica
                                         startDownloadTask(
                                                 MainActivity.this,
                                                 appBean.getDownloadURL());
+//                                        Intent intent =new Intent();
+//                                        intent.setAction(Intent.ACTION_VIEW);
+//                                        intent.setData(Uri.parse(appBean.getDownloadURL()));
+//                                        startActivity(intent);
                                     }
                                 }).show();
             }

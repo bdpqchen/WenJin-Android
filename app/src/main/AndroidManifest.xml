@@ -77,6 +77,10 @@
         <meta-data
             android:name="AA_MODELS"
             android:value="com.twt.service.wenjin.bean.CrashInfo, com.twt.service.wenjin.bean.QuestionDraft, com.twt.service.wenjin.bean.AnswerDraft" />
+        <meta-data
+            android:name="PGYER_APPID"
+            android:value="68f94275352fe3ddc42f5c604a470c94" >
+        </meta-data>
 
         <activity
             android:name=".ui.welcome.WelcomeActivity"

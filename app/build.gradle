@@ -8,8 +8,8 @@ android {
         applicationId "com.twt.service.wenjin"
         minSdkVersion 14
         targetSdkVersion 23
-        versionCode 230
-        versionName "2.3.0"
+        versionCode 220
+        versionName "2.2.0"
         multiDexEnabled true
     }
     buildTypes {

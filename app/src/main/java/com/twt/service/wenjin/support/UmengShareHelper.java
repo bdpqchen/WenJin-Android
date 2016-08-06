@@ -16,7 +16,7 @@ public class UmengShareHelper {
     public static void initShareSdk()
     {
         PlatformConfig.setWeixin(WEIXIN_APP_ID,WEIXIN_APP_SECRET);
-        PlatformConfig.setQQZone("1105492351","LjwHGgDR9DusSXBF");
+        PlatformConfig.setQQZone("1104720359","SnxIFbUH9sualMYF");
 
     }
 
