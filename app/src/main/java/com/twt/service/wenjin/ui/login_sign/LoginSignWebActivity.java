@@ -55,7 +55,7 @@ public class LoginSignWebActivity extends AppCompatActivity {
     String CookieStr;
 
     private List<BasicClientCookie> cookiesList=new ArrayList<>();
-    public static final String URL="http://wenjin.in/sso_mobile/?type=";
+    public static final String URL="http://wenjin.im/sso_mobile/?type=";
     private String typeNumber;
 
 
@@ -121,7 +121,7 @@ public class LoginSignWebActivity extends AppCompatActivity {
                         if(!cookieName.equals("nof__Session")) {
                             newCookie = new BasicClientCookie(cookieName, cookieValue);
                             newCookie.setVersion(1);
-                            newCookie.setDomain("api.wenjin.in");
+                            newCookie.setDomain("api.wenjin.im");
                             newCookie.setPath("/");
                             cookiesList.add(newCookie);
                         }

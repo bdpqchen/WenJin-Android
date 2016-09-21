@@ -53,12 +53,12 @@ public class ApiClient {
     private static PersistentCookieStore sCookieStore = new PersistentCookieStore(WenJinApp.getContext());
     public static final int DEFAULT_TIMEOUT = 20000;
 
-    private static final String BASE_URL = "http://api.wenjin.in/";
-    private static final String BASE_IMG_URL = "http://wenjin.in/";
+    private static final String BASE_URL = "http://api.wenjin.im/";
+    private static final String BASE_IMG_URL = "http://wenjin.im/";
 //    private static final String BASE_URL = "http://wenjin.test.twtstudio.com/";
     private static final String TOKEN_URL = "v2/inbox/get_token/";
     private static final String LOGIN_URL = "v2/account/login_process/";
-    public static final  String GREEN_CHANNEL_URL = "http://wenjin.in/account/green/";
+    public static final  String GREEN_CHANNEL_URL = "http://wenjin.im/account/green/";
     private static final String HOME_URL = "v2/home/";
     private static final String EXPLORE_URL = "v2/explore/";
     private static final String TOPIC_URL = "v2/topic/hot_topics/";
