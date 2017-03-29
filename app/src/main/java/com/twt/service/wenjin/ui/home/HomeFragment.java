@@ -3,6 +3,9 @@ package com.twt.service.wenjin.ui.home;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.os.Bundle;
+import android.support.design.widget.CoordinatorLayout;
+import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -12,8 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import com.bumptech.glide.util.LogTime;
-import com.getbase.floatingactionbutton.FloatingActionButton;
+//import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.twt.service.wenjin.R;
 import com.twt.service.wenjin.bean.HomeItem;
 import com.twt.service.wenjin.support.LogHelper;
@@ -92,27 +94,34 @@ public class HomeFragment extends BaseFragment implements
                     mPresenter.loadMoreHomeItems();
                 }
                 if (firstVisibleItemPosition > mPrevFirstVisiblePosition) {
-                    LogHelper.v(LOG_TAG, "scroll down");
-                    hideFastTotopFab();
-                } else if (firstVisibleItemPosition < mPrevFirstVisiblePosition) {
+//                    LogHelper.v(LOG_TAG, "scroll down");
                     showFastTotopFab();
-                    LogHelper.v(LOG_TAG, "scroll up");
+                } else if (firstVisibleItemPosition < mPrevFirstVisiblePosition) {
+//                    LogHelper.v(LOG_TAG, "scroll up");
+                    hideFastTotopFab();
                 }
                 mPrevFirstVisiblePosition = firstVisibleItemPosition;
             }
         });
-
         mFabFastTotop.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 mRecyclerView.scrollToPosition(0);
             }
         });
-
+        setFabMargins();
         mPresenter.refreshHomeItems();
         useLoadMoreFooter();
         //mPresenter.firstTimeRefreshHomeItems();
         return rootView;
+    }
+
+    private void setFabMargins() {
+        CoordinatorLayout.LayoutParams cl = (CoordinatorLayout.LayoutParams) mFabFastTotop.getLayoutParams();
+        int fabMargin = (int) getResources().getDimension(R.dimen.floating_button_margin);
+        int bottomMargin = cl.bottomMargin + fabMargin;
+        cl.setMargins(0, 0, fabMargin, bottomMargin);
+        mFabFastTotop.setLayoutParams(cl);
     }
 
     @Override
@@ -214,33 +223,32 @@ public class HomeFragment extends BaseFragment implements
 //        if(mFabFastTotop.getVisibility() == View.GONE) {
 //            mFabFastTotop.setVisibility(View.VISIBLE);
 //        }
-        Log.i(LOG_TAG, "setting visibility");
-        Log.i(LOG_TAG, String.valueOf(mFabFastTotop.getVisibility()));
-        mFabFastTotop.animate()
+       /* mFabFastTotop.animate()
                 .alpha(1.0f)
-                .setDuration(0)
+                .setDuration(300)
                 .setListener(new AnimatorListenerAdapter() {
                     @Override
                     public void onAnimationEnd(Animator animation) {
                         mFabFastTotop.setVisibility(View.VISIBLE);
                     }
                 })
-                .start();
-        Log.i(LOG_TAG, String.valueOf(mFabFastTotop.getVisibility()));
+                .start();*/
+        Log.i("fragment", "show");
 
     }
 
     @Override
     public void hideFastTotopFab() {
-        mFabFastTotop.animate()
+        Log.i("fragment", "hide");
+       /* mFabFastTotop.animate()
                 .alpha(0.0f)
-                .setDuration(1000)
+                .setDuration(300)
                 .setListener(new AnimatorListenerAdapter() {
                     @Override
                     public void onAnimationEnd(Animator animation) {
                         mFabFastTotop.setVisibility(View.GONE);
                     }
-                }).start();
+                }).start();*/
     }
 
     @Override

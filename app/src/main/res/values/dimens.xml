@@ -26,5 +26,7 @@
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
 
+    <dimen name="floating_button_margin">16dp</dimen>
+    <dimen name="floating_button_elevation">6dp</dimen>
     <!-- Home page dimens -->
 </resources>

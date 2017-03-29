@@ -52,7 +52,8 @@ dependencies {
     compile 'com.umeng.analytics:analytics:latest.integration'
     compile 'im.fir:sdk:latest.integration@aar'
     compile 'de.hdodenhof:circleimageview:1.2.2'
-    compile 'com.getbase:floatingactionbutton:1.9.0'
+    //这个库没有很好利用，应该删去
+//    compile 'com.getbase:floatingactionbutton:1.9.0'
     compile 'com.afollestad.material-dialogs:core:0.8.6.1'
     compile 'me.gujun.android.taggroup:library:1.1@aar'
     compile 'com.github.ksoichiro:android-observablescrollview:1.5.2'
