@@ -35,7 +35,13 @@ public class ProfileEditInteractorImpl implements ProfileEditInteractor {
                         case ApiClient.SUCCESS_CODE:
                             Log.e("json", response.getJSONObject(ApiClient.RESP_MSG_KEY).toString());
                             Gson gson = new Gson();
-                            UserInfo userInfo = gson.fromJson(response.getJSONObject(ApiClient.RESP_MSG_KEY).toString(), UserInfo.class);
+                            Log.i("string gson", response.getJSONObject(ApiClient.RESP_MSG_KEY).toString());
+                            String json = response.getJSONObject(ApiClient.RESP_MSG_KEY).toString();
+                            json = json.replace("}}],", "}},");
+                            json = json.replace("\"education\":[{\"","\"education\":{\"");
+
+//                            UserInfo userInfo = gson.fromJson(response.getJSONObject(ApiClient.RESP_MSG_KEY).toString(), UserInfo.class);
+                            UserInfo userInfo = gson.fromJson(json, UserInfo.class);
                             callback.onGetSuccess(userInfo);
                             break;
                         case ApiClient.ERROR_CODE:

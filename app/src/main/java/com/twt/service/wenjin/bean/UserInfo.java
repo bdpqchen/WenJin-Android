@@ -7,7 +7,7 @@ public class UserInfo {
 
     public String avatar_file;
 
-    public int uid;
+    public String uid;
 
     public String user_name;
 
@@ -41,7 +41,7 @@ public class UserInfo {
 
     public Education education;
 
-    public class Education{
+    public static class Education{
         public String education_years;
         public String school_name;
         public String departments;

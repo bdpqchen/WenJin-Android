@@ -15,16 +15,13 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
-
 
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.mikepenz.materialdrawer.AccountHeader;
@@ -75,11 +72,8 @@ import com.twt.service.wenjin.ui.publish.PublishActivity;
 import com.twt.service.wenjin.ui.search.SearchActivity;
 import com.twt.service.wenjin.ui.setting.SettingsActivity;
 import com.twt.service.wenjin.ui.topic.TopicFragment;
-import com.twt.service.wenjin.ui.welcome.WelcomeActivity;
 import com.twt.service.wenjin.ui.welcome.WenJinIntro;
 
-import butterknife.Bind;
-import cz.msebera.android.httpclient.Header;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -89,8 +83,10 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import butterknife.Bind;
 import butterknife.ButterKnife;
 import cn.jpush.android.api.JPushInterface;
+import cz.msebera.android.httpclient.Header;
 
 
 public class MainActivity extends BaseActivity implements MainView,OnGetNotificationNumberInfoCallback,
@@ -112,7 +108,6 @@ public class MainActivity extends BaseActivity implements MainView,OnGetNotifica
 
     private AccountHeader mHeaderResult = null;
     private Drawer mResult = null;
-
 
     private HomeFragment mHomeFragment;
     private ExploreFragment mExploreFragment;
@@ -412,7 +407,11 @@ public class MainActivity extends BaseActivity implements MainView,OnGetNotifica
         if(avatarUrl.equals("http://wenjin.in/uploads/avatar/")){
             avatarUrl = "http://api.wenjin.in/static/common/avatar-max-img.png";
         }
-        final IProfile profile = new ProfileDrawerItem().withName(PrefUtils.getPrefUsername()).withEmail(PrefUtils.getPrefSignature()).withIcon(Uri.parse(avatarUrl)).withIdentifier(100);
+        final IProfile profile = new ProfileDrawerItem()
+                .withName(PrefUtils.getPrefUsername())
+                .withEmail(PrefUtils.getPrefSignature())
+                .withIcon(Uri.parse(avatarUrl))
+                .withIdentifier(100);
         mHeaderResult.updateProfile(profile);
     }
 

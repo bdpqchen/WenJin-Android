@@ -1,6 +1,7 @@
 package com.twt.service.wenjin.ui;
 
 import android.app.Activity;
+import android.content.Context;
 import android.support.v4.app.Fragment;
 
 import com.twt.service.wenjin.WenJinApp;
@@ -17,9 +18,19 @@ public abstract class BaseFragment extends Fragment {
 
     private ObjectGraph mFragmentGraph;
 
+/*
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        mFragmentGraph = ((WenJinApp)getActivity().getApplication()).createScopedGraph(getModules().toArray());
+        mFragmentGraph.inject(this);
+    }
+*/
+
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
+
         mFragmentGraph = ((WenJinApp) activity.getApplication()).createScopedGraph(getModules().toArray());
         mFragmentGraph.inject(this);
     }

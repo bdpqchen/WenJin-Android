@@ -6,11 +6,13 @@ import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.bumptech.glide.util.LogTime;
 import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.twt.service.wenjin.R;
 import com.twt.service.wenjin.bean.HomeItem;
@@ -90,11 +92,11 @@ public class HomeFragment extends BaseFragment implements
                     mPresenter.loadMoreHomeItems();
                 }
                 if (firstVisibleItemPosition > mPrevFirstVisiblePosition) {
-//                    LogHelper.v(LOG_TAG, "scroll down");
-                    showFastTotopFab();
-                } else if (firstVisibleItemPosition < mPrevFirstVisiblePosition) {
-//                    LogHelper.v(LOG_TAG, "scroll up");
+                    LogHelper.v(LOG_TAG, "scroll down");
                     hideFastTotopFab();
+                } else if (firstVisibleItemPosition < mPrevFirstVisiblePosition) {
+                    showFastTotopFab();
+                    LogHelper.v(LOG_TAG, "scroll up");
                 }
                 mPrevFirstVisiblePosition = firstVisibleItemPosition;
             }
@@ -176,7 +178,7 @@ public class HomeFragment extends BaseFragment implements
             return;
         }
         if (item.user_info != null) {
-            ProfileActivity.actionStart(getActivity(), item.user_info.uid);
+            ProfileActivity.actionStart(getActivity(), Integer.parseInt(item.user_info.uid));
         }
     }
 
@@ -212,9 +214,11 @@ public class HomeFragment extends BaseFragment implements
 //        if(mFabFastTotop.getVisibility() == View.GONE) {
 //            mFabFastTotop.setVisibility(View.VISIBLE);
 //        }
+        Log.i(LOG_TAG, "setting visibility");
+        Log.i(LOG_TAG, String.valueOf(mFabFastTotop.getVisibility()));
         mFabFastTotop.animate()
                 .alpha(1.0f)
-                .setDuration(300)
+                .setDuration(0)
                 .setListener(new AnimatorListenerAdapter() {
                     @Override
                     public void onAnimationEnd(Animator animation) {
@@ -222,13 +226,15 @@ public class HomeFragment extends BaseFragment implements
                     }
                 })
                 .start();
+        Log.i(LOG_TAG, String.valueOf(mFabFastTotop.getVisibility()));
+
     }
 
     @Override
     public void hideFastTotopFab() {
         mFabFastTotop.animate()
                 .alpha(0.0f)
-                .setDuration(300)
+                .setDuration(1000)
                 .setListener(new AnimatorListenerAdapter() {
                     @Override
                     public void onAnimationEnd(Animator animation) {

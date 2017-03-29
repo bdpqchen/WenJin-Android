@@ -167,7 +167,7 @@ public class ExploreListFragment extends BaseFragment implements ExploreListView
         if (item.answer_users.length > 0 ) {
             ProfileActivity.actionStart(getActivity(), item.answer_users[0].uid);
         }else {
-            ProfileActivity.actionStart(getActivity(),item.user_info.uid);
+            ProfileActivity.actionStart(getActivity(), Integer.parseInt(item.user_info.uid));
         }
     }
 

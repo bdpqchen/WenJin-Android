@@ -93,7 +93,7 @@ public class LoginSignWebActivity extends AppCompatActivity {
                     Log.d("lqy", "null");
                 } else {
                     UserInfo userInfo = new UserInfo();
-                    userInfo.uid = responsebean.getRsm().getUid();
+                    userInfo.uid = String.valueOf(responsebean.getRsm().getUid());
                     userInfo.nick_name = responsebean.getRsm().getNick_name();
                     userInfo.user_name = responsebean.getRsm().getUser_name();
                     userInfo.avatar_file = responsebean.getRsm().getAvatar_file();

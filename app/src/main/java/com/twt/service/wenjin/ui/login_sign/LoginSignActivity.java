@@ -42,6 +42,6 @@ public class LoginSignActivity extends AppCompatActivity {
                 LoginSignWebActivity.actionStart(this,"signup");
                 break;
         }
-        finish();
+//        finish();
     }
 }
